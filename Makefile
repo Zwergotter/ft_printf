@@ -17,12 +17,13 @@ NAME = libftprintf.a
 INC = -I includes/ -I libft/includes
 # Files
 SRC = test.c\
+	parsing.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)
 
 # Compilation
-CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS = -Wall -Wextra -Werror -g
 PRGFLAGS = -L libft/ -framework AppKit libft/libft.a
 
 # Rules

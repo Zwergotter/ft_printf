@@ -10,23 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+# ifndef FT_PRINTF_H
+#define FT_PRINTF_H
 
-# include <stdarg.h>
+#include <stdarg.h>
 
 /*
 ** Library for malloc, free and exit.
 */
 
-# include <stdlib.h>
+#include <stdlib.h>
 
 /*
 ** Library for write.
 */
 
-# include <unistd.h>
+#include <unistd.h>
 
-# include "libft.h"
+#include "libft.h"
 
-#endif
+#define	STR 1
+#define INT 2 
+
+typedef struct		s_lst
+{
+    struct s_lst	*next;
+    int				type;
+    char			*arg;
+    // int				nb;
+}					t_lst;
+
+t_lst **parsing(char *str);
+
+# endif

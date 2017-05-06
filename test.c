@@ -16,9 +16,19 @@ int	main()
 {	
 	char *str;
 	char *copy;
+	t_lst **all;
+	t_lst *tmp;
 
 	str = "etc";
-	copy = ft_strdup(str);
+	copy = "eft %wwwwwwwwwwwwwwwwwd   rewqt   %t";
+	all = parsing(copy);
+	tmp = *all;
+	while (tmp->next)
+	{
+		printf("%s\n", tmp->arg);
+		tmp = tmp->next;
+	}
 	test(str, 12.321);
+	printf(copy, 10);
 	return (0);
 }
