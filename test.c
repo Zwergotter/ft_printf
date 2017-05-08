@@ -16,19 +16,18 @@ int	main()
 {	
 	char *str;
 	char *copy;
-	t_lst **all;
-	t_lst *tmp;
+	t_lst *all;
 
 	str = "etc";
-	copy = "eft %wwwwwwwwwwwwwwwwwd   rewqt   %t";
+	copy = "%wwwwwwwwwwwwwwwwwd   rewqt   %t";
 	all = parsing(copy);
-	tmp = *all;
-	while (tmp->next)
+	while (all)
 	{
-		printf("%s\n", tmp->arg);
-		tmp = tmp->next;
+		printf("%s\n", copy);
+		printf("%s\n", all->arg);
+		all = all->next;
 	}
-	test(str, 12.321);
-	printf(copy, 10);
+	// test(str, 12.321);
+	// printf(copy, 10);
 	return (0);
 }

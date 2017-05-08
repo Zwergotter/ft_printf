@@ -29,35 +29,30 @@ void string(t_lst **begin, char *str, int start, int end)
 	t_lst *elem;
 
 	printf("STILL WORKING STR\n");
-	if ((elem->arg = (char*)malloc(sizeof(char) * end - start)) == NULL)
+	if ((elem = (t_lst*)malloc((sizeof(char) * (end - start)) + sizeof(int) + sizeof(t_lst))) == NULL)
 		return ;
 	elem->type = STR;
 	elem->arg = ft_strsub(str, start, end);
 	elem->next = NULL;
 	addlast(begin, elem);
+	printf("END STR\n");
+	printf("%s\n", elem->arg);
 }
 
-void percent(t_lst **begin, char *str, int start)
+void percent(t_lst **begin, char *str, int start, int end)
 {	
 	t_lst *elem;
-	int end;
 
-	end = start;
-	while (str[end])
-	{
-		while (!is_specifier(str[end]))
-			end++;
-		break ;
-	}
-	end = end - 1;
-	printf("STILL WORKING PERCENT\n");
-	if ((elem->arg = (char*)malloc(sizeof(char) * end - start)) == NULL)
+	// printf("STILL WORKING PERCENT\n");
+	if ((elem = (t_lst*)malloc((sizeof(char) * (end - start)) + sizeof(int) + sizeof(t_lst))) == NULL)
 		return ;
-	printf("STILL WORKING PERCENT\n");
-	elem->type = INT;
+	if (is_specifier(str[end]))
+		end = end + 1;
 	elem->arg = ft_strsub(str, start, end);
 	elem->next = NULL;
 	addlast(begin, elem);
+	// printf("END PERCENT\n");
+	// printf("%s\n", elem->arg);
 }
 
 t_lst *first_one(char *str)
@@ -73,51 +68,89 @@ t_lst *first_one(char *str)
 			i++;
 		if (i != 0)
 		{
-			if ((first->arg = (char*)malloc(sizeof(char) * i - 1)) == NULL)
+			if ((first = (t_lst*)malloc((sizeof(char) * (i - 1)) + sizeof(int) + sizeof(t_lst))) == NULL)
 				return (NULL);
 			first->type = STR;
 			first->arg = ft_strsub(str, 0, i - 1);
 			first->next = NULL;
+			printf("DONE FIRST STR\n");
+			printf("is %s-\n", first->arg);
 		}
 		else
 		{
 			i++;
 			while (str[i])
 			{
-				while (!is_specifier(str[i]))
+				while (str[i] && !is_specifier(str[i]))
 					i++;
 				break ;
 			}
-			if ((first->arg = (char*)malloc(sizeof(char) * i - 1)) == NULL)
+			if ((first = (t_lst*)malloc((sizeof(char) * (i - 1)) + sizeof(int) + sizeof(t_lst))) == NULL)
 				return (NULL);
 			first->type = INT;
-			first->arg = ft_strsub(str, 0, i - 1);
+			if (is_specifier(str[i]))
+				i = i + 1;
+			first->arg = ft_strsub(str, 0, i);
 			first->next = NULL;
+			printf("DONE FIRST PERCENT\n");
+			printf("is %s-\n", first->arg);
 		}
 		break ;
 	}
+	printf("where is i %c-\n", str[i]);
 	while (str[i])
 	{
 		j = i;
-		while (str[j] != '%')
+		while (str[j] && str[j] != '%')
 			j++;
-		if (str[j - 1] && i != j)
-			string(&first, str, i, j - 1);
+		if (j > i && (str[j] == '%' || !str[j]))
+		{
+			string(&first, str, i, j);
+			printf("j is %c-\n", str[j]);
+		}
 		else
 		{
-			j++;
-			percent(&first, str, j - 1);
+			while (str[j] && !(is_specifier(str[j])))
+				j++;
+			printf("j is %c-\n", str[j]);
+			if (is_specifier(str[j]))
+				j = j + 1;
+			percent(&first, str, i, j);
+			printf("j is %c-\n", str[j]);
 		}
 		i = j;
 	}
-	printf("STILL WORKING\n");
+	// while (str[i])
+	// {
+	// 	// j = i;
+	// 	// while (str[j] != '%' && str[j])
+	// 	// 	j++;
+	// 	// if (j > i)
+	// 	// {
+	// 	// 	if (is_specifier(str[j]))
+	// 	// 		j = j + 1;
+	// 	// 	string(&first, str, i, j);
+	// 	// }
+	// 	// else
+	// 	// {
+	// 	// 	while(str[j] && !is_specifier(str[j]))
+	// 	// 		j++;
+	// 	// 	if (is_specifier(str[j]))
+	// 	// 		j = j + 1;
+	// 	// 	percent(&first, str, i, j);
+	// 	// }
+	// 	// i = j;
+	// 	// printf("STILL WORKING IN MAIN LOOP\n");
+	// }
+	printf("FINISHING\n");
 	return (first);
 }
 
-t_lst **parsing(char *str)
+t_lst *parsing(char *str)
 {
-	t_lst **lst;
+	t_lst *lst;
 
-	*lst = first_one(str);
+	lst = first_one(str);
+	printf("DONE PARSING\n");
 	return (lst);
 }

@@ -40,6 +40,6 @@ typedef struct		s_lst
     // int				nb;
 }					t_lst;
 
-t_lst **parsing(char *str);
+t_lst *parsing(char *str);
 
 # endif
