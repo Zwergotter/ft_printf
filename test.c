@@ -19,12 +19,11 @@ int	main()
 	t_lst *all;
 
 	str = "etc";
-	copy = "%wwwwwwwwwwwwwwwwwd   rewqt   %t";
+	copy = "2h32t %wwwwwwwwwwwwwwwwwd   rewqt   t%tkkjgct    kkk";
 	all = parsing(copy);
 	while (all)
 	{
-		printf("%s\n", copy);
-		printf("%s\n", all->arg);
+		printf("%s-\n", all->arg);
 		all = all->next;
 	}
 	// test(str, 12.321);
