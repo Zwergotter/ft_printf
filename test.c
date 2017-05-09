@@ -17,15 +17,18 @@ int	main()
 	char *str;
 	char *copy;
 	t_lst *all;
+	t_lst *tmp;
 
 	str = "etc";
 	copy = "2h32t %wwwwwwwwwwwwwwwwwd   rewqt   t%tkkjgct    kkk";
 	all = parsing(copy);
-	while (all)
+	tmp = all;
+	while (tmp)
 	{
-		printf("%s-\n", all->arg);
-		all = all->next;
+		printf("%s\n", tmp->arg);
+		tmp = tmp->next;
 	}
+	check_elem(&all);
 	// test(str, 12.321);
 	// printf(copy, 10);
 	return (0);

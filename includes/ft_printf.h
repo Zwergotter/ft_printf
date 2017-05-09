@@ -37,9 +37,15 @@ typedef struct		s_lst
     struct s_lst	*next;
     int				type;
     char			*arg;
-    // int				nb;
+    /*POUR LES OPTIONS*/
+    // char			flag;
+    // int 			precision;
+    // int 			length;
+    // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
 }					t_lst;
 
-t_lst *parsing(char *str);
+t_lst	*parsing(char *str);
+int 	is_specifier(char c);
+int 	check_elem(t_lst **first);
 
 # endif

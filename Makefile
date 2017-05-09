@@ -18,6 +18,7 @@ INC = -I includes/ -I libft/includes
 # Files
 SRC = test.c\
 	parsing.c\
+	checking.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)
