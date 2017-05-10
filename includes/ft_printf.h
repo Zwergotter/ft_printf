@@ -38,10 +38,10 @@ typedef struct		s_lst
     int				type;
     char			*arg;
     /*POUR LES OPTIONS*/
-    // char			flag;
-    // int 			width;
-    // int 			precision;
-    // int 			length;
+    char			flag;
+    int 			width;
+    int 			precision;
+    char			length;
     // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
 }					t_lst;
 

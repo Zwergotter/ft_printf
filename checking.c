@@ -39,22 +39,42 @@ int is_length(char c)
 /*
 ** Order a gerer, flag -> width -> precision -> length
 ** un ou plusieurs de ceux ci peuvent etre zappes mais l'ordre doit etre respecte
+** GERER aussi le %%
 */
 int checking(t_lst *elem)
 {
 	int len;
 	int i;
+	int j;
 
 	len = ft_strlen(elem->arg);
-	if (len < 2 || (len == 2 && !is_specifier(elem->arg[len - 1])))
+	if (len < 2 || (len == 2 && !is_specifier(elem->arg[len - 1]))) //////////////////////////////////////%%
 		return (0);
 	i = 1;
-	while (i < len - 2)
+	if (is_flag(i))
+			elem->flag = elem->arg[i++];
+	while (i < len - 2 && (ft_isdigit(elem->arg[i]) || is_precision(elem->arg[i])))
 	{
-		if (!is_flag(elem->arg[i]) && !is_precision(elem->arg[i]) && !is_length(elem->arg[i]) && !ft_isdigit(elem->arg[i] + '0'))
+		if ((ft_isdigit(elem->arg[i] + '0') && !elem->precision) || (is_precision(elem->arg[i]) && ft_isdigit(elem->arg[i++] + '0')))
+		{
+			j = i;
+			while (i < len - 2 && ft_isdigit(elem->arg[i] + '0'))
+				i++;
+			if (is_precision(elem->arg[j - 1]))
+				elem->precision = ft_atoi(ft_strsub(elem->arg, j, i - j));
+			else
+				elem->width = ft_atoi(ft_strsub(elem->arg, j, i - j));
+		}
+		else
 			return (0);
-		i++;
+		// if (!is_flag(elem->arg[i]) && !is_precision(elem->arg[i]) && !is_length(elem->arg[i]) && !ft_isdigit(elem->arg[i] + '0'))
+		// 	return (0);
+		// i++;
 	}
+	if (is_length(elem->arg[i]))
+			elem->length = elem->arg[i++];
+	if (len - 1 != i)
+		return (0);
 	return (1);
 }
 
