@@ -39,13 +39,20 @@ typedef struct		s_lst
     char			*arg;
     /*POUR LES OPTIONS*/
     // char			flag;
+    // int 			width;
     // int 			precision;
     // int 			length;
     // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
 }					t_lst;
 
+typedef	enum		e_error
+{
+	ARGUMENT, MALLOC
+}					t_error;
+
 t_lst	*parsing(char *str);
 int 	is_specifier(char c);
-int 	check_elem(t_lst **first);
+void 	check_elem(t_lst **first);
+void	error_displayed(t_error error);
 
 # endif

@@ -14,6 +14,10 @@ int is_flag(char c)
 	return (0);
 }
 
+/*
+** Nombre avant . -> sont la taille. Sinon, c'est la precision.
+*/
+
 int is_precision(char c)
 {
 	if (c == '.')
@@ -31,6 +35,11 @@ int is_length(char c)
 	return(0);
 }
 
+
+/*
+** Order a gerer, flag -> width -> precision -> length
+** un ou plusieurs de ceux ci peuvent etre zappes mais l'ordre doit etre respecte
+*/
 int checking(t_lst *elem)
 {
 	int len;
@@ -39,8 +48,8 @@ int checking(t_lst *elem)
 	len = ft_strlen(elem->arg);
 	if (len < 2 || (len == 2 && !is_specifier(elem->arg[len - 1])))
 		return (0);
-	i = 0;
-	while (i < len)
+	i = 1;
+	while (i < len - 2)
 	{
 		if (!is_flag(elem->arg[i]) && !is_precision(elem->arg[i]) && !is_length(elem->arg[i]) && !ft_isdigit(elem->arg[i] + '0'))
 			return (0);
@@ -49,18 +58,19 @@ int checking(t_lst *elem)
 	return (1);
 }
 
-int check_elem(t_lst **first)
+void check_elem(t_lst **first)
 {
 	t_lst *tmp;
+	t_error error;
 
 	tmp = *first;
+	error = ARGUMENT;
 	while (tmp)
 	{
 		if (tmp->type != STR)
 			if (!checking(tmp))
-				return (0);
+				error_displayed(error);
 		printf("%s\n", tmp->arg);
 		tmp = tmp->next;
 	}
-	return (1);
 }

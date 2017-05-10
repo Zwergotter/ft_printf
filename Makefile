@@ -19,12 +19,13 @@ INC = -I includes/ -I libft/includes
 SRC = test.c\
 	parsing.c\
 	checking.c\
+	error.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)
 
 # Compilation
-# CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g
 PRGFLAGS = -L libft/ -framework AppKit libft/libft.a
 
 # Rules

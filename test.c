@@ -20,7 +20,7 @@ int	main()
 	t_lst *tmp;
 
 	str = "etc";
-	copy = "2h32t %wwwwwwwwwwwwwwwwwd   rewqt   t%tkkjgct    kkk";
+	copy = "2h32t \%hd   rewqt   t%tkkjgct    kkk";
 	all = parsing(copy);
 	tmp = all;
 	while (tmp)
@@ -28,6 +28,7 @@ int	main()
 		printf("%s\n", tmp->arg);
 		tmp = tmp->next;
 	}
+	printf("End of displaying string with all list's elements before checking\n\n");
 	check_elem(&all);
 	// test(str, 12.321);
 	// printf(copy, 10);
