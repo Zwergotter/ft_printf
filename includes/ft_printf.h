@@ -42,6 +42,7 @@ typedef struct		s_lst
     int 			width;
     int 			precision;
     char			length;
+    char			specifier;
     // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
 }					t_lst;
 
