@@ -20,7 +20,8 @@ int	main()
 	t_lst *tmp;
 
 	str = "etc";
-	copy = "2h32t \%.hd   rewqt   t%tkkjgct    kkk";
+	// backslash pas pris en compte????????????
+	copy = "2h32t \\%40hjd  %ls rewqt   t%tkkjgct    kkk%hhhhh\n";
 	all = parsing(copy);
 	tmp = all;
 	while (tmp)

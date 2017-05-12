@@ -1,4 +1,12 @@
 /*
+differentes choses a gerer encore: que se passe t il avec %%? autre string a faire ou non? 
+Que se passe t il si j'essaie de creer une chaine vide?
+*/
+
+
+
+
+/*
 ** File to check all elements which begin by % one by one
 ** Apparently strings written juste after a specifier, even without a white space, are fine.
 ** But need to check stuff like "%wwwwwd" that can't be acceptable
@@ -66,27 +74,37 @@ int checking(t_lst *elem)
 	while (i < len - 1 && everything_at_once(elem->arg[i]))
 	{
 		printf("IN LOOP\n");
-		if ((ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i]) && ft_isdigit(elem->arg[i++] + 0)))
-		{ //que se passe t il aved la precision s'il y a uniquement "."?"
+		if ((ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
+		{ //que se passe t il avec la precision s'il y a uniquement "."?"
+			if (is_precision(elem->arg[i]))
+				i++;
 			j = i;
 			printf("Where is j: %c \n", elem->arg[j]);
 			while (i < len - 2 && ft_isdigit(elem->arg[i] + 0))
 				i++;
 			if (is_precision(elem->arg[j - 1]))
 			{
-				elem->precision = ft_atoi(&(elem->arg[j]));
+				if (j == i)
+					elem->precision = 0;
+				else
+					elem->precision = ft_atoi(&elem->arg[j]);
 				printf("PRECISION IS %d\n", elem->precision);
 			}
 			else
 			{
-				elem->width = ft_atoi(&(elem->arg[j]));
+				elem->width = ft_atoi(&elem->arg[j]);
 				printf("WIDTH IS %d\n", elem->width);
 			}
 		}
 		if (is_length(elem->arg[i]))
 		{
-			elem->length = elem->arg[i++];
-			printf("LENGTH IS %c\n", elem->length);
+			j = 0;
+			elem->length[j++] = elem->arg[i++];
+			if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') && elem->arg[i - 1] == elem->arg[i])
+				elem->length[j++] = elem->arg[i++];
+			while (j < 3)
+				elem->length[j++] = '\0';
+			printf("LENGTH IS %s\n", elem->length);
 		}
 		if (is_flag(elem->arg[i]))
 		{
@@ -98,19 +116,22 @@ int checking(t_lst *elem)
 	{
 		elem->specifier = elem->arg[i];
 		printf("SPECIFIER IS %c\n", elem->specifier);
-		//si pas fin de string, nouvel elem a faire et a mettre entre les deux ave le reste de str // ou NON? car deja fait cela en amont
+		what_kind(elem);
 	}
 	else
 	{
 		printf("NO SPECIFIER FOUND\n");
-		str = elem->arg;
 		printf("elem arg before change is: %s\n",elem->arg);
-		elem->type = STR;
-		elem->arg = ft_strsub(str, i, len - i);
-		free(str);
-		printf("elem arg after change is: %s\n",elem->arg);
-		//gerer si longueur quelconque repertoriee.
-
+		if (i >= len - 1)
+			return (0);
+		else
+		{
+			str = elem->arg;
+			elem->arg = ft_strsub(str, i, len - i);
+			elem->type = STR;
+			free(str);
+			printf("elem arg after change is: %s\n",elem->arg);
+		}
 	}
 	return (1);
 }
@@ -119,6 +140,7 @@ void check_elem(t_lst **first)
 {
 	t_lst *tmp;
 	t_error error;
+	char *str;
 
 	tmp = *first;
 	error = ARGUMENT;
@@ -126,8 +148,14 @@ void check_elem(t_lst **first)
 	{
 		if (tmp->type != STR)
 			if (!checking(tmp))
+			{
+				str = tmp->arg;
+				tmp->type = STR;
+				tmp->arg = NULL;
+				free(str);
 				error_displayed(error);
-		printf("%s\n", tmp->arg);
+			}
+		printf("arg is %s and type is %d\n", tmp->arg, tmp->type);
 		tmp = tmp->next;
 	}
 }

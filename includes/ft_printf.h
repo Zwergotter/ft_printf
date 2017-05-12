@@ -30,7 +30,15 @@
 #include "libft.h"
 
 #define	STR 1
-#define INT 2 
+#define INT 2
+#define WCHAR_T 3
+#define WIN_T 4
+#define VOID 5
+
+typedef	enum		e_error
+{
+	ARGUMENT, MALLOC
+}					t_error;
 
 typedef struct		s_lst
 {
@@ -41,19 +49,15 @@ typedef struct		s_lst
     char			flag;
     int 			width;
     int 			precision;
-    char			length;
+    char			length[2];
     char			specifier;
     // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
-}					t_lst;
-
-typedef	enum		e_error
-{
-	ARGUMENT, MALLOC
-}					t_error;
-
+}
+					t_lst;
 t_lst	*parsing(char *str);
 int 	is_specifier(char c);
 void 	check_elem(t_lst **first);
 void	error_displayed(t_error error);
+void	what_kind(t_lst *elem);
 
 # endif

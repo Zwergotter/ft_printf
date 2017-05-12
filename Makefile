@@ -20,6 +20,7 @@ SRC = test.c\
 	parsing.c\
 	checking.c\
 	error.c\
+	type.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)
