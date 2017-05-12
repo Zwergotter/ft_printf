@@ -31,9 +31,21 @@
 
 #define	STR 1
 #define INT 2
-#define WCHAR_T 3
-#define WIN_T 4
-#define VOID 5
+#define U_INT 3
+#define WCHAR_T 4
+#define WIN_T 5
+#define VOID 6
+#define CHAR 7
+#define U_CHAR 8
+#define SHORT_INT 9
+#define USHORT_INT 10
+#define LONG_INT 11
+#define ULONG_INT 12
+#define LLONG_INT 13
+#define ULLONG_INT 14
+#define INT_MAXT 15
+#define UINT_MAXT 16
+#define SIZE_T 17
 
 typedef	enum		e_error
 {
@@ -58,6 +70,6 @@ t_lst	*parsing(char *str);
 int 	is_specifier(char c);
 void 	check_elem(t_lst **first);
 void	error_displayed(t_error error);
-void	what_kind(t_lst *elem);
+void	what_type(t_lst *elem);
 
 # endif
