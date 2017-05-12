@@ -38,7 +38,7 @@ void 	type_signed(t_lst *elem)
 void	what_type(t_lst *elem)
 {
 	if (elem->specifier == '%')
-		return ;
+		elem->type = PERCENT;
 	if (elem->specifier == 's' || elem->specifier == 'S')
 	{
 		if (ft_strcmp(elem->length, "l"))

@@ -37,7 +37,7 @@ typedef	enum		e_error
 typedef enum 		e_type
 {
 	EMPTY, STR, INT, U_INT, WCHAR_T, WIN_T, VOID, CHAR, U_CHAR, SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT,
-	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T
+	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T, PERCENT
 }					t_type;
 
 typedef struct		s_lst
