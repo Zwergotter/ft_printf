@@ -3,42 +3,42 @@
 
 void 	type_unsigned(t_lst *elem)
 {
-	if (!ft_strcmp(elem->length, "l"))
+	elem->type = U_INT;
+	if ((ft_strcmp(elem->length, "l")) == 0)
 		elem->type = ULONG_INT;
-	if (!ft_strcmp(elem->length, "ll"))
+	if ((ft_strcmp(elem->length, "ll")) == 0)
 		elem->type = ULLONG_INT;
-	if (!ft_strcmp(elem->length, "h"))
+	if ((ft_strcmp(elem->length, "h")) == 0)
 		elem->type = USHORT_INT;
-	if (!ft_strcmp(elem->length, "hh"))
+	if ((ft_strcmp(elem->length, "hh")) == 0)
 		elem->type = U_CHAR;
-	if (!ft_strcmp(elem->length, "j"))
-		elem->type = UINT_MAX;
-	if (!ft_strcmp(elem->length, "z"))
+	if ((ft_strcmp(elem->length, "j")) == 0)
+		elem->type = UINT_MAXT;
+	if ((ft_strcmp(elem->length, "z")) == 0)
 		elem->type = SIZE_T;
-	else
-		elem->type = U_INT;
 }
 
 void 	type_signed(t_lst *elem)
 {
-	if (!ft_strcmp(elem->length, "l"))
+	elem->type = INT;
+	if ((ft_strcmp(elem->length, "l")) == 0)
 		elem->type = LONG_INT;
-	if (!ft_strcmp(elem->length, "ll"))
+	if ((ft_strcmp(elem->length, "ll")) == 0)
 		elem->type = LLONG_INT;
-	if (!ft_strcmp(elem->length, "h"))
+	if ((ft_strcmp(elem->length, "h")) == 0)
 		elem->type = SHORT_INT;
-	if (!ft_strcmp(elem->length, "hh"))
+	if ((ft_strcmp(elem->length, "hh")) == 0)
 		elem->type = CHAR;
-	if (!ft_strcmp(elem->length, "j"))
-		elem->type = INT_MAX;
-	if (!ft_strcmp(elem->length, "z"))
+	if ((ft_strcmp(elem->length, "j")) == 0)
+		elem->type = INT_MAXT;
+	if ((ft_strcmp(elem->length, "z")) == 0)
 		elem->type = SIZE_T;
-	else
-		elem->type = INT;
 }
 
 void	what_type(t_lst *elem)
 {
+	if (elem->specifier == '%')
+		return ;
 	if (elem->specifier == 's' || elem->specifier == 'S')
 	{
 		if (ft_strcmp(elem->length, "l"))
@@ -57,8 +57,6 @@ void	what_type(t_lst *elem)
 		elem->type = VOID;
 	if (elem->specifier == 'd' || elem->specifier == 'D' || elem->specifier == 'i')
 		type_signed(elem);
-	if (elem->specifier == '%')
-		return ;
-	else
+	if (elem->specifier == 'u' || elem->specifier == 'U' || elem->specifier == 'o'|| elem->specifier == 'O' || elem->specifier == 'x' || elem->specifier == 'X')
 		type_unsigned(elem);
 }

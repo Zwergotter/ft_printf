@@ -45,8 +45,9 @@ void string(t_lst **begin, char *str, int start, int end)
 
 	error = MALLOC;
 	len = end - start;
-	if ((elem = (t_lst*)malloc((sizeof(char) * (end - start) + 5) + (sizeof(int) * 3) + sizeof(t_lst))) == NULL)
+	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
 		error_displayed(error);
+	ft_bzero(elem, (sizeof(t_lst)));
 	elem->type = STR;
 	elem->arg = ft_strsub(str, start, len);
 	elem->next = NULL;
@@ -65,8 +66,9 @@ void percent(t_lst **begin, char *str, int start, int end)
 	int len;
 
 	error = MALLOC;
-	if ((elem = (t_lst*)malloc((sizeof(char) * (end - start) + 5) + (sizeof(int) * 3) + sizeof(t_lst))) == NULL)
+	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
 		error_displayed(error);
+	ft_bzero(elem, (sizeof(t_lst)));
 	if (is_specifier(str[end]))
 		end = end + 1;
 	len = end - start;
@@ -88,14 +90,15 @@ t_lst *first_one(char *str)
 
 	error = MALLOC;
 	i = 0;
+	if ((first = (t_lst*)malloc(sizeof(t_lst))) == NULL)
+		error_displayed(error);
+	ft_bzero(first, (sizeof(t_lst)));
 	while (str[i])
 	{
 		while (str[i] != '%')
 			i++;
 		if (i != 0)
 		{
-			if ((first = (t_lst*)malloc((sizeof(char) * (i + 4)) + (sizeof(int) * 3) + sizeof(t_lst))) == NULL)
-				error_displayed(error);
 			first->type = STR;
 			first->arg = ft_strsub(str, 0, i - 1);
 			first->next = NULL;
@@ -109,8 +112,6 @@ t_lst *first_one(char *str)
 					i++;
 				break ;
 			}
-			if ((first = (t_lst*)malloc((sizeof(char) * (i + 4)) + (sizeof(int) * 3) + sizeof(t_lst))) == NULL)
-				error_displayed(error);
 			if (is_specifier(str[i]))
 				i = i + 1;
 			first->arg = ft_strsub(str, 0, i);

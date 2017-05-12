@@ -29,33 +29,21 @@
 
 #include "libft.h"
 
-#define	STR 1
-#define INT 2
-#define U_INT 3
-#define WCHAR_T 4
-#define WIN_T 5
-#define VOID 6
-#define CHAR 7
-#define U_CHAR 8
-#define SHORT_INT 9
-#define USHORT_INT 10
-#define LONG_INT 11
-#define ULONG_INT 12
-#define LLONG_INT 13
-#define ULLONG_INT 14
-#define INT_MAXT 15
-#define UINT_MAXT 16
-#define SIZE_T 17
-
 typedef	enum		e_error
 {
 	ARGUMENT, MALLOC
 }					t_error;
 
+typedef enum 		e_type
+{
+	EMPTY, STR, INT, U_INT, WCHAR_T, WIN_T, VOID, CHAR, U_CHAR, SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT,
+	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T
+}					t_type;
+
 typedef struct		s_lst
 {
     struct s_lst	*next;
-    int				type;
+    t_type 			type;
     char			*arg;
     /*POUR LES OPTIONS*/
     char			flag;
@@ -66,6 +54,7 @@ typedef struct		s_lst
     // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
 }
 					t_lst;
+
 t_lst	*parsing(char *str);
 int 	is_specifier(char c);
 void 	check_elem(t_lst **first);

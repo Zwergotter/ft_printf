@@ -73,13 +73,11 @@ int checking(t_lst *elem)
 	i = 1;
 	while (i < len - 1 && everything_at_once(elem->arg[i]))
 	{
-		printf("IN LOOP\n");
 		if ((ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
 		{ //que se passe t il avec la precision s'il y a uniquement "."?"
 			if (is_precision(elem->arg[i]))
 				i++;
 			j = i;
-			printf("Where is j: %c \n", elem->arg[j]);
 			while (i < len - 2 && ft_isdigit(elem->arg[i] + 0))
 				i++;
 			if (is_precision(elem->arg[j - 1]))
@@ -88,13 +86,9 @@ int checking(t_lst *elem)
 					elem->precision = 0;
 				else
 					elem->precision = ft_atoi(&elem->arg[j]);
-				printf("PRECISION IS %d\n", elem->precision);
 			}
 			else
-			{
 				elem->width = ft_atoi(&elem->arg[j]);
-				printf("WIDTH IS %d\n", elem->width);
-			}
 		}
 		if (is_length(elem->arg[i]))
 		{
@@ -104,24 +98,17 @@ int checking(t_lst *elem)
 				elem->length[j++] = elem->arg[i++];
 			while (j < 3)
 				elem->length[j++] = '\0';
-			printf("LENGTH IS %s\n", elem->length);
 		}
 		if (is_flag(elem->arg[i]))
-		{
 			elem->flag = elem->arg[i++];
-			printf("FLAG IS %c\n", elem->flag);
-		}
 	}
 	if (is_specifier(elem->arg[i]))
 	{
 		elem->specifier = elem->arg[i];
-		printf("SPECIFIER IS %c\n", elem->specifier);
-		what_kind(elem);
+		what_type(elem);
 	}
 	else
 	{
-		printf("NO SPECIFIER FOUND\n");
-		printf("elem arg before change is: %s\n",elem->arg);
 		if (i >= len - 1)
 			return (0);
 		else
@@ -130,7 +117,6 @@ int checking(t_lst *elem)
 			elem->arg = ft_strsub(str, i, len - i);
 			elem->type = STR;
 			free(str);
-			printf("elem arg after change is: %s\n",elem->arg);
 		}
 	}
 	return (1);
