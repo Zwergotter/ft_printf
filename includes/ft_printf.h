@@ -36,7 +36,7 @@ typedef	enum		e_error
 
 typedef enum 		e_type
 {
-	EMPTY, STR, INT, U_INT, WCHAR_T, WIN_T, VOID, CHAR, U_CHAR, SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT,
+	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WIN_T, VOID, CHAR, U_CHAR, SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT,
 	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T, PERCENT
 }					t_type;
 
@@ -51,11 +51,12 @@ typedef struct		s_lst
     int 			precision;
     char			length[2];
     char			specifier;
-    // int				nb; POUR CALCULER RETURN (ATTENTION A %C)
+    int				nb; 
+    //POUR CALCULER RETURN (ATTENTION A %C)
 }
 					t_lst;
 
-t_lst	*parsing(char *str);
+t_lst	*parsing(char const *str);
 int 	is_specifier(char c);
 void 	check_elem(t_lst **first);
 void	error_displayed(t_error error);

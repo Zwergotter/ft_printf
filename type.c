@@ -42,7 +42,7 @@ void	what_type(t_lst *elem)
 	if (elem->specifier == 's' || elem->specifier == 'S')
 	{
 		if (ft_strcmp(elem->length, "l"))
-			elem->type = STR;
+			elem->type = ARG_STR;
 		else
 			elem->type = WCHAR_T;
 	}

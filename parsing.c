@@ -37,7 +37,7 @@ int is_specifier(char c)
 ** Puts this element at the list's end.
 */
 
-void string(t_lst **begin, char *str, int start, int end)
+void string(t_lst **begin, char const *str, int start, int end)
 {	
 	t_lst *elem;
 	t_error error;
@@ -59,7 +59,7 @@ void string(t_lst **begin, char *str, int start, int end)
 ** Puts this element at the list's end.
 */
 
-void percent(t_lst **begin, char *str, int start, int end)
+void percent(t_lst **begin, char const *str, int start, int end)
 {	
 	t_lst *elem;
 	t_error error;
@@ -81,7 +81,7 @@ void percent(t_lst **begin, char *str, int start, int end)
 ** Creating first element and following ones and linked to the first in order to have a list.
 */
 
-t_lst *first_one(char *str)
+t_lst *first_one(char const *str)
 {
 	int i;
 	int j;
@@ -144,7 +144,7 @@ t_lst *first_one(char *str)
 ** Parsing all the string in one list with elements
 */
 
-t_lst *parsing(char *str)
+t_lst *parsing(char const *str)
 {
 	t_lst *lst;
 
