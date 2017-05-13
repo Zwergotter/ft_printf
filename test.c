@@ -1,40 +1,33 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-void displaying(t_lst *list, va_list ap)
-{
-	int result;
-
-	if (list->type == INT)
-	{
-		result = va_arg(ap, int);
-		ft_putnbr(result);
-		list->nb = ft_countdigits(result);
-	}
-}
-
-
 /*
 ** Attention a l'unicode
+** attention aussi a comment on doit gerer l'int renvye quand il y a un \n
 */
 
 void	test(char const *test, ...)
 {
 	va_list ap;
 	t_lst *arg;
+	int result;
 
 	arg = parsing(test);
+	result = 0;
 	check_elem(&arg);
 	va_start(ap, test);
 	while (arg)
 	{
 		if (arg->type == STR)
-			{
-				ft_putstr(arg->arg);
-				arg->nb = ft_strlen(arg->arg);
-			}
+		{
+			ft_putstr(arg->arg);
+			arg->nb = ft_strlen(arg->arg);
+		}
+		if (arg->type == EMPTY)
+			ft_putstr("");
 		else
 			displaying(arg, ap);
+		result = result + arg->nb;
 		arg = arg->next;
 	}
 	va_end(ap);
@@ -47,7 +40,7 @@ int	main()
 	t_lst *all;
 	t_lst *tmp;
 
-	str = "etc   %d  %d";
+	str = "etc   %d  %d  %s\n";
 	copy = "%% 2h32t \\%40hjd  %ls rewqt   t%tkkjgct    kkk%hhhhh\n";
 	all = parsing(copy);
 	tmp = all;
@@ -58,6 +51,6 @@ int	main()
 	}
 	printf("End of displaying string with all list's elements before checking\n\n ----------------------------- CHECKING -----------------------------\n");
 	check_elem(&all);
-	test(str, 12, 24);
+	test(str, 12, 24, "test");
 	return (0);
 }

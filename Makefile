@@ -21,6 +21,7 @@ SRC = test.c\
 	checking.c\
 	error.c\
 	type.c\
+	displaying.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)

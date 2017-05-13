@@ -61,5 +61,6 @@ int 	is_specifier(char c);
 void 	check_elem(t_lst **first);
 void	error_displayed(t_error error);
 void	what_type(t_lst *elem);
+void    displaying(t_lst *list, va_list ap);
 
 # endif
