@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checking.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
+/*   Updated: 2017/05/13 19:29:27 by edeveze          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*
 differentes choses a gerer encore: que se passe t il avec %%? autre string a faire ou non? 
 Que se passe t il si j'essaie de creer une chaine vide?
 */
-
-
 
 
 /*
@@ -104,7 +114,7 @@ int checking(t_lst *elem)
 	}
 	if (is_specifier(elem->arg[i]))
 	{
-		elem->specifier = elem->arg[i];
+		elem->spe = elem->arg[i];
 		what_type(elem);
 	}
 	else

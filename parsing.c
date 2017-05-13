@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
+/*   Updated: 2017/05/13 19:48:01 by edeveze          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-#include <stdio.h>
 
 /*
-** Scans a list thanks to its first element and puts the new one at the last position.
+** Scans a list thanks to its first element and puts the new one at the end.
 */
 
 void	addlast(t_lst **begin, t_lst *new)
@@ -21,7 +32,7 @@ void	addlast(t_lst **begin, t_lst *new)
 ** Functions to identify a specifier.
 */
 
-int is_specifier(char c)
+int		is_specifier(char c)
 {
 	if (c == 's' || c == 'S' || c == 'p'
 			|| c == 'd' || c == 'D' || c == 'i' ||
@@ -33,15 +44,16 @@ int is_specifier(char c)
 }
 
 /*
-** Creating just one element that contains a string and finished before a specifier or because the string has ended.
+** Creating just one element that contains a string and finished before a
+** specifier or because the string has ended.
 ** Puts this element at the list's end.
 */
 
-void string(t_lst **begin, char const *str, int start, int end)
-{	
-	t_lst *elem;
-	t_error error;
-	int len;
+void	string(t_lst **begin, char const *str, int start, int end)
+{
+	t_lst	*elem;
+	t_error	error;
+	int		len;
 
 	error = MALLOC;
 	len = end - start;
@@ -55,15 +67,16 @@ void string(t_lst **begin, char const *str, int start, int end)
 }
 
 /*
-** Creating just one element that starts with a percent and finished with a specifier or because the string has ended.
+** Creating just one element that starts with a percent and finished with a
+** specifier or because the string has ended.
 ** Puts this element at the list's end.
 */
 
-void percent(t_lst **begin, char const *str, int start, int end)
-{	
-	t_lst *elem;
-	t_error error;
-	int len;
+void	percent(t_lst **begin, char const *str, int start, int end)
+{
+	t_lst	*elem;
+	t_error	error;
+	int		len;
 
 	error = MALLOC;
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
@@ -78,15 +91,16 @@ void percent(t_lst **begin, char const *str, int start, int end)
 }
 
 /*
-** Creating first element and following ones and linked to the first in order to have a list.
+** Creating first element and following ones and linked to the first in
+** order to have a list.
 */
 
-t_lst *first_one(char const *str)
+t_lst	*first_one(char const *str)
 {
-	int i;
-	int j;
-	t_lst *first;
-	t_error error;
+	int		i;
+	int		j;
+	t_lst	*first;
+	t_error	error;
 
 	error = MALLOC;
 	i = 0;
@@ -144,7 +158,7 @@ t_lst *first_one(char const *str)
 ** Parsing all the string in one list with elements
 */
 
-t_lst *parsing(char const *str)
+t_lst	*parsing(char const *str)
 {
 	t_lst *lst;
 

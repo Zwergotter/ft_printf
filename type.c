@@ -1,7 +1,18 @@
-#include "ft_printf.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/13 17:44:24 by edeveze           #+#    #+#             */
+/*   Updated: 2017/05/13 17:44:26 by edeveze          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void 	type_unsigned(t_lst *elem)
+#include "ft_printf.h"
+
+void	type_unsigned(t_lst *elem)
 {
 	elem->type = U_INT;
 	if ((ft_strcmp(elem->length, "l")) == 0)
@@ -18,7 +29,7 @@ void 	type_unsigned(t_lst *elem)
 		elem->type = SIZE_T;
 }
 
-void 	type_signed(t_lst *elem)
+void	type_signed(t_lst *elem)
 {
 	elem->type = INT;
 	if ((ft_strcmp(elem->length, "l")) == 0)
@@ -37,26 +48,27 @@ void 	type_signed(t_lst *elem)
 
 void	what_type(t_lst *elem)
 {
-	if (elem->specifier == '%')
+	if (elem->spe == '%')
 		elem->type = PERCENT;
-	if (elem->specifier == 's' || elem->specifier == 'S')
+	if (elem->spe == 's' || elem->spe == 'S')
 	{
 		if (ft_strcmp(elem->length, "l"))
 			elem->type = ARG_STR;
 		else
 			elem->type = WCHAR_T;
 	}
-	if (elem->specifier == 'c' || elem->specifier == 'C')
+	if (elem->spe == 'c' || elem->spe == 'C')
 	{
 		if (ft_strcmp(elem->length, "l"))
 			elem->type = INT;
 		else
 			elem->type = WIN_T;
 	}
-	if (elem->specifier == 'p')
+	if (elem->spe == 'p')
 		elem->type = VOID;
-	if (elem->specifier == 'd' || elem->specifier == 'D' || elem->specifier == 'i')
+	if (elem->spe == 'd' || elem->spe == 'D' || elem->spe == 'i')
 		type_signed(elem);
-	if (elem->specifier == 'u' || elem->specifier == 'U' || elem->specifier == 'o'|| elem->specifier == 'O' || elem->specifier == 'x' || elem->specifier == 'X')
+	if (elem->spe == 'u' || elem->spe == 'U' || elem->spe == 'o' || elem->spe
+		== 'O' || elem->spe == 'x' || elem->spe == 'X')
 		type_unsigned(elem);
 }

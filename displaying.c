@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   displaying.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
+/*   Updated: 2017/05/13 19:48:46 by edeveze          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 /*
 ** Ajouter les options (largeur, flags et precision)
 */
 
-void display_int(t_lst *list, va_list ap)
+void	display_int(t_lst *list, va_list ap)
 {
 	int result;
 
@@ -13,7 +25,7 @@ void display_int(t_lst *list, va_list ap)
 	list->nb = ft_countdigits(result);
 }
 
-void display_str(t_lst *list, va_list ap)
+void	display_str(t_lst *list, va_list ap)
 {
 	char *str;
 
@@ -23,7 +35,7 @@ void display_str(t_lst *list, va_list ap)
 	free(str);
 }
 
-void displaying(t_lst *list, va_list ap)
+void	displaying(t_lst *list, va_list ap)
 {
 	if (list->type == INT)
 		display_int(list, ap);
