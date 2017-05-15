@@ -29,19 +29,28 @@ void	display_int(t_lst *list, va_list ap)
 void	display_str(t_lst *list, va_list ap)
 {
 	char *str;
+	char c;
 	int len;
 	int width;
 
 	str = ft_strdup(va_arg(ap, char*));
 	len = ft_strlen(str);
 	width = list->width;
-	if (width)
+	if (width && list->flag != '-')
+	{
+		c = ' ';
+		if (list->flag == '0')
+				c = '0';;			
+		while (width-- > len)
+				write(1, &c,  1);
+	}
+	ft_putstr(str);
+	if (list->flag == '-' && width > len)
 	{
 		while (width-- > len)
 			write(1, " ",  1);
 
 	}
-	ft_putstr(str);
 	list->nb = (len > list->width ? ft_strlen(str)  : list->width);
 	free(str);
 }

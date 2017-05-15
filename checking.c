@@ -80,6 +80,8 @@ int checking(t_lst *elem)
 	if (len < 2)
 		return (0); // rien a afficher?
 	i = 1;
+	if (is_flag(elem->arg[i]))
+			elem->flag = elem->arg[i++];
 	while (i < len - 1 && everything_at_once(elem->arg[i]))
 	{
 		if ((ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
@@ -109,8 +111,6 @@ int checking(t_lst *elem)
 			while (j < 3)
 				elem->length[j++] = '\0';
 		}
-		if (is_flag(elem->arg[i]))
-			elem->flag = elem->arg[i++];
 	}
 	if (is_specifier(elem->arg[i]))
 	{
