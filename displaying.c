@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/13 19:48:46 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/05/15 19:16:57 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ void finale(t_lst *list, char *str)
 	int len;
 	int diff;
 
+	diff = 0;
 	len = ft_strlen(str);
-	diff = list->width - len;
+	if (list->precision && list->precision > len)
+		diff = list->precision - len;
+	if (diff == 0)
+		diff = list->width - len;
 	c = ' ';
 	if (diff > 0 && list->flag != '-')
 	{

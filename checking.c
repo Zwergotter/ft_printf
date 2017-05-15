@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/13 19:29:27 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/05/15 19:18:08 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int checking(t_lst *elem)
 				i++;
 			if (is_precision(elem->arg[j - 1]))
 			{
-				if (j == i)
+				if (!ft_isdigit(elem->arg[i] + 0))
 					elem->precision = 0;
 				else
 					elem->precision = ft_atoi(&elem->arg[j]);
