@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 /*
 ** Ajouter les options (largeur, flags et precision)
@@ -28,10 +29,20 @@ void	display_int(t_lst *list, va_list ap)
 void	display_str(t_lst *list, va_list ap)
 {
 	char *str;
+	int len;
+	int width;
 
 	str = ft_strdup(va_arg(ap, char*));
+	len = ft_strlen(str);
+	width = list->width;
+	if (width)
+	{
+		while (width-- > len)
+			write(1, " ",  1);
+
+	}
 	ft_putstr(str);
-	list->nb = ft_strlen(str);
+	list->nb = (len > list->width ? ft_strlen(str)  : list->width);
 	free(str);
 }
 

@@ -114,7 +114,7 @@ t_lst	*first_one(char const *str)
 		if (i != 0)
 		{
 			first->type = STR;
-			first->arg = ft_strsub(str, 0, i - 1);
+			first->arg = ft_strsub(str, 0, i);
 			first->next = NULL;
 		}
 		else

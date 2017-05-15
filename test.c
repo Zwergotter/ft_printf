@@ -48,11 +48,13 @@ void	test(char const *test, ...)
 int	main()
 {	
 	char const *str;
+	char const *str2;
 	char *copy;
 	t_lst *all;
 	t_lst *tmp;
 
 	str = "etc   %d  %d  %s\n";
+	str2 = "end is .%4s. and start is .%4s.";
 	copy = "%% 2h32t \\%40hjd  %ls rewqt   t%tkkjgct    kkk%hhhhh\n";
 	all = parsing(copy);
 	tmp = all;
@@ -64,5 +66,6 @@ int	main()
 	printf("End of displaying string with all list's elements before checking\n\n ----------------------------- CHECKING -----------------------------\n");
 	check_elem(&all);
 	test(str, 12, 24, "test");
+	test(str2, "end", "start");
 	return (0);
 }

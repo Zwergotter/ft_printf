@@ -22,7 +22,6 @@ Que se passe t il si j'essaie de creer une chaine vide?
 ** But need to check stuff like "%wwwwwd" that can't be acceptable
 */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
 int is_flag(char c)
@@ -99,6 +98,7 @@ int checking(t_lst *elem)
 			}
 			else
 				elem->width = ft_atoi(&elem->arg[j]);
+			i++;
 		}
 		if (is_length(elem->arg[i]))
 		{
@@ -151,7 +151,6 @@ void check_elem(t_lst **first)
 				free(str);
 				error_displayed(error);
 			}
-		printf("arg is %s and type is %d\n", tmp->arg, tmp->type);
 		tmp = tmp->next;
 	}
 }
