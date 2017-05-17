@@ -84,7 +84,7 @@ int checking(t_lst *elem)
 			elem->flag = elem->arg[i++];
 	while (i < len - 1 && everything_at_once(elem->arg[i]))
 	{
-		if ((ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
+		if ((elem->arg[i] != '0' && ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
 		{ //que se passe t il avec la precision s'il y a uniquement "."?"
 			if (is_precision(elem->arg[i]))
 				i++;
@@ -102,6 +102,8 @@ int checking(t_lst *elem)
 				elem->width = ft_atoi(&elem->arg[j]);
 			i++;
 		}
+		if (is_flag(elem->arg[i]))
+			i++;
 		if (is_length(elem->arg[i]))
 		{
 			j = 0;
