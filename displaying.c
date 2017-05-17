@@ -21,7 +21,7 @@ void finale(t_lst *list, char *str)
 
 	diff = 0;
 	len = ft_strlen(str);
-	if (list->precision && list->precision > len)
+	if (list->type == INT && list->precision && list->precision > len)
 		diff = list->precision - len;
 	if (diff == 0)
 		diff = list->width - len;
@@ -46,7 +46,8 @@ void finale(t_lst *list, char *str)
 	ft_putstr(str);
 	if (list->flag == '-' && diff > 0)
 	{
-		while (diff-- > len)
+		// printf("FLAG IS - : flag is %c and diff is %d\n", list->flag, diff);
+		while (diff-- > 0)
 			write(1, &c,  1);
 	}
 	list->nb = list->nb + (len > list->width ? ft_strlen(str)  : list->width);
