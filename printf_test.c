@@ -13,17 +13,42 @@ void d_test(void)
 	dec = 27;
 	cent = 593;
 	dec_mill = 16432;
-	//test avec les flags
-	str = "Test with 0 : neg is ~%0d~ dec is ~%0d~ cent is ~%0d~ dec_mill is ~%0d~\nTest with - : neg is ~%-d~ dec is ~%-d~ cent is ~%-d~ dec_mill is ~%-d~ \nTest with + : neg is ~%+d~ dec is ~%+d~ cent is ~%+d~ dec_mill is ~%+d~ \nTest with space : neg is ~% d~ dec is ~% d~ cent is ~% d~ dec_mill is ~% d~ \nTest with # : neg is ~%#d~ dec is ~%#d~ cent is ~%#d~ dec_mill is ~%#d~ \n\n";
+	//tests
+	printf(" ----------- PURE VALUES ----------- \n");
 	printf(" ------------------- neg is ~%d~ dec is ~%d~ cent is ~%d~ dec_mill is ~%d~ ------------------- \n\n", neg, dec, cent, dec_mill);
+		
+	str = "neg is ~%5d~ dec is ~%5d~ cent is ~%5d~ dec_mill is ~%5d~\n\n";
+	printf(" ----------- NO FLAGS WITH LENGTH 5 ----------- \n");
+	printf(str, neg, dec, cent, dec_mill);
+
+	str = "neg is ~%.7d~ dec is ~%.7d~ cent is ~%.7d~ dec_mill is ~%.7d~\n\n";
+	printf(" ----------- NO FLAGS WITH PRECISION 7 ----------- \n");
+	printf(str, neg, dec, cent, dec_mill);
+
+	str = "neg is ~%10.5d~ dec is ~%10.5d~ cent is ~%10.5d~ dec_mill is ~%10.5d~\n\n";
+	printf(" ----------- NO FLAGS WITH PRECISION 5 AND LENGTH 10 ----------- \n");
+	printf(str, neg, dec, cent, dec_mill);
+	
+	str = "neg is ~%5.10d~ dec is ~%5.10d~ cent is ~%5.10d~ dec_mill is ~%5.10d~\n\n";
+	printf(" ----------- NO FLAGS WITH PRECISION 10 AND LENGTH 5 ----------- \n");
+	printf(str, neg, dec, cent, dec_mill);
+
+	str = "Test with 0 : neg is ~%0d~ dec is ~%0d~ cent is ~%0d~ dec_mill is ~%0d~\nTest with - : neg is ~%-d~ dec is ~%-d~ cent is ~%-d~ dec_mill is ~%-d~ \nTest with + : neg is ~%+d~ dec is ~%+d~ cent is ~%+d~ dec_mill is ~%+d~ \nTest with space : neg is ~% d~ dec is ~% d~ cent is ~% d~ dec_mill is ~% d~ \nTest with # : neg is ~%#d~ dec is ~%#d~ cent is ~%#d~ dec_mill is ~%#d~ \n\n";
 	printf(" ----------- ONLY FLAGS ----------- \n");
 	printf(str, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill);
+	
 	str = "Test with 0 : neg is ~%05d~ dec is ~%05d~ cent is ~%05d~ dec_mill is ~%05d~\nTest with - : neg is ~%-5d~ dec is ~%-5d~ cent is ~%-5d~ dec_mill is ~%-5d~ \nTest with + : neg is ~%+5d~ dec is ~%+5d~ cent is ~%+5d~ dec_mill is ~%+5d~ \nTest with space : neg is ~% 5d~ dec is ~% 5d~ cent is ~% 5d~ dec_mill is ~% 5d~ \nTest with # : neg is ~%#5d~ dec is ~%#5d~ cent is ~%#5d~ dec_mill is ~%#5d~ \n\n";
 	printf(" ----------- FLAGS WITH LENGTH 5 ----------- \n");
 	printf(str, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill);
+
+	str = "Test with 0 : neg is ~%0.5d~ dec is ~%0.5d~ cent is ~%0.5d~ dec_mill is ~%0.5d~\nTest with - : neg is ~%-.5d~ dec is ~%-.5d~ cent is ~%-.5d~ dec_mill is ~%-.5d~ \nTest with + : neg is ~%+.5d~ dec is ~%+.5d~ cent is ~%+.5d~ dec_mill is ~%+.5d~ \nTest with space : neg is ~% .5d~ dec is ~% .5d~ cent is ~% .5d~ dec_mill is ~% .5d~ \nTest with # : neg is ~%#.5d~ dec is ~%#.5d~ cent is ~%#.5d~ dec_mill is ~%#.5d~ \n\n";
+	printf(" ----------- FLAGS WITH PRECISION 5 ----------- \n");
+	printf(str, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill);
+	
 	str = "Test with 0 : neg is ~%010.5d~ dec is ~%010.5d~ cent is ~%010.5d~ dec_mill is ~%010.5d~\nTest with - : neg is ~%-10.5d~ dec is ~%-10.5d~ cent is ~%-10.5d~ dec_mill is ~%-10.5d~ \nTest with + : neg is ~%+10.5d~ dec is ~%+10.5d~ cent is ~%+10.5d~ dec_mill is ~%+10.5d~ \nTest with space : neg is ~% 10.5d~ dec is ~% 10.5d~ cent is ~% 10.5d~ dec_mill is ~% 10.5d~ \nTest with # : neg is ~%#10.5d~ dec is ~%#10.5d~ cent is ~%#10.5d~ dec_mill is ~%#10.5d~ \n\n";
 	printf(" ----------- FLAGS WITH PRECISION 5 AND LENGTH 10 ----------- \n");
 	printf(str, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill);
+	
 	str = "Test with 0 : neg is ~%05.10d~ dec is ~%05.10d~ cent is ~%05.10d~ dec_mill is ~%05.10d~\nTest with - : neg is ~%-5.10d~ dec is ~%-5.10d~ cent is ~%-5.10d~ dec_mill is ~%-5.10d~ \nTest with + : neg is ~%+5.10d~ dec is ~%+5.10d~ cent is ~%+5.10d~ dec_mill is ~%+5.10d~ \nTest with space : neg is ~% 5.10d~ dec is ~% 5.10d~ cent is ~% 5.10d~ dec_mill is ~% 5.10d~ \nTest with # : neg is ~%#5.10d~ dec is ~%#5.10d~ cent is ~%#5.10d~ dec_mill is ~%#5.10d~ \n\n";
 	printf(" ----------- FLAGS WITH PRECISION 10 AND LENGTH 5 ----------- \n");
 	printf(str, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill, neg, dec, cent, dec_mill);
