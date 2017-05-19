@@ -23,6 +23,7 @@ Que se passe t il si j'essaie de creer une chaine vide?
 */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int is_flag(char c)
 {
@@ -74,9 +75,11 @@ int checking(t_lst *elem)
 	int len;
 	int i;
 	int j;
+	int precision;
 	char *str;
 
 	len = ft_strlen(elem->arg);
+	precision = 0;
 	if (len < 2)
 		return (0); // rien a afficher?
 	i = 1;
@@ -84,23 +87,34 @@ int checking(t_lst *elem)
 			elem->flag = elem->arg[i++];
 	while (i < len - 1 && everything_at_once(elem->arg[i]))
 	{
+		// printf("----------------- ENTERING LOOP: arg i is %c and i %d is ------------------------------\n", elem->arg[i], i);
 		if ((elem->arg[i] != '0' && ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
 		{ //que se passe t il avec la precision s'il y a uniquement "."?"
+			// printf("before precision check : arg i is %c, i is %d and precision is %d\n", elem->arg[i], i, precision);
 			if (is_precision(elem->arg[i]))
-				i++;
+				precision = i++;
+			// printf("after precision check : arg i is %c, i is %d and precision is %d\n", elem->arg[i], i, precision);
+			while (is_flag(elem->arg[i]))
+				elem->flag = elem->arg[i++];
+			// printf("after flag check : arg i is %c and i is %d\n", elem->arg[i], i);
 			j = i;
 			while (i < len - 2 && ft_isdigit(elem->arg[i] + 0))
 				i++;
-			if (is_precision(elem->arg[j - 1]))
+			// printf("after loop until digit is not found : arg i is %c and i is %d\n", elem->arg[i], i);
+			if (is_precision(elem->arg[precision]))
 			{
+				// printf("precision detected\n");
 				if (!ft_isdigit(elem->arg[i] + 0))
 					elem->precision = 0;
 				else
 					elem->precision = ft_atoi(&elem->arg[j]);
+				// printf("after after precision : arg i is %c and i is %d\n", elem->arg[i], i);
 			}
 			else
 				elem->width = ft_atoi(&elem->arg[j]);
-			i++;
+			// printf("after after width : arg i is %c and i is %d\n", elem->arg[i], i);
+			if (!is_precision(elem->arg[i]) && !(is_specifier(elem->arg[i])))
+				i++;
 		}
 		if (is_flag(elem->arg[i]))
 			i++;
@@ -114,6 +128,8 @@ int checking(t_lst *elem)
 				elem->length[j++] = '\0';
 		}
 	}
+	// printf("----------------- OUT OF LOOP ------------------------------\n");
+	// printf("Precision is %c\n", elem->precision);
 	if (is_specifier(elem->arg[i]))
 	{
 		elem->spe = elem->arg[i];
@@ -121,7 +137,7 @@ int checking(t_lst *elem)
 	}
 	else
 	{
-		if (i >= len - 1)
+		if (i > len - 1)
 			return (0);
 		else
 		{
