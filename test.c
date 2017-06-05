@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/15 19:18:27 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/05 16:33:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	test(char const *test, ...)
 	va_list ap;
 	t_lst *arg;
 	int result;
-	// int i;
 
-	// i = 1;
 	arg = parsing(test);
 	result = 0;
 	check_elem(&arg);
@@ -53,7 +51,6 @@ void	test(char const *test, ...)
 		}
 		result = result + arg->nb;
 		arg = arg->next;
-		// i++;
 	}
 	va_end(ap);
 }
@@ -62,27 +59,14 @@ int	main()
 {	
 	char const *str;
 	char const *str2;
-	// char *copy;
-	// t_lst *all;
-	// t_lst *tmp;
 
-	str = "etc   %2d  %7.3d %08d  %05s -%-15s-\n";
+	str = "etc   -%5d-  -%+2.5d- -%08.d-  -%05s- -%-10s-\n";
 	str2 = "end is .%4s. and start is .%4s.";
-	// copy = "%% 2h32t \\%40hjd  %ls rewqt   t%tkkjgct    kkk%hhhhh\n";
-	// all = parsing(copy);
-	// tmp = all;
-	// while (tmp)
-	// {
-	// 	printf("%s\n", tmp->arg);
-	// 	tmp = tmp->next;
-	// }
-	// printf("End of displaying string with all list's elements before checking\n\n ----------------------------- CHECKING -----------------------------\n");
-	// check_elem(&all);
 	printf("Real printf gives:\n");
-	printf(str, 12, 248, 127, "test", "mwar test");
+	printf(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test");
 	printf("\n\n-------------------------------------------------------------\n\n");
 	printf("Mine gives:\n");
-	test(str, 12, 248, 127, "test", "mwar test");
+	test(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test");
 	// test(str2, "end", "start");
 	return (0);
 }

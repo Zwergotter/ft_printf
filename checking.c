@@ -6,13 +6,17 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/15 19:18:08 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/05 16:26:28 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
+#include <stdio.h>
 
 /*
 differentes choses a gerer encore: que se passe t il avec %%? autre string a faire ou non? 
 Que se passe t il si j'essaie de creer une chaine vide?
+QUE SE PASSE T IL SI ERREUR PARSING/CHECKING
 */
 
 
@@ -22,46 +26,50 @@ Que se passe t il si j'essaie de creer une chaine vide?
 ** But need to check stuff like "%wwwwwd" that can't be acceptable
 */
 
-#include "ft_printf.h"
-#include <stdio.h>
-
-int is_flag(char c)
+int filling_length(t_lst *elem, int i)
 {
-	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0')
-		return (1);
-	return (0);
+	int j;
+
+	j = 0;
+	elem->length[j++] = elem->arg[i++];
+	if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') && elem->arg[i - 1] == elem->arg[i])
+		elem->length[j++] = elem->arg[i++];
+	while (j < 3)
+		elem->length[j++] = '\0';
+	return (i);
 }
 
-/*
-** Nombre avant . -> sont la taille. Sinon, c'est la precision.
-*/
-
-int is_precision(char c)
+int option_found(t_lst *elem, int i)
 {
-	if (c == '.')
-		return (1);
-	return (0);
+	if ((elem->arg[i] != '0' && ft_isdigit(elem->arg[i] + 0) && !elem->i_pre)
+		|| (is_precision(elem->arg[i], elem)))
+	{
+		i += (is_precision(elem->arg[i], elem) ? 1 : 0);
+		while (is_flag(elem->arg[i], elem))
+			i++;
+		if (elem->pre == '.')
+			elem->i_pre = ft_atoi(&elem->arg[i]);
+		else
+			elem->width = ft_atoi(&elem->arg[i]);
+		while (i < elem->len - 2 && ft_isdigit(elem->arg[i] + 0))
+			i++;
+		if (!is_precision(elem->arg[i], elem) && !(is_specifier(elem->arg[i])))
+			i++;
+	}
+	i += (is_flag(elem->arg[i], elem) ? 1 : 0);
+	if (is_length(elem->arg[i]))
+		i = filling_length(elem, i);
+	return (i);
 }
 
-/*
-** ATTENTION. Aussi hh et ll a gerer.
-*/
-int is_length(char c)
+void substring(t_lst *elem, int i)
 {
-	if (c == 'h' || c == 'l' || c == 'j' || c == 'z')
-		return (1);
-	return(0);
-}
+	char *str;
 
-/*
-** Checking all at once
-*/
-
-int everything_at_once(char c)
-{
-	if (ft_isdigit(c + 0) || is_precision(c) || is_length(c) || is_flag(c))
-		return (1);
-	return (0);
+	str = elem->arg;
+	elem->arg = ft_strsub(str, i, elem->len - i);
+	elem->type = STR;
+	free(str);
 }
 
 /*
@@ -72,64 +80,11 @@ int everything_at_once(char c)
 
 int checking(t_lst *elem)
 {
-	int len;
 	int i;
-	int j;
-	int precision;
-	char *str;
 
-	len = ft_strlen(elem->arg);
-	precision = 0;
-	if (len < 2)
-		return (0); // rien a afficher?
-	i = 1;
-	if (is_flag(elem->arg[i]))
-			elem->flag = elem->arg[i++];
-	while (i < len - 1 && everything_at_once(elem->arg[i]))
-	{
-		// printf("----------------- ENTERING LOOP: arg i is %c and i %d is ------------------------------\n", elem->arg[i], i);
-		if ((elem->arg[i] != '0' && ft_isdigit(elem->arg[i] + 0) && !elem->precision) || (is_precision(elem->arg[i])))
-		{ //que se passe t il avec la precision s'il y a uniquement "."?"
-			// printf("before precision check : arg i is %c, i is %d and precision is %d\n", elem->arg[i], i, precision);
-			if (is_precision(elem->arg[i]))
-				precision = i++;
-			// printf("after precision check : arg i is %c, i is %d and precision is %d\n", elem->arg[i], i, precision);
-			while (is_flag(elem->arg[i]))
-				elem->flag = elem->arg[i++];
-			// printf("after flag check : arg i is %c and i is %d\n", elem->arg[i], i);
-			j = i;
-			while (i < len - 2 && ft_isdigit(elem->arg[i] + 0))
-				i++;
-			// printf("after loop until digit is not found : arg i is %c and i is %d\n", elem->arg[i], i);
-			if (is_precision(elem->arg[precision]))
-			{
-				// printf("precision detected\n");
-				if (!ft_isdigit(elem->arg[i] + 0))
-					elem->precision = 0;
-				else
-					elem->precision = ft_atoi(&elem->arg[j]);
-				// printf("after after precision : arg i is %c and i is %d\n", elem->arg[i], i);
-			}
-			else
-				elem->width = ft_atoi(&elem->arg[j]);
-			// printf("after after width : arg i is %c and i is %d\n", elem->arg[i], i);
-			if (!is_precision(elem->arg[i]) && !(is_specifier(elem->arg[i])))
-				i++;
-		}
-		if (is_flag(elem->arg[i]))
-			i++;
-		if (is_length(elem->arg[i]))
-		{
-			j = 0;
-			elem->length[j++] = elem->arg[i++];
-			if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') && elem->arg[i - 1] == elem->arg[i])
-				elem->length[j++] = elem->arg[i++];
-			while (j < 3)
-				elem->length[j++] = '\0';
-		}
-	}
-	// printf("----------------- OUT OF LOOP ------------------------------\n");
-	// printf("Precision is %c\n", elem->precision);
+	i = (is_flag(elem->arg[1], elem) ? 2 : 1);
+	while (i < elem->len - 1 && everything_at_once(elem->arg[i], elem))
+		i = option_found(elem, i);
 	if (is_specifier(elem->arg[i]))
 	{
 		elem->spe = elem->arg[i];
@@ -137,19 +92,19 @@ int checking(t_lst *elem)
 	}
 	else
 	{
-		if (i > len - 1)
-			return (0);
+		if (i >= elem->len - 1)
+			return (0);// rien a afficher?
 		else
-		{
-			str = elem->arg;
-			elem->arg = ft_strsub(str, i, len - i);
-			elem->type = STR;
-			free(str);
-		}
+			substring(elem, i);
 	}
 	return (1);
 }
 
+/*
+** Checking one by one each element
+QUE SE PASSE T IL SI UN ELEMENT NE CORRESPOND PAS. QUEL AFFICHAGE
+POUR L'ELEMENT ET LES AUTRES, VALIDES OU NON
+*/
 void check_elem(t_lst **first)
 {
 	t_lst *tmp;

@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/13 19:48:01 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/05 16:32:08 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,12 @@ void	addlast(t_lst **begin, t_lst *new)
 }
 
 /*
-** Functions to identify a specifier.
-*/
-
-int		is_specifier(char c)
-{
-	if (c == 's' || c == 'S' || c == 'p'
-			|| c == 'd' || c == 'D' || c == 'i' ||
-			c == 'o' || c == 'O' || c == 'u' ||
-			c == 'U' || c == 'x' || c == 'X' ||
-			c == 'c' || c == 'C' || c == '%')
-		return (1);
-	return (0);
-}
-
-/*
 ** Creating just one element that contains a string and finished before a
 ** specifier or because the string has ended.
 ** Puts this element at the list's end.
 */
 
-void	string(t_lst **begin, char const *str, int start, int end)
+t_lst	*string(char const *str, int start, int end)
 {
 	t_lst	*elem;
 	t_error	error;
@@ -62,8 +47,9 @@ void	string(t_lst **begin, char const *str, int start, int end)
 	ft_bzero(elem, (sizeof(t_lst)));
 	elem->type = STR;
 	elem->arg = ft_strsub(str, start, len);
+	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
-	addlast(begin, elem);
+	return (elem);
 }
 
 /*
@@ -72,7 +58,7 @@ void	string(t_lst **begin, char const *str, int start, int end)
 ** Puts this element at the list's end.
 */
 
-void	percent(t_lst **begin, char const *str, int start, int end)
+t_lst	*percent(char const *str, int start, int end)
 {
 	t_lst	*elem;
 	t_error	error;
@@ -86,82 +72,66 @@ void	percent(t_lst **begin, char const *str, int start, int end)
 		end = end + 1;
 	len = end - start;
 	elem->arg = ft_strsub(str, start, len);
+	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
-	addlast(begin, elem);
+	return (elem);
 }
 
 /*
-** Creating first element and following ones and linked to the first in
-** order to have a list.
+** Creates element one by one and adds them at the list's end
 */
 
-t_lst	*first_one(char const *str)
+void	creating_list(t_lst **begin, const char *str, int i)
 {
-	int		i;
 	int		j;
-	t_lst	*first;
-	t_error	error;
 
-	error = MALLOC;
-	i = 0;
-	if ((first = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(error);
-	ft_bzero(first, (sizeof(t_lst)));
-	while (str[i])
-	{
-		while (str[i] != '%')
-			i++;
-		if (i != 0)
-		{
-			first->type = STR;
-			first->arg = ft_strsub(str, 0, i);
-			first->next = NULL;
-		}
-		else
-		{
-			i++;
-			while (str[i])
-			{
-				while (str[i] && !is_specifier(str[i]))
-					i++;
-				break ;
-			}
-			if (is_specifier(str[i]))
-				i = i + 1;
-			first->arg = ft_strsub(str, 0, i);
-			first->next = NULL;
-		}
-		break ;
-	}
 	while (str[i])
 	{
 		j = i;
 		while (str[j] && str[j] != '%')
 			j++;
 		if (j > i && (str[j] == '%' || !str[j]))
-			string(&first, str, i, j);
+			addlast(begin, string(str, i, j));
 		else
 		{
 			j++;
 			while (str[j] && !(is_specifier(str[j])))
 				j++;
-			if (is_specifier(str[j]))
-				j = j + 1;
-			percent(&first, str, i, j);
+			j += (is_specifier(str[j]) ? 1 : 0);
+			addlast(begin, percent(str, i, j));
 		}
 		i = j;
 	}
-	return (first);
 }
 
 /*
-** Parsing all the string in one list with elements
+** Creating first element and then calling creating_list to link
+** next elements.
 */
 
 t_lst	*parsing(char const *str)
 {
-	t_lst *lst;
+	int		i;
+	t_lst	*first;
 
-	lst = first_one(str);
-	return (lst);
+	i = 0;
+	while (str[i] && str[i] != '%')
+		i++;
+	if (i != 0)
+		first = string(str, 0, i);
+	else
+	{
+		i++;
+		while (str[++i])
+		{
+			while (str[i] && !is_specifier(str[i]))
+				i++;
+			break ;
+		}
+		i += (is_specifier(str[i]) ? 1 : 0);
+		first = percent(str, 0, i);
+	}
+	if (str[i])
+		creating_list(&first, str, i);
+	return (first);
 }

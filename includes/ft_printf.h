@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/13 19:42:14 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/05 16:22:29 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,36 @@ typedef struct		s_lst
 	struct s_lst	*next;
 	t_type			type;
 	char			*arg;
-    /*POUR LES OPTIONS*/
 	char			flag;
+	int				len;
 	int				width;
-	int				precision;
+	int				i_pre;
+	char 			pre;
 	char			length[2];
 	char			spe;
 	int				nb;
     //POUR CALCULER RETURN (ATTENTION A %C)
 }					t_lst;
 
+typedef struct		s_one
+{
+	char			*str;
+	int				len;
+	char 			sign;
+	char 			*new;
+	char 			c;
+	int 			diff_pre;
+	int 			diff_width;
+}					t_one;
+
 t_lst	*parsing(char const *str);
+
 int		is_specifier(char c);
+int		is_flag(char c, t_lst *elem);
+int		is_precision(char c, t_lst *elem);
+int		is_length(char c);
+int 	everything_at_once(char c, t_lst *elem);
+
 void	check_elem(t_lst **first);
 void	error_displayed(t_error error);
 void	what_type(t_lst *elem);
