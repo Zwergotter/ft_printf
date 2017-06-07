@@ -18,15 +18,15 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre - 1) : one->str);
 	one->len = ft_strlen(one->new);
 	one->diff_width = list->width - (one->len > list->i_pre ? one->len : list->i_pre);
-	if (list->pre && !list->i_pre) //si precicion existe mais qu'aucun nombre n'a ete precise
+	if (list->pre && !list->i_pre)
 	{
-		if (list->width)//si une largeur a ete precisee
+		if (list->width)
 			(list->flag == '0' ? write_char('0', list->width) : write_char(' ', list->width));
 		list->nb = (list->width ? list->width : 0);
 	}
 	else
 	{
-		if (list->width > one->len && list->width > list->i_pre)// si largeur precisee est plus grande que longueur et precision
+		if (one->diff_width > 0)
 		{
 			if (list->flag == '-')
 			{
