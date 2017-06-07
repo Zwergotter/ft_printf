@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void display_str(t_lst *list, va_list ap, t_one *one)
 {
 	one->str = ft_strdup(va_arg(ap, char*));
 	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre - 1) : one->str);
 	one->len = ft_strlen(one->new);
-	one->diff_width = list->width - (one->len > list->i_pre ? list->i_pre : one->len);
+	one->diff_width = list->width - (one->len > list->i_pre ? one->len : list->i_pre);
 	if (list->pre && !list->i_pre) //si precicion existe mais qu'aucun nombre n'a ete precise
 	{
 		if (list->width)//si une largeur a ete precisee
