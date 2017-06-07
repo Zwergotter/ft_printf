@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
+#    By: edeveze <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
 #    Updated: 2017/04/26 19:01:20 by edeveze          ###   ########.fr        #
@@ -22,6 +22,7 @@ SRC = test.c\
 	error.c\
 	type.c\
 	displaying.c\
+	display_str.c\
 	verifications.c\
 
 # Objects

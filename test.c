@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
 /*   Updated: 2017/06/05 16:33:15 by edeveze          ###   ########.fr       */
@@ -60,7 +60,7 @@ int	main()
 	char const *str;
 	char const *str2;
 
-	str = "etc   -%5d-  -%+2.5d- -%08.d-  -%05s- -%-10s-\n";
+	str = "etc   -%5d-  -%+2.5d- -%08.d-  -%010s- -%-10s-\n";
 	str2 = "end is .%4s. and start is .%4s.";
 	printf("Real printf gives:\n");
 	printf(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test");

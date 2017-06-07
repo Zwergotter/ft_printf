@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/05 16:26:35 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/07 16:57:47 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 // signe a une influence sur width(la longueur) mais pas sur precision
 // si precision > length -> nb zeros a ecrire = precision - length (- 1 si signe ou si flag espace existe)
 // si width > precision -> nb d'espaces a ecrire = width - (precision > length ? precision ; length)  -- signe et flag espace ne changent pas ce nombre(ne lui enleve pas un charactere, un 0, a afficher). il faut donc les rajouter en plus
+
+void write_char(char c, int i)
+{
+	int count;
+
+	count = i;
+	while (count-- > 0)
+		write(1, &c, 1);
+}
 
 void minus_flag(t_lst *list, t_one *one)
 {
@@ -101,7 +110,9 @@ void	displaying(t_lst *list, va_list ap)
 	if ((elem = (t_one*)malloc(sizeof(t_one))) == NULL)
 		error_displayed(error);
 	ft_bzero(elem, (sizeof(t_one)));
-	if (list->type == INT || list->type == ARG_STR)
+	if (list->type == INT)
 		display_int(list, ap, elem);
+	if (list->type == ARG_STR)
+		display_str(list, ap, elem);
 	free(elem);
 }
