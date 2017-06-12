@@ -44,3 +44,22 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 		list->nb = (list->width > one->len ? list->width : one->len);
 	}
 }
+
+void display_char(t_lst *list, va_list ap)
+{
+	char c;
+	char fill;
+
+	c = va_arg(ap, int);
+	fill = (list->flag == '0' ? '0' : ' ');
+	if (list->flag != '#')
+	{
+		if (list->len && list->flag != '-')
+			write_char(fill, list->len - 1);
+		ft_putchar(c);
+		if (list->len && list->flag == '-')
+			write_char(fill, list->len - 1);
+	}
+	else
+		return ;
+}

@@ -115,7 +115,7 @@ void	displaying(t_lst *list, va_list ap)
 		if (list->spe != 'c')
 			display_int(list, ap, elem);
 		else
-			ft_putchar(va_arg(ap, int));
+			display_char(list, ap);
 	}
 	if (list->type == ARG_STR)
 		display_str(list, ap, elem);
