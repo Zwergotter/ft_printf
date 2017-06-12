@@ -111,7 +111,12 @@ void	displaying(t_lst *list, va_list ap)
 		error_displayed(error);
 	ft_bzero(elem, (sizeof(t_one)));
 	if (list->type == INT)
-		display_int(list, ap, elem);
+	{
+		if (list->spe != 'c')
+			display_int(list, ap, elem);
+		else
+			ft_putchar(va_arg(ap, int));
+	}
 	if (list->type == ARG_STR)
 		display_str(list, ap, elem);
 	free(elem);
