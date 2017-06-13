@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/07 17:04:03 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:26:53 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void display_char(t_lst *list, va_list ap)
 	fill = (list->flag == '0' ? '0' : ' ');
 	if (list->flag != '#')
 	{
-		if (list->len && list->flag != '-')
-			write_char(fill, list->len - 1);
+		if (list->width && list->flag != '-')
+			write_char(fill, list->width - 1);
 		ft_putchar(c);
-		if (list->len && list->flag == '-')
-			write_char(fill, list->len - 1);
+		if (list->width && list->flag == '-')
+			write_char(fill, list->width - 1);
 	}
 	else
 		return ;
