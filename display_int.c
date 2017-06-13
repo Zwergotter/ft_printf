@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/13 16:41:24 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:07:55 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void other_flags(t_lst *list, t_one *one)
 
 void	display_int(t_lst *list, va_list ap, t_one *one)
 {
-	one->str = (list->type == INT ? ft_itoa(va_arg(ap, int)) : ft_strdup(va_arg(ap, char*)));
+	one->str = ft_itoa(va_arg(ap, int));
 	one->len = ft_strlen(one->str);
 	if (list->type == INT)
 		one->sign = (one->str[0] == '-' ? '-' : '+');
