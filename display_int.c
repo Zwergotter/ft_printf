@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/13 19:07:55 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/13 19:19:32 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void other_flags(t_lst *list, t_one *one)
 ** peut etre plus malin de faire une fonction avec les differents ajouts a la string initiale et ensuite de prendre le nombre de char pour le list->nb
 */
 
-void	display_int(t_lst *list, va_list ap, t_one *one)
+void	display_number(t_lst *list, va_list ap, t_one *one)
 {
 	one->str = ft_itoa(va_arg(ap, int));
 	one->len = ft_strlen(one->str);
