@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/07 16:58:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/13 16:40:19 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ int 	everything_at_once(char c, t_lst *elem);
 void	check_elem(t_lst **first);
 void	error_displayed(t_error error);
 void	what_type(t_lst *elem);
-void	displaying(t_lst *list, va_list ap);
-
-void	display_str(t_lst *list, va_list ap, t_one *one);
 
 void	write_char(char c, int i);
+void	displaying(t_lst *list, va_list ap);
+
+void	display_int(t_lst *list, va_list ap, t_one *one);
+
+void	display_str(t_lst *list, va_list ap, t_one *one);
+void 	display_char(t_lst *list, va_list ap);
 
 #endif
