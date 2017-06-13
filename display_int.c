@@ -71,10 +71,9 @@ void	display_int(t_lst *list, va_list ap, t_one *one)
 {
 	one->str = ft_itoa(va_arg(ap, int));
 	one->len = ft_strlen(one->str);
-	if (list->type == INT)
-		one->sign = (one->str[0] == '-' ? '-' : '+');
+	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) : one->str);
-	if (list->type == INT && list->i_pre && list->i_pre > one->len) // quelle est l'influence de la precision sur les autres types (est ce quíl y a une influence par ex avec one->string??)
+	if (list->i_pre && list->i_pre > one->len) // quelle est l'influence de la precision sur les autres types (est ce quíl y a une influence par ex avec one->string??)
 		one->diff_pre = list->i_pre - one->len;
 	if (list->width > list->i_pre && list->width > one->len)
 		one->diff_width = list->width - (one->diff_pre + one->len)  - (one->str[0] == '-' || list->flag == ' ' || list->flag == '+' ? 1 : 0);
