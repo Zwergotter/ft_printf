@@ -22,7 +22,7 @@ SRC = test.c\
 	error.c\
 	type.c\
 	displaying.c\
-	display_int.c\
+	display_num.c\
 	display_str.c\
 	verifications.c\
 
