@@ -12,59 +12,8 @@
 
 #include "ft_printf.h"
 
-char		*unsigned_long_itoa(unsigned long long n)
-{
-	size_t		len;
-	int 		i;
-	char		*new;
-
-	len = ft_countdigits(n);
-	i = 0;
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	if (n == 0)
-		return (ft_strdup("0"));
-	new[len] = '\0';
-	while (n > 9)
-	{
-		new[--len] = ((n % 10) + '0');
-		n = n / 10;
-	}
-	new[i] = (n + '0');
-	return (new);
-}
-
-char		*long_itoa(intmax_t n)
-{
-	size_t		len;
-	int			i;
-	char		*new;
-
-	len = ft_countdigits(n);
-	i = 0;
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	
-	if (n == 0 || n == ~0LL)
-		return (n == 0 ? ft_strdup("0") : ft_strdup("-9223372036854775808"));
-	if (n < 0)
-	{
-		n = -n;
-		new[i++] = '-';
-	}
-	new[len] = '\0';
-	while (n > 9)
-	{
-		new[--len] = ((n % 10) + '0');
-		n = n / 10;
-	}
-	new[i] = (n + '0');
-	return (new);
-}
-
 void minus_flag(t_lst *list, t_one *one)
 {
-	// if (list->type == INT && one->sign == '-')
 	if (one->sign == '-')
 	{
 		write(1, &one->sign, 1);
@@ -100,7 +49,6 @@ void other_flags(t_lst *list, t_one *one)
 		write(1, &one->c,  1);
 		list->nb += 1;
 	}
-	// if (list->type == INT && (list->flag == '+'|| one->sign == '-'))
 	if (list->flag == '+'|| one->sign == '-')
 	{
 		write(1, &one->sign, 1);
@@ -115,7 +63,7 @@ void other_flags(t_lst *list, t_one *one)
 	ft_putstr(one->new);
 }
 
-void 	what_kind(t_lst *list, va_list ap, t_one *one)
+void 	type_int(t_lst *list, va_list ap, t_one *one)
 {
 	if (list->type == INT)
 		one->str = long_itoa((va_arg(ap, int)));
@@ -137,7 +85,7 @@ void 	what_kind(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	what_kind(list, ap, one);
+	type_int(list, ap, one);
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) : one->str);
