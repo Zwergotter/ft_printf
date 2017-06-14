@@ -57,16 +57,20 @@ void	test(char const *test, ...)
 
 int	main()
 {	
+	printf(RED"Hello word\n"RESET);
+	printf("%s\n", "test");
+	printf(MAG"#"CYN"%s"MAG"#\n"RESET, "Pretty");
+	printf("lol""123""456\n");
 	char const *str;
 	char const *str2;
 
-	str = "etc   -%5d-  -%+2.5d- -%08.d-  -%010s- -%-10s-\n";
+	str = "etc   -%5d-  -%+2.5d- -%08.d-  -%s- -\%-10s- -%c- -%hd-\n";
 	str2 = "end is .%4s. and start is .%4s.";
 	printf("Real printf gives:\n");
-	printf(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test");
+	printf(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test", 'c', 4);
 	printf("\n\n-------------------------------------------------------------\n\n");
 	printf("Mine gives:\n");
-	test(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test");
+	test(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test", 'c', 4);
 	// test(str2, "end", "start");
 	return (0);
 }
