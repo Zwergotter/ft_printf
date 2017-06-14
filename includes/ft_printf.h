@@ -13,6 +13,37 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+
+#ifndef COLOR_H
+# define COLOR_H
+# ifndef RED
+#  define RED "\x1B[31m"
+# endif
+# ifndef GRN
+#  define GRN "\x1B[32m"
+# endif
+# ifndef YEL
+#  define YEL "\x1B[33m"
+# endif
+# ifndef BLU
+#  define BLU "\x1B[34m"
+# endif
+# ifndef MAG
+#  define MAG "\x1B[35m"
+# endif
+# ifndef CYN
+#  define CYN "\x1B[36m"
+# endif
+# ifndef WHT
+#  define WHT "\x1B[37m"
+# endif
+# ifndef PNK
+#  define PNK "\x1B[95m"
+# endif
+# ifndef RESET
+#  define RESET "\x1B[0m"
+# endif
+#endif
 # include <stdarg.h>
 
 /*
@@ -83,7 +114,7 @@ void	what_type(t_lst *elem);
 void	write_char(char c, int i);
 void	displaying(t_lst *list, va_list ap);
 
-void	display_int(t_lst *list, va_list ap, t_one *one);
+void	display_number(t_lst *list, va_list ap, t_one *one);
 
 void	display_str(t_lst *list, va_list ap, t_one *one);
 void 	display_char(t_lst *list, va_list ap);
