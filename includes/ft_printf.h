@@ -112,7 +112,7 @@ void	error_displayed(t_error error);
 void	what_type(t_lst *elem);
 
 void	write_char(char c, int i);
-char	*unsigned_long_itoa(unsigned long long n)
+char	*unsigned_long_itoa(unsigned long long n);
 char	*long_itoa(intmax_t n);
 void	displaying(t_lst *list, va_list ap);
 
