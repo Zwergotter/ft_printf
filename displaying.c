@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/14 17:18:50 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/14 17:37:06 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void	displaying(t_lst *list, va_list ap)
 	if ((elem = (t_one*)malloc(sizeof(t_one))) == NULL)
 		error_displayed(error);
 	ft_bzero(elem, (sizeof(t_one)));
-	if (list->type == INT || list->type == U_INT || list->type == SHORT_INT ||
-		list->type == USHORT_INT || list->type == LONG_INT || list->type == ULONG_INT
-		|| list->type == LLONG_INT || list->type == ULLONG_INT)
+	if (list->type == LONG_INT || list->type == U_INT || list->type == SHORT_INT
+		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
+		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT)
 	{
 		if (list->spe != 'c')
 			display_number(list, ap, elem);
