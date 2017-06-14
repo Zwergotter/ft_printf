@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/13 19:26:53 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/14 17:33:26 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 	one->str = ft_strdup(va_arg(ap, char*));
 	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre - 1) : one->str);
 	one->len = ft_strlen(one->new);
-	one->diff_width = list->width - (one->len > list->i_pre ? one->len : list->i_pre);
+	one->dif_width = list->width - (one->len > list->i_pre ? one->len : list->i_pre);
 	if (list->pre && !list->i_pre)
 	{
 		if (list->width)
@@ -26,16 +26,16 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 	}
 	else
 	{
-		if (one->diff_width > 0)
+		if (one->dif_width > 0)
 		{
 			if (list->flag == '-')
 			{
 				ft_putstr(one->new);
-				write_char(' ', one->diff_width);
+				write_char(' ', one->dif_width);
 			}
 			else
 			{
-				(list->flag == '0' ? write_char('0', one->diff_width) : write_char(' ', one->diff_width));
+				(list->flag == '0' ? write_char('0', one->dif_width) : write_char(' ', one->dif_width));
 				ft_putstr(one->new);
 			}
 		}

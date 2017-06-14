@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/13 16:40:19 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/14 17:33:17 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ typedef struct		s_one
 	char 			sign;
 	char 			*new;
 	char 			c;
-	int 			diff_pre;
-	int 			diff_width;
+	int 			dif_pre;
+	int 			dif_width;
 }					t_one;
 
 t_lst	*parsing(char const *str);
