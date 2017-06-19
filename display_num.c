@@ -68,7 +68,8 @@ void 	type_number(t_lst *list, va_list ap, t_one *one)
 	if (list->type == INT)
 		one->str = long_itoa((va_arg(ap, int)));
 	if (list->type == U_INT)
-		one->str = long_itoa((va_arg(ap, unsigned int)));
+		one->str = (list->spe == 'x' ? ft_itoa_base((va_arg(ap, unsigned int)), 
+			16) : long_itoa((va_arg(ap, unsigned int))));
 	if (list->type == SHORT_INT)
 		one->str = long_itoa((short)(va_arg(ap, int)));
 	if (list->type == USHORT_INT)

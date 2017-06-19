@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_itoa_base(uintmax_t number, int base, char neg)
+char	*ft_itoa_base(uintmax_t number, int base)
 {
 	int			i;
 	uintmax_t	save;
@@ -26,13 +26,13 @@ char	*ft_itoa_base(uintmax_t number, int base, char neg)
 	while (number > 0 && ++i)
 		number = number / base;
 	str = "0123456789ABCDEF";
-	if (!(result = malloc(i + neg + 1)))
+	if (!(result = malloc(i + 1)))
 		exit (0);
-	result[i + neg] = '\0';
+	result[i] = '\0';
 	result[0] = '-';
-	while (i + neg && i--)
+	while (i && i--)
 	{
-		result[i + neg] = str[save % base];
+		result[i] = str[save % base];
 		save = save / base;
 	}
 	return (result); 
