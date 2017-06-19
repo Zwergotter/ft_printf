@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/14 17:33:26 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/19 17:01:35 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 	}
 }
 
-void display_char(t_lst *list, va_list ap)
+void display_char(t_lst *list, char c)
 {
-	char c;
 	char fill;
 
-	c = va_arg(ap, int);
 	fill = (list->flag == '0' ? '0' : ' ');
 	if (list->flag != '#')
 	{
