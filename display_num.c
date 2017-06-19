@@ -79,6 +79,12 @@ void 	type_int(t_lst *list, va_list ap, t_one *one)
 		one->str = long_itoa((va_arg(ap, unsigned long)));
 	if (list->type == LLONG_INT)
 		one->str = long_itoa(va_arg(ap, long long));
+	if (list->type == SIZE_T)
+		one->str = long_itoa(va_arg(ap, size_t));
+	if (list->type == INT_MAXT)
+		one->str = long_itoa(va_arg(ap, intmax_t));
+	if (list->type == UINT_MAXT)
+		one->str = long_itoa(va_arg(ap, uintmax_t));
 	if (list->type == ULLONG_INT)
 		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
 }

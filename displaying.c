@@ -88,7 +88,9 @@ void	displaying(t_lst *list, va_list ap)
 	ft_bzero(elem, (sizeof(t_one)));
 	if (list->type == LONG_INT || list->type == U_INT || list->type == SHORT_INT
 		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
-		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT)
+		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT
+		|| list->type == SIZE_T || list->type == INT_MAXT ||
+		list->type == UINT_MAXT)
 	{
 		if (list->spe != 'c')
 			display_number(list, ap, elem);
