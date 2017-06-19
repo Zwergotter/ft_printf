@@ -5,16 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/19 13:43:18 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 13:43:21 by edeveze          ###   ########.fr       */
+/*   Created: 2017/06/19 14:01:50 by edeveze           #+#    #+#             */
+/*   Updated: 2017/06/19 14:01:53 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_base(int nb, int base)
+char	*ft_itoa_base(uintmax_t number, int base, char neg)
 {
-	char *str;
+	int			i;
+	uintmax_t	save;
+	char		*str;
+	char		*result;
 
-	return(str); 
+	i = 0;
+	if (number == 0)
+		i++;
+	save = number;
+	while (number > 0 && ++i)
+		number = number / base;
+	str = "0123456789ABCDEF";
+	if (!(result = malloc(i + neg + 1)))
+		exit (0);
+	result[i + neg] = '\0';
+	result[0] = '-';
+	while (i + neg && i--)
+	{
+		result[i + neg] = str[save % base];
+		save = save / base;
+	}
+	return (result); 
 }
