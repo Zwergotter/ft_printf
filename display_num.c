@@ -63,36 +63,76 @@ void other_flags(t_lst *list, t_one *one)
 	ft_putstr(one->new);
 }
 
-void 	type_number(t_lst *list, va_list ap, t_one *one)
+void 	type_hex_oct(t_lst *list, va_list ap, t_one *one)
+{	
+	int base;
+
+	base = 10;
+	if (list->spe == 'u')
+	{
+		if (list->type == U_INT)
+			one->str = long_itoa((va_arg(ap, unsigned int)));
+		if (list->type == USHORT_INT)
+			one->str = long_itoa((unsigned short)(va_arg(ap, int)));
+		if (list->type == ULONG_INT)
+			one->str = long_itoa((va_arg(ap, unsigned long)));
+		if (list->type == SIZE_T)
+			one->str = long_itoa(va_arg(ap, size_t));
+		if (list->type == UINT_MAXT)
+			one->str = long_itoa(va_arg(ap, uintmax_t));
+		if (list->type == ULLONG_INT)
+			one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
+	}
+	else
+	{
+		base = (list->spe == 'o' ? 8 : 16);
+		if (list->type == U_INT)
+			one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base);
+		if (list->type == USHORT_INT)
+			one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base);
+		if (list->type == ULONG_INT)
+			one->str = ft_itoa_base((va_arg(ap, unsigned long)), base);
+		if (list->type == SIZE_T)
+			one->str = ft_itoa_base(va_arg(ap, size_t), base);
+		if (list->type == UINT_MAXT)
+			one->str = ft_itoa_base(va_arg(ap, uintmax_t), base);
+		if (list->type == ULLONG_INT)
+			one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
+		// if (list->type == USHORT_INT)
+		// 	one->str = long_itoa((unsigned short)(va_arg(ap, int)));
+		// if (list->type == ULONG_INT)
+		// 	one->str = long_itoa((va_arg(ap, unsigned long)));
+		// if (list->type == SIZE_T)
+		// 	one->str = long_itoa(va_arg(ap, size_t));
+		// if (list->type == UINT_MAXT)
+		// 	one->str = long_itoa(va_arg(ap, uintmax_t));
+		// if (list->type == ULLONG_INT)
+		// 	one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
+	}
+}
+
+void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 {
 	if (list->type == INT)
 		one->str = long_itoa((va_arg(ap, int)));
-	if (list->type == U_INT)
-		one->str = (list->spe == 'x' ? ft_itoa_base((va_arg(ap, unsigned int)), 
-			16) : long_itoa((va_arg(ap, unsigned int))));
 	if (list->type == SHORT_INT)
 		one->str = long_itoa((short)(va_arg(ap, int)));
-	if (list->type == USHORT_INT)
-		one->str = long_itoa((unsigned short)(va_arg(ap, int)));
 	if (list->type == LONG_INT)
 		one->str = long_itoa((va_arg(ap, long)));
-	if (list->type == ULONG_INT)
-		one->str = long_itoa((va_arg(ap, unsigned long)));
 	if (list->type == LLONG_INT)
 		one->str = long_itoa(va_arg(ap, long long));
 	if (list->type == SIZE_T)
 		one->str = long_itoa(va_arg(ap, size_t));
 	if (list->type == INT_MAXT)
 		one->str = long_itoa(va_arg(ap, intmax_t));
-	if (list->type == UINT_MAXT)
-		one->str = long_itoa(va_arg(ap, uintmax_t));
 	if (list->type == ULLONG_INT)
 		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
 }
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	type_number(list, ap, one);
+	(list->spe == 'd' || list->spe == 'i' ? type_decimal(list, ap, one) :
+		type_hex_oct(list, ap, one));
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
