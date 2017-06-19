@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/09 17:44:21 by edeveze           #+#    #+#              #
-#    Updated: 2017/01/25 15:22:21 by edeveze          ###   ########.fr        #
+#    Updated: 2017/06/19 13:43:31 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC =		ft_atoi.c \
 			ft_isprint.c \
 			ft_iswhitespaces.c \
 			ft_itoa.c \
+			ft_itoa_base.c \
 			ft_lstadd.c \
 			ft_lstaddlast.c \
 			ft_lstdel.c \
