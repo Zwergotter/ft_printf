@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 13:55:44 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/19 15:22:44 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,47 +68,20 @@ void 	type_hex_oct(t_lst *list, va_list ap, t_one *one)
 	int base;
 
 	base = 10;
-	if (list->spe == 'u')
-	{
-		if (list->type == U_INT)
-			one->str = long_itoa((va_arg(ap, unsigned int)));
-		if (list->type == USHORT_INT)
-			one->str = long_itoa((unsigned short)(va_arg(ap, int)));
-		if (list->type == ULONG_INT)
-			one->str = long_itoa((va_arg(ap, unsigned long)));
-		if (list->type == SIZE_T)
-			one->str = long_itoa(va_arg(ap, size_t));
-		if (list->type == UINT_MAXT)
-			one->str = long_itoa(va_arg(ap, uintmax_t));
-		if (list->type == ULLONG_INT)
-			one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
-	}
-	else
-	{
+	if (list->spe != 'u')
 		base = (list->spe == 'o' ? 8 : 16);
-		if (list->type == U_INT)
-			one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base);
-		if (list->type == USHORT_INT)
-			one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base);
-		if (list->type == ULONG_INT)
-			one->str = ft_itoa_base((va_arg(ap, unsigned long)), base);
-		if (list->type == SIZE_T)
-			one->str = ft_itoa_base(va_arg(ap, size_t), base);
-		if (list->type == UINT_MAXT)
-			one->str = ft_itoa_base(va_arg(ap, uintmax_t), base);
-		if (list->type == ULLONG_INT)
-			one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
-		// if (list->type == USHORT_INT)
-		// 	one->str = long_itoa((unsigned short)(va_arg(ap, int)));
-		// if (list->type == ULONG_INT)
-		// 	one->str = long_itoa((va_arg(ap, unsigned long)));
-		// if (list->type == SIZE_T)
-		// 	one->str = long_itoa(va_arg(ap, size_t));
-		// if (list->type == UINT_MAXT)
-		// 	one->str = long_itoa(va_arg(ap, uintmax_t));
-		// if (list->type == ULLONG_INT)
-		// 	one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
-	}
+	if (list->type == U_INT)
+		one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base);
+	if (list->type == USHORT_INT)
+		one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base);
+	if (list->type == ULONG_INT)
+		one->str = ft_itoa_base((va_arg(ap, unsigned long)), base);
+	if (list->type == SIZE_T)
+		one->str = ft_itoa_base(va_arg(ap, size_t), base);
+	if (list->type == UINT_MAXT)
+		one->str = ft_itoa_base(va_arg(ap, uintmax_t), base);
+	if (list->type == ULLONG_INT)
+		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
 }
 
 void 	type_decimal(t_lst *list, va_list ap, t_one *one)
