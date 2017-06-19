@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/14 17:32:46 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/19 13:55:44 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void other_flags(t_lst *list, t_one *one)
 	ft_putstr(one->new);
 }
 
-void 	type_int(t_lst *list, va_list ap, t_one *one)
+void 	type_number(t_lst *list, va_list ap, t_one *one)
 {
 	if (list->type == INT)
 		one->str = long_itoa((va_arg(ap, int)));
@@ -91,7 +91,7 @@ void 	type_int(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	type_int(list, ap, one);
+	type_number(list, ap, one);
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
