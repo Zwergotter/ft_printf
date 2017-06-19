@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 15:22:44 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/19 16:43:31 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ void other_flags(t_lst *list, t_one *one)
 	ft_putstr(one->new);
 }
 
-void 	type_hex_oct(t_lst *list, va_list ap, t_one *one)
+void 	type_other(t_lst *list, va_list ap, t_one *one)
 {	
 	int base;
 
 	base = 10;
 	if (list->spe != 'u')
 		base = (list->spe == 'o' ? 8 : 16);
-	if (list->type == U_INT)
+	if (list->type == U_INT || list->type == U_CHAR)
 		one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base);
 	if (list->type == USHORT_INT)
 		one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base);
@@ -86,7 +86,7 @@ void 	type_hex_oct(t_lst *list, va_list ap, t_one *one)
 
 void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 {
-	if (list->type == INT)
+	if (list->type == INT || list->type == CHAR)
 		one->str = long_itoa((va_arg(ap, int)));
 	if (list->type == SHORT_INT)
 		one->str = long_itoa((short)(va_arg(ap, int)));
@@ -105,7 +105,7 @@ void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
 	(list->spe == 'd' || list->spe == 'i' ? type_decimal(list, ap, one) :
-		type_hex_oct(list, ap, one));
+		type_other(list, ap, one));
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :

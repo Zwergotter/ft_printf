@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 13:55:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/19 16:43:43 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	displaying(t_lst *list, va_list ap)
 		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
 		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT
 		|| list->type == SIZE_T || list->type == INT_MAXT ||
-		list->type == UINT_MAXT)
+		list->type == UINT_MAXT || list->type == CHAR || list->type == U_CHAR)
 	{
 		if (list->spe != 'c')
 			display_number(list, ap, elem);
