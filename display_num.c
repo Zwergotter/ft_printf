@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 16:43:31 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/20 22:37:04 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void other_flags(t_lst *list, t_one *one)
 	ft_putstr(one->new);
 }
 
+
+/*
+** Ajout du 0x pour adresse ainsi que pour # a rajouter quand on bufferisera
+*/
+
 void 	type_other(t_lst *list, va_list ap, t_one *one)
 {	
 	int base;
@@ -78,7 +83,7 @@ void 	type_other(t_lst *list, va_list ap, t_one *one)
 		one->str = ft_itoa_base((va_arg(ap, unsigned long)), base);
 	if (list->type == SIZE_T)
 		one->str = ft_itoa_base(va_arg(ap, size_t), base);
-	if (list->type == UINT_MAXT)
+	if (list->type == UINT_MAXT || list->type == VOID)
 		one->str = ft_itoa_base(va_arg(ap, uintmax_t), base);
 	if (list->type == ULLONG_INT)
 		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
