@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 17:01:23 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/20 22:11:46 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,10 @@ char		*long_itoa(intmax_t n)
 
 	len = ft_countdigits(n);
 	i = 0;
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	
 	if (n == 0 || n == ~0LL)
 		return (n == 0 ? ft_strdup("0") : ft_strdup("-9223372036854775808"));
+	if (!(new = ft_strnew(len)))
+		return (NULL);
 	if (n < 0)
 	{
 		n = -n;
@@ -101,5 +100,7 @@ void	displaying(t_lst *list, va_list ap)
 		display_str(list, ap, elem);
 	if (list->type == PERCENT)
 		display_char(list, '%');
+	if (list->type == VOID)
+		ft_putstr(ft_itoa_base(va_arg(ap, uintmax_t), 16));
 	free(elem);
 }
