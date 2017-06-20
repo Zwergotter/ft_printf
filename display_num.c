@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/20 22:37:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/20 23:59:27 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void minus_flag(t_lst *list, t_one *one)
 
 void other_flags(t_lst *list, t_one *one)
 {
-	if ((list->flag == ' ' && list->type == ARG_STR) || (list->flag == ' ' &&
-		one->str[0] != '-' && (list->pre == '.' || list->width < one->len)))
+	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
+		list->width < one->len)))
 	{
 		write(1, " ", 1);
 		list->nb += 1;
 	}
+	if ((one->hash || list->spe == 'o') && one->new[0] != '0')
+		list->spe == 'o' ? write(1, "0", 1) : ft_putstr(one->hash);
 	while (one->dif_width-- > 0)
 	{
 		write(1, &one->c,  1);
@@ -66,6 +68,8 @@ void other_flags(t_lst *list, t_one *one)
 
 /*
 ** Ajout du 0x pour adresse ainsi que pour # a rajouter quand on bufferisera
+** plus de travail aussi quant a la maniere de faire gerer les flags comme 0 avec
+** adresse ou bien la longueur et la precision
 */
 
 void 	type_other(t_lst *list, va_list ap, t_one *one)
@@ -109,6 +113,8 @@ void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
+	if (((list->spe == 'x' || list->spe == 'X') && list->flag == '#') || list->spe == 'p')
+		one->hash = (list->spe == 'X' ? "0X" : "0x");
 	(list->spe == 'd' || list->spe == 'i' ? type_decimal(list, ap, one) :
 		type_other(list, ap, one));
 	one->len = ft_strlen(one->str);
