@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 14:01:53 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/21 00:02:30 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_itoa_base(uintmax_t number, int base)
 	save = number;
 	while (number > 0 && ++i)
 		number = number / base;
-	str = "0123456789ABCDEF";
+	str = "0123456789abcdef";
 	if (!(result = malloc(i + 1)))
 		exit (0);
 	result[i] = '\0';
