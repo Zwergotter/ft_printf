@@ -6,11 +6,23 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/20 22:37:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/20 22:45:56 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	is_numeric(t_lst *list)
+{
+	if (list->type == LONG_INT || list->type == U_INT || list->type == SHORT_INT
+		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
+		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT
+		|| list->type == SIZE_T || list->type == INT_MAXT ||
+		list->type == UINT_MAXT || list->type == CHAR || list->type == U_CHAR ||
+		list->type == VOID)
+		return (1);
+	return (0);
+}
 
 /*
 ** Will write a character i times.
@@ -85,12 +97,7 @@ void	displaying(t_lst *list, va_list ap)
 	if ((elem = (t_one*)malloc(sizeof(t_one))) == NULL)
 		error_displayed(error);
 	ft_bzero(elem, (sizeof(t_one)));
-	if (list->type == LONG_INT || list->type == U_INT || list->type == SHORT_INT
-		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
-		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT
-		|| list->type == SIZE_T || list->type == INT_MAXT ||
-		list->type == UINT_MAXT || list->type == CHAR || list->type == U_CHAR ||
-		list->type == VOID)
+	if (is_numeric(list))
 	{
 		if (list->spe != 'c')
 			display_number(list, ap, elem);
