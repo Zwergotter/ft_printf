@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 17:01:16 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/21 00:08:59 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct		s_one
 	int				len;
 	char 			sign;
 	char 			*new;
+	char 			*hash;
 	char 			c;
 	int 			dif_pre;
 	int 			dif_width;
