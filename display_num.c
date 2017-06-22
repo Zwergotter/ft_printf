@@ -6,11 +6,12 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/20 23:59:27 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/22 17:30:02 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 void minus_flag(t_lst *list, t_one *one)
 {
@@ -35,6 +36,7 @@ void minus_flag(t_lst *list, t_one *one)
 		list->nb += 1;
 	}
 }
+// dans fonction a faire qui reprendra tout, changer les lettres low to up si besoin et mettre ca dans buf
 
 void other_flags(t_lst *list, t_one *one)
 {
@@ -44,8 +46,6 @@ void other_flags(t_lst *list, t_one *one)
 		write(1, " ", 1);
 		list->nb += 1;
 	}
-	if ((one->hash || list->spe == 'o') && one->new[0] != '0')
-		list->spe == 'o' ? write(1, "0", 1) : ft_putstr(one->hash);
 	while (one->dif_width-- > 0)
 	{
 		write(1, &one->c,  1);
@@ -57,6 +57,8 @@ void other_flags(t_lst *list, t_one *one)
 		list->nb += 1;
 		one->dif_width--;
 	}
+	if (one->hash && one->new[0] != '0')
+		ft_putstr(one->hash);
 	while (one->dif_pre-- > 0)
 	{
 		write(1, "0",  1);
@@ -113,19 +115,20 @@ void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	if (((list->spe == 'x' || list->spe == 'X') && list->flag == '#') || list->spe == 'p')
-		one->hash = (list->spe == 'X' ? "0X" : "0x");
+	if (((list->spe == 'x' || list->spe == 'X' || list->spe == 'o') && list->flag == '#') || list->spe == 'p') 
+		one->hash = (list->spe == 'o' ? "0" : "0x");
 	(list->spe == 'd' || list->spe == 'i' ? type_decimal(list, ap, one) :
 		type_other(list, ap, one));
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);
-	if (list->i_pre && list->i_pre > one->len) // quelle est l'influence de la precision sur les autres types (est ce quíl y a une influence par ex avec one->string??)
+	if (list->i_pre && list->i_pre > one->len)
 		one->dif_pre = list->i_pre - one->len;
 	if (list->width > list->i_pre && list->width > one->len)
 		one->dif_width = list->width - (one->dif_pre + one->len)  - (one->str[0]
-				== '-' || list->flag == ' ' || list->flag == '+' ? 1 : 0);
+				== '-' || list->flag == ' ' || list->flag == '+' ? 1 : 0) - ft_strlen(one->hash);
+	// printf("diff width is %d\n", one->dif_width);
 	one->c = (list->flag == '0' && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
 		minus_flag(list, one);
