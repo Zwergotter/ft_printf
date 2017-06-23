@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/19 17:01:35 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/23 22:55:08 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 	}
 }
 
-void display_char(t_lst *list, char c)
+void display_char(t_lst *list, int nb)
 {
 	char fill;
 
@@ -54,7 +54,7 @@ void display_char(t_lst *list, char c)
 	{
 		if (list->width && list->flag != '-')
 			write_char(fill, list->width - 1);
-		ft_putchar(c);
+		ft_putchar(nb);//ecrire soit le charactere normal soit les octets donnes par display_wchar
 		if (list->width && list->flag == '-')
 			write_char(fill, list->width - 1);
 	}

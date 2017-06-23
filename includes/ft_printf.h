@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:29:24 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/23 22:55:31 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	displaying(t_lst *list, va_list ap);
 void	display_number(t_lst *list, va_list ap, t_one *one);
 
 void	display_str(t_lst *list, va_list ap, t_one *one);
-void	display_char(t_lst *list, char c);
+void	display_char(t_lst *list, int nb);
 void 	display_wchar(t_lst *list, va_list ap);
 
 #endif
