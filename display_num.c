@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/22 17:30:02 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/23 22:30:10 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	if (list->width > list->i_pre && list->width > one->len)
 		one->dif_width = list->width - (one->dif_pre + one->len)  - (one->str[0]
 				== '-' || list->flag == ' ' || list->flag == '+' ? 1 : 0) - ft_strlen(one->hash);
-	// printf("diff width is %d\n", one->dif_width);
 	one->c = (list->flag == '0' && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
 		minus_flag(list, one);
