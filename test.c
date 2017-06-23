@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
+#include <locale.h>
 
 /*
 ** Attention a l'unicode
@@ -61,16 +62,20 @@ int	main()
 	printf("%s\n", "test");
 	printf(MAG"#"CYN"%s"MAG"#\n"RESET, "Pretty");
 	printf("lol""123""456\n");
+	int *b;
 	char const *str;
 	char const *str2;
+	char* l = setlocale(LC_ALL, "");
 
-	str = "etc   -%5d-  -%+2.5d- -%08.d-  -%s- -\%-10s- -%c- -%hd-\n";
+	if (l == NULL)
+		printf("l est nul\n");
+	str = "etc   -%#5X-  -%+2.5d- -%08d-  -%S- -%-10s- -%c- -%hd- -%04%- -%p-\n";
 	str2 = "end is .%4s. and start is .%4s.";
 	printf("Real printf gives:\n");
-	printf(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test", 'c', 4);
+	printf(str, 128, 248, 127, L"✈", "mwar test", 'c', 4, &b);
 	printf("\n\n-------------------------------------------------------------\n\n");
 	printf("Mine gives:\n");
-	test(str, 12, 248, 127, "t††®®ßßåç∫πestøΩ", "mwar test", 'c', 4);
+	test(str, 128, 248, 127, L"✈", "mwar test", 'c', 4, &b);
 	// test(str2, "end", "start");
 	return (0);
 }
