@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:56:09 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/23 23:15:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,32 @@ char *convert_binary(unsigned long int nb)
 	return (ret);
 }
 
-void display_wchar(t_lst *list, va_list ap)
+void unicode_masks(char *bin, int len)
+{
+	char *tab[3];
+	char *tmp;
+
+	tab[0] = "0xxxxxxx";
+	tab[1] = "110xxxxx10xxxxxx";
+	tab[2] = "1110xxxx10xxxxxx10xxxxxx";
+	tab[3] = "11110xxx10xxxxxx10xxxxxx10xxxxxx";
+}
+
+//pour flags 0 et autres, sans doute a faire avec display_char avant et apres
+
+void display_wchar(va_list ap)
 {
 	unsigned long int nb;
 	char *bin;
 	int len;
-	char fill;
 
 	printf(RED"IN DISPLAY WCHAR\n"RESET);
 	nb = va_arg(ap, wchar_t);
 	bin = convert_binary(nb);
 	len = ft_strlen(bin);
-	fill = (list->flag == '0' ? '0' : ' ');
-	if (list->flag != '#')
-	{
-		if (list->width && list->flag != '-')
-			write_char(fill, list->width - 1);
-		if (list->width && list->flag == '-')
-			write_char(fill, list->width - 1);
-	}
-	printf("wchar_t value is %lu and binary value is %s\n", nb, bin);
+	if (len <= 7)
+		write(1, &nb, 1);
+	else
+		unicode_masks(bin, len);
+	printf("wchar_t value is %lu binary value is %s and length is %d\n", nb, bin, len);
 }
