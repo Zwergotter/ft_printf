@@ -69,13 +69,13 @@ int	main()
 
 	if (l == NULL)
 		printf("l est nul\n");
-	str = "etc   -%#5X-  -%+2.5d- -%08d-  -%S- -%-10s- -%c- -%hd- -%04%- -%p-\n";
+	str = "etc   -%#5X-  -%+2.5d- -%08d-  -%C- -%-10s- -%c- -%hd- -%04%- -%p-\n";
 	str2 = "end is .%4s. and start is .%4s.";
 	printf("Real printf gives:\n");
-	printf(str, 128, 248, 127, L"✈", "mwar test", 'c', 4, &b);
+	printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
 	printf("\n\n-------------------------------------------------------------\n\n");
 	printf("Mine gives:\n");
-	test(str, 128, 248, 127, L"✈", "mwar test", 'c', 4, &b);
+	test(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
 	// test(str2, "end", "start");
 	return (0);
 }

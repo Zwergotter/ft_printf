@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/21 00:08:59 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/23 22:29:24 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef	enum		e_error
 
 typedef enum		e_type
 {
-	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WIN_T, VOID, CHAR, U_CHAR,
+	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WCHAR_TSTR, WIN_T, VOID, CHAR, U_CHAR,
 	SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT, ULLONG_INT,
 	INT_MAXT, UINT_MAXT, SIZE_T, PERCENT
 }					t_type;
@@ -121,5 +121,6 @@ void	display_number(t_lst *list, va_list ap, t_one *one);
 
 void	display_str(t_lst *list, va_list ap, t_one *one);
 void	display_char(t_lst *list, char c);
+void 	display_wchar(t_lst *list, va_list ap);
 
 #endif

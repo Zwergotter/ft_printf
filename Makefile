@@ -24,6 +24,7 @@ SRC = test.c\
 	displaying.c\
 	display_num.c\
 	display_str.c\
+	display_w.c\
 	verifications.c\
 
 # Objects
