@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 17:44:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/05/13 17:44:26 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/23 22:01:55 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	what_type(t_lst *elem)
 {
 	if (elem->spe == '%')
 		elem->type = PERCENT;
-	if (elem->spe == 's' || elem->spe == 'S')
+	if (elem->spe == 's' || elem->spe == 'S' || elem->spe == 'C')
 	{
 		if (ft_strcmp(elem->length, "l"))
 			elem->type = ARG_STR;
 		else
-			elem->type = WCHAR_T;
+			elem->type = (elem->spe == 'C' ? WCHAR_T : WCHAR_TSTR);
 	}
-	if (elem->spe == 'c' || elem->spe == 'C')
+	if (elem->spe == 'c')
 	{
 		if (ft_strcmp(elem->length, "l"))
 			elem->type = INT;
