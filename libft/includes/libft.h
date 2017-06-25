@@ -92,5 +92,6 @@ size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *str);
 int					get_next_line(const int fd, char **line);
 char				*ft_itoa_base(uintmax_t number, int base);
+int					ft_atoi_base(char *str, int base);
 
 #endif

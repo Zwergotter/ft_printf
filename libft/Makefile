@@ -21,6 +21,7 @@ INC = includes
 # Files
 
 SRC =		ft_atoi.c \
+			ft_atoi_base.c \
 			ft_bzero.c \
 			ft_countdigits.c \
 			ft_isalnum.c \
