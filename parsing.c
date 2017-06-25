@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/05 16:32:08 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/25 17:44:51 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ void	addlast(t_lst **begin, t_lst *new)
 t_lst	*string(char const *str, int start, int end)
 {
 	t_lst	*elem;
-	t_error	error;
 	int		len;
 
-	error = MALLOC;
 	len = end - start;
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(error);
+		error_displayed(MALLOC);
 	ft_bzero(elem, (sizeof(t_lst)));
 	elem->type = STR;
 	elem->arg = ft_strsub(str, start, len);
@@ -61,12 +59,10 @@ t_lst	*string(char const *str, int start, int end)
 t_lst	*percent(char const *str, int start, int end)
 {
 	t_lst	*elem;
-	t_error	error;
 	int		len;
 
-	error = MALLOC;
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(error);
+		error_displayed(MALLOC);
 	ft_bzero(elem, (sizeof(t_lst)));
 	if (is_specifier(str[end]))
 		end = end + 1;

@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:29:33 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/25 17:44:57 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,10 @@ char		*long_itoa(intmax_t n)
 
 void	displaying(t_lst *list, va_list ap)
 {
-	t_error	error;
 	t_one	*elem;
 
-	error = MALLOC;
 	if ((elem = (t_one*)malloc(sizeof(t_one))) == NULL)
-		error_displayed(error);
+		error_displayed(MALLOC);
 	ft_bzero(elem, (sizeof(t_one)));
 	if (is_numeric(list))
 	{
@@ -105,7 +103,7 @@ void	displaying(t_lst *list, va_list ap)
 			display_char(list, va_arg(ap, int));
 	}
 	if (list->type == WCHAR_T)
-		display_wchar(list, ap);
+		display_wchar(ap);
 	if (list->type == PERCENT)
 		display_char(list, '%');
 	if (list->type == ARG_STR)
