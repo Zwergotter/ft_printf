@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:55:31 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/25 22:00:05 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	display_number(t_lst *list, va_list ap, t_one *one);
 
 void	display_str(t_lst *list, va_list ap, t_one *one);
 void	display_char(t_lst *list, int nb);
-void 	display_wchar(t_lst *list, va_list ap);
+void	display_wchar(unsigned long int nb);
+void	display_wstr(va_list ap);
 
 #endif

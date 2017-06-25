@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/25 19:45:52 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/25 22:43:00 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,61 @@ char	*unicode_masks(char *bin)
 
 //pour flags 0 et autres, sans doute a faire avec display_char avant et apres
 
-void	display_wchar(va_list ap)
+void	display_wchar(unsigned long int nb)
 {
-	unsigned long int	nb;
+	printf(MAG"entering display_wchar\n\n");
 	char 				*bin;
 	char 				*tmp;
 	int 				i;
 
 	i = 0;
-	nb = va_arg(ap, wchar_t);
 	bin = ft_itoa_base(nb, 2);
 	if (ft_strlen(bin) <= 7)
 		write(1, &nb, 1);
 	else
 	{
 		tmp = unicode_masks(bin);
-		while(tmp[i])
+		while (tmp[i])
 			{
 				ft_putchar(ft_atoi_base(ft_strsub(tmp, i, 8), 2));
 				i += 8;
 			}
+		free (tmp);
 	}
+	printf(CYN"quitting display_wchar\n\n");
+}
+
+wchar_t		*ft_wstrdup(wchar_t *str)
+{
+	size_t	len;
+	int		i;
+	wchar_t	*dest;
+
+	len = 0;
+	while (str[len])
+		len++;
+	i = 0;
+	dest = (wchar_t*)malloc(sizeof(*dest) * (len + 1));
+	if (dest == NULL)
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+void	display_wstr(va_list ap)
+{
+	printf(MAG"quitting display_wchar\n\n");
+	wchar_t	*str;
+	int		i;
+
+	i = 0;
+	str = ft_wstrdup(va_arg(ap, wchar_t*));
+	while (str[i])
+		display_wchar(str[i++]);
+	printf(CYN"quitting display_wchar\n\n");
 }

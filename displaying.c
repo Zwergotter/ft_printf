@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/25 17:44:57 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/25 22:00:38 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ void	displaying(t_lst *list, va_list ap)
 			display_char(list, va_arg(ap, int));
 	}
 	if (list->type == WCHAR_T)
-		display_wchar(ap);
+		display_wchar(va_arg(ap, wchar_t));
+	if (list->type == WCHAR_T)
+		display_wstr(ap);
 	if (list->type == PERCENT)
 		display_char(list, '%');
 	if (list->type == ARG_STR)
