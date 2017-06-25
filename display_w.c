@@ -6,67 +6,79 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 23:15:40 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/25 19:45:52 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-char *convert_binary(unsigned long int nb)
+void	choosing_mask(char **tab, char *bin, char **tmp)
 {
-	char					*ret;
-	int						i;
-	unsigned long int		tmp;
+	int	len;
+	int len_tab;
 
-	tmp = nb;
-	i = 0;
-	while (tmp >= 2)
-	{
-		tmp = tmp / 2;
-		i++;
+	len = ft_strlen(bin);
+	if (len <= 7)
+		*tmp = ft_strdup(tab[0]);
+	if (len > 7 && len <= 11)
+		*tmp = ft_strdup(tab[1]);
+	if (len > 11 && len <= 16)
+		*tmp = ft_strdup(tab[2]);
+	if (len > 16)
+		*tmp = ft_strdup(tab[3]);
+	len -= 1;
+	len_tab = ft_strlen(*tmp) - 1;
+	while (len > -1 && len_tab > -1)
+	{	
+		if ((*tmp)[len_tab] == 'x')
+			(*tmp)[len_tab] = bin[len--];
+		len_tab--;
 	}
-	ret = (char *)malloc(sizeof(char) * i + 1);
-	if (ret)
-	{
-		ret[i + 1] = '\0';
-		while (i >= 0)
-		{
-			tmp = nb % 2;
-			ret[i] = 48 + tmp;
-			nb = nb / 2;
-			i--;
-		}
-	}
-	return (ret);
 }
 
-void unicode_masks(char *bin, int len)
+char	*unicode_masks(char *bin)
 {
-	char *tab[3];
+	char *tab[4];
 	char *tmp;
+	int i;
 
+	i = 0;
 	tab[0] = "0xxxxxxx";
 	tab[1] = "110xxxxx10xxxxxx";
 	tab[2] = "1110xxxx10xxxxxx10xxxxxx";
 	tab[3] = "11110xxx10xxxxxx10xxxxxx10xxxxxx";
+	choosing_mask(tab, bin, &tmp);
+	while (tmp[i])
+	{
+		if (tmp[i] == 'x')
+			tmp[i] = '0';
+		i++;
+	}
+	return (tmp);
 }
 
 //pour flags 0 et autres, sans doute a faire avec display_char avant et apres
 
-void display_wchar(va_list ap)
+void	display_wchar(va_list ap)
 {
-	unsigned long int nb;
-	char *bin;
-	int len;
+	unsigned long int	nb;
+	char 				*bin;
+	char 				*tmp;
+	int 				i;
 
-	printf(RED"IN DISPLAY WCHAR\n"RESET);
+	i = 0;
 	nb = va_arg(ap, wchar_t);
-	bin = convert_binary(nb);
-	len = ft_strlen(bin);
-	if (len <= 7)
+	bin = ft_itoa_base(nb, 2);
+	if (ft_strlen(bin) <= 7)
 		write(1, &nb, 1);
 	else
-		unicode_masks(bin, len);
-	printf("wchar_t value is %lu binary value is %s and length is %d\n", nb, bin, len);
+	{
+		tmp = unicode_masks(bin);
+		while(tmp[i])
+			{
+				ft_putchar(ft_atoi_base(ft_strsub(tmp, i, 8), 2));
+				i += 8;
+			}
+	}
 }
