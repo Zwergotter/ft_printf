@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_w.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/25 22:43:00 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/26 18:15:26 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	choosing_mask(char **tab, char *bin, char **tmp)
 {
@@ -62,7 +61,6 @@ char	*unicode_masks(char *bin)
 
 void	display_wchar(unsigned long int nb)
 {
-	printf(MAG"entering display_wchar\n\n");
 	char 				*bin;
 	char 				*tmp;
 	int 				i;
@@ -81,7 +79,6 @@ void	display_wchar(unsigned long int nb)
 			}
 		free (tmp);
 	}
-	printf(CYN"quitting display_wchar\n\n");
 }
 
 wchar_t		*ft_wstrdup(wchar_t *str)
@@ -108,7 +105,6 @@ wchar_t		*ft_wstrdup(wchar_t *str)
 
 void	display_wstr(va_list ap)
 {
-	printf(MAG"quitting display_wchar\n\n");
 	wchar_t	*str;
 	int		i;
 
@@ -116,5 +112,4 @@ void	display_wstr(va_list ap)
 	str = ft_wstrdup(va_arg(ap, wchar_t*));
 	while (str[i])
 		display_wchar(str[i++]);
-	printf(CYN"quitting display_wchar\n\n");
 }
