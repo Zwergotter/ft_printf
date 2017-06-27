@@ -6,7 +6,7 @@
 /*   By: cosi <edeveze@marvin42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/26 18:14:11 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/27 16:50:18 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char		*long_itoa(intmax_t n)
 ** display arguments one by one and according to their types
 */
 
-void	displaying(t_lst *list, va_list ap)
+void	displaying(char **saved, t_lst *list, va_list ap)
 {
 	t_one	*elem;
 
@@ -98,17 +98,17 @@ void	displaying(t_lst *list, va_list ap)
 	if (is_numeric(list))
 	{
 		if (list->spe != 'c')
-			display_number(list, ap, elem);
+			display_number(saved, list, ap, elem);
 		else
-			display_char(list, va_arg(ap, int));
+			display_char(saved, list, va_arg(ap, int));
 	}
 	if (list->type == WCHAR_T)
-		display_wchar(va_arg(ap, wchar_t));
+		display_wchar(saved, va_arg(ap, wchar_t));
 	if (list->type == WCHAR_TSTR)
-		display_wstr(ap);
+		display_wstr(saved, ap);
 	if (list->type == PERCENT)
-		display_char(list, '%');
+		display_char(saved, list, '%');
 	if (list->type == ARG_STR)
-		display_str(list, ap, elem);
+		display_str(saved, list, ap, elem);
 	free(elem);
 }

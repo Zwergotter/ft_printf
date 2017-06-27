@@ -6,13 +6,13 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:55:08 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/27 16:50:02 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void display_str(t_lst *list, va_list ap, t_one *one)
+void display_str(char **saved, t_lst *list, va_list ap, t_one *one)
 {
 	one->str = ft_strdup(va_arg(ap, char*));
 	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre - 1) : one->str);
@@ -30,33 +30,35 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 		{
 			if (list->flag == '-')
 			{
-				ft_putstr(one->new);
-				write_char(' ', one->dif_width);
+				bufferize(saved, one->new, 1);
+				bufferize(saved, " ", one->dif_width);
 			}
 			else
 			{
-				(list->flag == '0' ? write_char('0', one->dif_width) : write_char(' ', one->dif_width));
-				ft_putstr(one->new);
+				(list->flag == '0' ? bufferize(saved, "0", one->dif_width) : bufferize(saved, " ", one->dif_width));
+				bufferize(saved, one->new, 1);
 			}
 		}
 		else
-			ft_putstr(one->new);
+			bufferize(saved, one->new, 1);
 		list->nb = (list->width > one->len ? list->width : one->len);
 	}
 }
 
-void display_char(t_lst *list, int nb)
+void display_char(char **saved, t_lst *list, int nb)
 {
 	char fill;
+	char c;
 
+	c = nb + '0';
 	fill = (list->flag == '0' ? '0' : ' ');
 	if (list->flag != '#')
 	{
 		if (list->width && list->flag != '-')
-			write_char(fill, list->width - 1);
-		ft_putchar(nb);//ecrire soit le charactere normal soit les octets donnes par display_wchar
+			bufferize(saved, &fill, list->width - 1);
+		bufferize(saved, &c, 1);;//ecrire soit le charactere normal soit les octets donnes par display_wchar
 		if (list->width && list->flag == '-')
-			write_char(fill, list->width - 1);
+			bufferize(saved, &fill, list->width - 1);
 	}
 	else
 		return ;

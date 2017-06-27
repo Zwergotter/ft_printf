@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/26 18:15:26 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/27 16:50:08 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ char	*unicode_masks(char *bin)
 
 //pour flags 0 et autres, sans doute a faire avec display_char avant et apres
 
-void	display_wchar(unsigned long int nb)
+void	display_wchar(char **saved, unsigned long int nb)
 {
 	char 				*bin;
 	char 				*tmp;
 	int 				i;
+	char 				c;
 
 	i = 0;
 	bin = ft_itoa_base(nb, 2);
@@ -74,7 +75,8 @@ void	display_wchar(unsigned long int nb)
 		tmp = unicode_masks(bin);
 		while (tmp[i])
 			{
-				ft_putchar(ft_atoi_base(ft_strsub(tmp, i, 8), 2));
+				c = ft_atoi_base(ft_strsub(tmp, i, 8), 2) + '0';
+				bufferize(saved, &c, 1);
 				i += 8;
 			}
 		free (tmp);
@@ -103,7 +105,7 @@ wchar_t		*ft_wstrdup(wchar_t *str)
 	return (dest);
 }
 
-void	display_wstr(va_list ap)
+void	display_wstr(char **saved, va_list ap)
 {
 	wchar_t	*str;
 	int		i;
@@ -111,5 +113,5 @@ void	display_wstr(va_list ap)
 	i = 0;
 	str = ft_wstrdup(va_arg(ap, wchar_t*));
 	while (str[i])
-		display_wchar(str[i++]);
+		display_wchar(saved, str[i++]);
 }
