@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/09 17:44:21 by edeveze           #+#    #+#              #
-#    Updated: 2017/06/19 13:43:31 by edeveze          ###   ########.fr        #
+#    Updated: 2017/06/28 22:47:35 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRC =		ft_atoi.c \
 			ft_striter.c \
 			ft_striteri.c \
 			ft_strjoin.c \
+			ft_strjoinfree.c \
 			ft_strlcat.c \
 			ft_strlen.c \
 			ft_strmap.c \

@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 18:06:15 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 22:44:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 ** attention aussi a comment on doit gerer l'int renvye quand il y a un \n
 */
 
-void	test(char const *test, ...)
+int	test(char const *test, ...)
 {
 	va_list ap;
 	t_lst *arg;
 	int result;
-	static char	*saved = NULL;
+	static char *saved = NULL;
 
 	arg = parsing(test);
 	result = 0;
@@ -33,30 +33,19 @@ void	test(char const *test, ...)
 	while (arg)
 	{
 		if (arg->type == STR)
-		{
-			// printf("\n\n --------Entering for the %dtime putstr for basic string-------- \n", i);
-			arg->nb = ft_strlen(arg->arg);
-			while (*arg->arg)
-					bufferize(&saved, *(arg->arg++), 1);
-			// printf("\n --------End of basic string for %dtime-------- \n\n", i);
-		}
+			bufferize_str(&saved, arg->arg, arg);
 		if (arg->type == EMPTY)
-		{
-			// printf("\n\n --------Entering for the %dtime empty-------- \n", i);
 			ft_putstr("");
-			// printf("\n --------End of empty for %dtime-------- \n\n", i);
-		}
 		else
-		{
-			// printf("\n\n --------Entering for the %dtime displaying-------- \n", i);
-			displaying(&saved, arg, ap);
-			// printf("\n --------End of displaying for %dtime-------- \n\n", i);
-		}
+			displaying(arg, ap, &saved);
+		printf(RED"\nNb read char : %d\n" RESET, arg->nb);
 		result = result + arg->nb;
+		printf(GRN"Result after : %d\n" RESET, result);
 		arg = arg->next;
 	}
-	ft_putstr(saved);
+	write(1, saved, result);
 	va_end(ap);
+	return (result);
 }
 
 int	main()
@@ -75,7 +64,7 @@ int	main()
 	str = "etc   -%#5X-  -%+2.5d- -%08d-  -%C- -%-10s- -%c- -%hd- -%04%- -%p-\n";
 	str2 = "end is .%4s. and start is .%4s.";
 	printf("Real printf gives:\n");
-	printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
+	printf("result : %d\n", printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b));
 	printf("\n\n-------------------------------------------------------------\n\n");
 	printf("Mine gives:\n");
 	test(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
