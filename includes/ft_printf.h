@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/25 22:00:05 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 18:37:18 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,15 @@ void	what_type(t_lst *elem);
 void	write_char(char c, int i);
 char	*unsigned_long_itoa(unsigned long long n);
 char	*long_itoa(intmax_t n);
-void	displaying(t_lst *list, va_list ap);
+void	displaying(t_lst *list, va_list ap, char **saved);
 
-void	display_number(t_lst *list, va_list ap, t_one *one);
+void	display_number(t_lst *list, va_list ap, t_one *one, char **saved);
 
-void	display_str(t_lst *list, va_list ap, t_one *one);
-void	display_char(t_lst *list, int nb);
-void	display_wchar(unsigned long int nb);
-void	display_wstr(va_list ap);
+void	display_str(t_lst *list, va_list ap, t_one *one, char **saved);
+void	display_char(t_lst *list, int nb, char **saved);
+void	display_wchar(unsigned long int nb, char **saved);
+void	display_wstr(va_list ap, char **saved);
 
+char  	*bufferize_str(char **saved, char *buf);
+char  	*bufferize_c(char **saved, char buf, int nb);
 #endif

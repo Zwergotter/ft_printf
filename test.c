@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/05 16:33:15 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 18:37:13 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	test(char const *test, ...)
 	va_list ap;
 	t_lst *arg;
 	int result;
+	static char *saved = NULL;
 
 	arg = parsing(test);
 	result = 0;
@@ -34,8 +35,8 @@ void	test(char const *test, ...)
 		if (arg->type == STR)
 		{
 			// printf("\n\n --------Entering for the %dtime putstr for basic string-------- \n", i);
-			ft_putstr(arg->arg);
-			arg->nb = ft_strlen(arg->arg);
+			bufferize_str(&saved, arg->arg);
+			// arg->nb = ft_strlen(arg->arg);
 			// printf("\n --------End of basic string for %dtime-------- \n\n", i);
 		}
 		if (arg->type == EMPTY)
@@ -47,12 +48,13 @@ void	test(char const *test, ...)
 		else
 		{
 			// printf("\n\n --------Entering for the %dtime displaying-------- \n", i);
-			displaying(arg, ap);
+			displaying(arg, ap, &saved);
 			// printf("\n --------End of displaying for %dtime-------- \n\n", i);
 		}
-		result = result + arg->nb;
+		// result = result + arg->nb;
 		arg = arg->next;
 	}
+	printf("%s", saved);
 	va_end(ap);
 }
 

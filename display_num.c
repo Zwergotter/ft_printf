@@ -6,65 +6,72 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:30:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 18:37:23 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-void minus_flag(t_lst *list, t_one *one)
+void minus_flag(t_lst *list, t_one *one, char **saved)
 {
 	if (one->sign == '-')
 	{
-		write(1, &one->sign, 1);
-		list->nb += 1;
+		bufferize_c(saved, one->sign, 1);
+		// write(1, &one->sign, 1);
 		one->dif_width--;
 	}
 	if (one->dif_pre > 0)
 	{
-		while (one->dif_pre-- > 0)
-		{
-			write(1, "0",  1);
-			list->nb += 1;
-		}
+		// while (one->dif_pre-- > 0)
+		// {
+			bufferize_c(saved, '0', one->dif_pre);
+		// 	write(1, "0",  1);
+		// }
 	}
-	ft_putstr(one->new);
+	// ft_putstr(one->new);
+	bufferize_str(saved, one->new);
 	while (one->dif_width-- > 0)
 	{
-		write(1, &one->c,  1);
-		list->nb += 1;
+		bufferize_c(saved, one->c, 1);
+		// write(1, &one->c,  1);
 	}
+	list->nb = 0;
 }
 // dans fonction a faire qui reprendra tout, changer les lettres low to up si besoin et mettre ca dans buf
 
-void other_flags(t_lst *list, t_one *one)
+void other_flags(t_lst *list, t_one *one, char **saved)
 {
 	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
 		list->width < one->len)))
 	{
-		write(1, " ", 1);
-		list->nb += 1;
+		// write(1, " ", 1);
+		bufferize_c(saved, ' ', 1);
 	}
 	while (one->dif_width-- > 0)
 	{
-		write(1, &one->c,  1);
-		list->nb += 1;
+		// write(1, &one->c,  1);
+		bufferize_c(saved, one->c, 1);
 	}
 	if (list->flag == '+'|| one->sign == '-')
 	{
-		write(1, &one->sign, 1);
-		list->nb += 1;
+		bufferize_c(saved, one->sign, 1);
+		// write(1, &one->sign, 1);
 		one->dif_width--;
 	}
 	if (one->hash && one->new[0] != '0')
-		ft_putstr(one->hash);
-	while (one->dif_pre-- > 0)
+		// ft_putstr(one->hash);
+		bufferize_str(saved, one->hash);
+	if (one->dif_pre > 0)
 	{
-		write(1, "0",  1);
-		list->nb += 1;
+		// while (one->dif_pre-- > 0)
+		// {
+			bufferize_c(saved, '0', one->dif_pre);
+		// 	write(1, "0",  1);
+		// }
 	}
-	ft_putstr(one->new);
+	// ft_putstr(one->new);
+	bufferize_str(saved, one->new);
 }
 
 
@@ -113,7 +120,7 @@ void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
 }
 
-void	display_number(t_lst *list, va_list ap, t_one *one)
+void	display_number(t_lst *list, va_list ap, t_one *one, char **saved)
 {
 	if (((list->spe == 'x' || list->spe == 'X' || list->spe == 'o') && list->flag == '#') || list->spe == 'p') 
 		one->hash = (list->spe == 'o' ? "0" : "0x");
@@ -130,8 +137,7 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 				== '-' || list->flag == ' ' || list->flag == '+' ? 1 : 0) - ft_strlen(one->hash);
 	one->c = (list->flag == '0' && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
-		minus_flag(list, one);
+		minus_flag(list, one, saved);
 	else
-		other_flags(list, one);
-	list->nb = list->nb + ft_strlen(one->new);
+		other_flags(list, one, saved);
 }
