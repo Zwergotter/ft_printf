@@ -26,6 +26,7 @@ SRC = test.c\
 	display_str.c\
 	display_w.c\
 	verifications.c\
+	buffer.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)
