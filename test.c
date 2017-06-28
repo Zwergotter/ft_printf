@@ -14,6 +14,17 @@
 #include <stdio.h>
 #include <locale.h>
 
+t_lst *destroy_elem(t_lst *elem)
+{
+	t_lst *tmp;
+
+	tmp = elem;
+	elem = elem->next;
+	free (tmp);
+	return (elem);
+
+}
+
 /*
 ** Attention a l'unicode
 ** attention aussi a comment on doit gerer l'int renvye quand il y a un \n
@@ -41,7 +52,7 @@ int	test(char const *test, ...)
 		printf(RED"\nNb read char : %d\n" RESET, arg->nb);
 		result = result + arg->nb;
 		printf(GRN"Result after : %d\n" RESET, result);
-		arg = arg->next;
+		arg = destroy_elem(arg);
 	}
 	write(1, saved, result);
 	va_end(ap);
