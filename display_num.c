@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 20:07:38 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 22:44:52 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void other_flags(t_lst *list, t_one *one, char **saved)
 		bufferize_c(saved, '0', one->dif_pre, list);
 	bufferize_str(saved, one->new, list);
 }
-
 
 /*
 ** Ajout du 0x pour adresse ainsi que pour # a rajouter quand on bufferisera

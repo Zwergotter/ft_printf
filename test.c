@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 20:09:01 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 22:44:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	test(char const *test, ...)
 		printf(GRN"Result after : %d\n" RESET, result);
 		arg = arg->next;
 	}
-	printf("%s", saved);
+	write(1, saved, result);
 	va_end(ap);
 	return (result);
 }
@@ -64,7 +64,7 @@ int	main()
 	str = "etc   -%#5X-  -%+2.5d- -%08d-  -%C- -%-10s- -%c- -%hd- -%04%- -%p-\n";
 	str2 = "end is .%4s. and start is .%4s.";
 	printf("Real printf gives:\n");
-	printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
+	printf("result : %d\n", printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b));
 	printf("\n\n-------------------------------------------------------------\n\n");
 	printf("Mine gives:\n");
 	test(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);

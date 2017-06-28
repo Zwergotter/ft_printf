@@ -6,46 +6,59 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:03:03 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 20:08:09 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 22:47:52 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char  *bufferize_str(char **saved, char *buf, t_lst *list)
+char  *bufferize_str(char **saved, char *str, t_lst *list)
 {
-	char		*tmp;
-
-	tmp = *saved;
-	if (tmp)
-	{
-		*saved = ft_strjoin(*saved, buf);
-		free(tmp);
-	}
+	if (*saved)
+		*saved = ft_strjoinfree(*saved, str, 1);
 	else
-		*saved = ft_strdup(buf);
-	list->nb += ft_strlen(buf);
+		*saved = ft_strdup(str);
+	list->nb += ft_strlen(str);
 	return (*saved);
 }
 
-char  *bufferize_c(char **saved, char buf, int nb, t_lst *list)
+char  *bufferize_c(char **saved, char c, int nb, t_lst *list)
 {
-	char		*tmp;
 	char 		tmp2[2];
 	int			i;
 
-	tmp = *saved;
-	tmp2[0] = buf;
+	tmp2[0] = c;
 	tmp2[1] = '\0';
-	i = 1;
-	if (tmp)
+	i = 0;
+	if (*saved)
 	{
-		while (i++ <= nb)
-			*saved = ft_strjoin(*saved, tmp2);
-		free(tmp);
+		while (i++ < nb)
+			*saved = ft_strjoinfree(*saved, tmp2, 1);
 	}
 	else
 		*saved = ft_strdup(tmp2);
-	list->nb += i;
+	list->nb += nb;
 	return (*saved);
 }
+
+// int		ft_nputc(char c, int j)
+// {
+// 	static char *buf = ft_strdup("");
+// 	static int i = 0;
+// 	char *tmp;
+
+// 	++i;
+	// if ((tmp = malloc(i + 1)) == NULL)
+	// 	exit(0);
+// 	tmp[0] = 0;
+// 	strcat(tmp, buf);
+// 	tmp[i - 1] = c;
+// 	tmp[i] = 0;
+// 	free(buf);
+// 	buf = tmp;
+// 	if (j = -1)
+// 	{
+// 		write(1, buf, i);
+// 		return (i);
+// 	}
+// }
