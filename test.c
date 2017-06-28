@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/27 16:49:44 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 18:06:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	test(char const *test, ...)
 		{
 			// printf("\n\n --------Entering for the %dtime putstr for basic string-------- \n", i);
 			arg->nb = ft_strlen(arg->arg);
-			saved = bufferize(&saved, arg->arg, 1);
+			while (*arg->arg)
+					bufferize(&saved, *(arg->arg++), 1);
 			// printf("\n --------End of basic string for %dtime-------- \n\n", i);
 		}
 		if (arg->type == EMPTY)

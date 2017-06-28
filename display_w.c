@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/27 16:50:08 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 18:06:02 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	display_wchar(char **saved, unsigned long int nb)
 	char 				*bin;
 	char 				*tmp;
 	int 				i;
-	char 				c;
+	int 				c;
 
 	i = 0;
 	bin = ft_itoa_base(nb, 2);
@@ -76,7 +76,7 @@ void	display_wchar(char **saved, unsigned long int nb)
 		while (tmp[i])
 			{
 				c = ft_atoi_base(ft_strsub(tmp, i, 8), 2) + '0';
-				bufferize(saved, &c, 1);
+				bufferize(saved, c, 1);
 				i += 8;
 			}
 		free (tmp);

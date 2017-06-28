@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/27 16:49:52 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 18:05:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void minus_flag(char **saved, t_lst *list, t_one *one)
 {
 	if (one->sign == '-')
 	{
-		bufferize(saved, &one->sign, 1);
+		bufferize(saved, one->sign, 1);
 		list->nb += 1;
 		one->dif_width--;
 	}
@@ -25,14 +25,14 @@ void minus_flag(char **saved, t_lst *list, t_one *one)
 	{
 		while (one->dif_pre-- > 0)
 		{
-			bufferize(saved, "0", 1);
+			bufferize(saved, '0', 1);
 			list->nb += 1;
 		}
 	}
-	bufferize(saved, one->new, 1);
+	bufferize(saved, *one->new, 1);
 	while (one->dif_width-- > 0)
 	{
-		bufferize(saved, &one->c, 1);
+		bufferize(saved, one->c, 1);
 		list->nb += 1;
 	}
 }
@@ -43,28 +43,28 @@ void other_flags(char **saved, t_lst *list, t_one *one)
 	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
 		list->width < one->len)))
 	{
-		bufferize(saved, " ", 1);
+		bufferize(saved, ' ', 1);
 		list->nb += 1;
 	}
 	while (one->dif_width-- > 0)
 	{
-		bufferize(saved, &one->c, 1);
+		bufferize(saved, one->c, 1);
 		list->nb += 1;
 	}
 	if (list->flag == '+'|| one->sign == '-')
 	{
-		bufferize(saved, &one->sign, 1);
+		bufferize(saved, one->sign, 1);
 		list->nb += 1;
 		one->dif_width--;
 	}
 	if (one->hash && one->new[0] != '0')
-		bufferize(saved, one->hash, 1);
+		bufferize(saved, *one->hash, 1);
 	while (one->dif_pre-- > 0)
 	{
-		bufferize(saved, "0", 1);
+		bufferize(saved, '0', 1);
 		list->nb += 1;
 	}
-	bufferize(saved, one->new, 1);
+	bufferize(saved, *one->new, 1);
 }
 
 
