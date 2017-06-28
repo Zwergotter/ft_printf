@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 18:37:13 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 20:09:01 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** attention aussi a comment on doit gerer l'int renvye quand il y a un \n
 */
 
-void	test(char const *test, ...)
+int	test(char const *test, ...)
 {
 	va_list ap;
 	t_lst *arg;
@@ -33,29 +33,19 @@ void	test(char const *test, ...)
 	while (arg)
 	{
 		if (arg->type == STR)
-		{
-			// printf("\n\n --------Entering for the %dtime putstr for basic string-------- \n", i);
-			bufferize_str(&saved, arg->arg);
-			// arg->nb = ft_strlen(arg->arg);
-			// printf("\n --------End of basic string for %dtime-------- \n\n", i);
-		}
+			bufferize_str(&saved, arg->arg, arg);
 		if (arg->type == EMPTY)
-		{
-			// printf("\n\n --------Entering for the %dtime empty-------- \n", i);
 			ft_putstr("");
-			// printf("\n --------End of empty for %dtime-------- \n\n", i);
-		}
 		else
-		{
-			// printf("\n\n --------Entering for the %dtime displaying-------- \n", i);
 			displaying(arg, ap, &saved);
-			// printf("\n --------End of displaying for %dtime-------- \n\n", i);
-		}
-		// result = result + arg->nb;
+		printf(RED"\nNb read char : %d\n" RESET, arg->nb);
+		result = result + arg->nb;
+		printf(GRN"Result after : %d\n" RESET, result);
 		arg = arg->next;
 	}
 	printf("%s", saved);
 	va_end(ap);
+	return (result);
 }
 
 int	main()

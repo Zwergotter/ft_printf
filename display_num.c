@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 18:37:23 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 20:07:38 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,14 @@ void minus_flag(t_lst *list, t_one *one, char **saved)
 {
 	if (one->sign == '-')
 	{
-		bufferize_c(saved, one->sign, 1);
-		// write(1, &one->sign, 1);
+		bufferize_c(saved, one->sign, 1, list);
 		one->dif_width--;
 	}
 	if (one->dif_pre > 0)
-	{
-		// while (one->dif_pre-- > 0)
-		// {
-			bufferize_c(saved, '0', one->dif_pre);
-		// 	write(1, "0",  1);
-		// }
-	}
-	// ft_putstr(one->new);
-	bufferize_str(saved, one->new);
-	while (one->dif_width-- > 0)
-	{
-		bufferize_c(saved, one->c, 1);
-		// write(1, &one->c,  1);
-	}
-	list->nb = 0;
+		bufferize_c(saved, '0', one->dif_pre, list);
+	bufferize_str(saved, one->new, list);
+	if (one->dif_width > 0)
+		bufferize_c(saved, one->c, one->dif_width, list);
 }
 // dans fonction a faire qui reprendra tout, changer les lettres low to up si besoin et mettre ca dans buf
 
@@ -44,34 +32,19 @@ void other_flags(t_lst *list, t_one *one, char **saved)
 {
 	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
 		list->width < one->len)))
-	{
-		// write(1, " ", 1);
-		bufferize_c(saved, ' ', 1);
-	}
-	while (one->dif_width-- > 0)
-	{
-		// write(1, &one->c,  1);
-		bufferize_c(saved, one->c, 1);
-	}
+		bufferize_c(saved, ' ', 1, list);
+	if (one->dif_width > 0)
+		bufferize_c(saved, one->c, one->dif_width, list);
 	if (list->flag == '+'|| one->sign == '-')
 	{
-		bufferize_c(saved, one->sign, 1);
-		// write(1, &one->sign, 1);
+		bufferize_c(saved, one->sign, 1, list);
 		one->dif_width--;
 	}
 	if (one->hash && one->new[0] != '0')
-		// ft_putstr(one->hash);
-		bufferize_str(saved, one->hash);
+		bufferize_str(saved, one->hash, list);
 	if (one->dif_pre > 0)
-	{
-		// while (one->dif_pre-- > 0)
-		// {
-			bufferize_c(saved, '0', one->dif_pre);
-		// 	write(1, "0",  1);
-		// }
-	}
-	// ft_putstr(one->new);
-	bufferize_str(saved, one->new);
+		bufferize_c(saved, '0', one->dif_pre, list);
+	bufferize_str(saved, one->new, list);
 }
 
 

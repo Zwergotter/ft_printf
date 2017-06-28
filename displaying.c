@@ -6,7 +6,7 @@
 /*   By: cosi <edeveze@marvin42.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 18:37:39 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 20:07:53 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ void	displaying(t_lst *list, va_list ap, char **saved)
 			display_char(list, va_arg(ap, int), saved);
 	}
 	if (list->type == WCHAR_T)
-		display_wchar(va_arg(ap, wchar_t), saved);
+		display_wchar(va_arg(ap, wchar_t), saved, list);
 	if (list->type == WCHAR_TSTR)
-		display_wstr(ap, saved);
+		display_wstr(ap, saved, list);
 	if (list->type == PERCENT)
 		display_char(list, '%', saved);
 	if (list->type == ARG_STR)

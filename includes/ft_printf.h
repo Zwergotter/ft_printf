@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 18:37:18 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/28 20:08:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void	display_number(t_lst *list, va_list ap, t_one *one, char **saved);
 
 void	display_str(t_lst *list, va_list ap, t_one *one, char **saved);
 void	display_char(t_lst *list, int nb, char **saved);
-void	display_wchar(unsigned long int nb, char **saved);
-void	display_wstr(va_list ap, char **saved);
+void	display_wchar(unsigned long int nb, char **saved, t_lst *list);
+void	display_wstr(va_list ap, char **saved, t_lst *list);
 
-char  	*bufferize_str(char **saved, char *buf);
-char  	*bufferize_c(char **saved, char buf, int nb);
+char  	*bufferize_str(char **saved, char *buf, t_lst *list);
+char  	*bufferize_c(char **saved, char buf, int nb, t_lst *list);
 #endif
