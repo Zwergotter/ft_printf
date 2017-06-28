@@ -64,7 +64,6 @@ void	display_wchar(unsigned long int nb, char **saved, t_lst *list)
 	char 				*bin;
 	char 				*tmp;
 	int 				i;
-	int 				c;
 
 	i = 0;
 	bin = ft_itoa_base(nb, 2);
