@@ -6,13 +6,32 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:03:03 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 22:47:52 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/29 17:39:34 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char  *bufferize_str(char **saved, char *str, t_lst *list)
+char	*upper_string(char *str)
+{
+	int i;
+	char *new;
+
+	new = ft_memalloc(ft_strlen(str) + 1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 97 && str[i] <= 122)
+			new[i] = str[i] - 32;
+		else 
+			new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (str);
+}
+
+char	*bufferize_str(char **saved, char *str, t_lst *list)
 {
 	if (*saved)
 		*saved = ft_strjoinfree(*saved, str, 1);
@@ -22,7 +41,7 @@ char  *bufferize_str(char **saved, char *str, t_lst *list)
 	return (*saved);
 }
 
-char  *bufferize_c(char **saved, char c, int nb, t_lst *list)
+char	*bufferize_c(char **saved, char c, int nb, t_lst *list)
 {
 	char 		tmp2[2];
 	int			i;

@@ -6,12 +6,11 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 22:44:52 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/29 17:39:25 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void minus_flag(t_lst *list, t_one *one, char **saved)
 {
@@ -22,7 +21,7 @@ void minus_flag(t_lst *list, t_one *one, char **saved)
 	}
 	if (one->dif_pre > 0)
 		bufferize_c(saved, '0', one->dif_pre, list);
-	bufferize_str(saved, one->new, list);
+	list->spe == 'X' ? bufferize_str(saved, upper_string(one->new), list) : bufferize_str(saved, one->new, list);
 	if (one->dif_width > 0)
 		bufferize_c(saved, one->c, one->dif_width, list);
 }
@@ -41,10 +40,10 @@ void other_flags(t_lst *list, t_one *one, char **saved)
 		one->dif_width--;
 	}
 	if (one->hash && one->new[0] != '0')
-		bufferize_str(saved, one->hash, list);
+		list->spe == 'X' ? bufferize_str(saved, upper_string(one->hash), list) : bufferize_str(saved, one->hash, list);
 	if (one->dif_pre > 0)
 		bufferize_c(saved, '0', one->dif_pre, list);
-	bufferize_str(saved, one->new, list);
+	list->spe == 'X' ? bufferize_str(saved, upper_string(one->new), list) : bufferize_str(saved, one->new, list);
 }
 
 /*
