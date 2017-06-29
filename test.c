@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 22:44:40 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/29 17:14:30 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_lst *destroy_elem(t_lst *elem)
 	elem = elem->next;
 	free (tmp);
 	return (elem);
-
 }
 
 /*
@@ -41,12 +40,10 @@ int	test(char const *test, ...)
 	result = 0;
 	check_elem(&arg);
 	va_start(ap, test);
-	while (arg)
+	while (arg && arg->type != EMPTY)
 	{
 		if (arg->type == STR)
 			bufferize_str(&saved, arg->arg, arg);
-		if (arg->type == EMPTY)
-			ft_putstr("");
 		else
 			displaying(arg, ap, &saved);
 		printf(RED"\nNb read char : %d\n" RESET, arg->nb);
@@ -54,7 +51,8 @@ int	test(char const *test, ...)
 		printf(GRN"Result after : %d\n" RESET, result);
 		arg = destroy_elem(arg);
 	}
-	write(1, saved, result);
+	if (saved)
+		write(1, saved, result);
 	va_end(ap);
 	return (result);
 }

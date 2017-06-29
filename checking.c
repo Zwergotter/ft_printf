@@ -6,7 +6,7 @@
 /*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/05 16:26:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/06/29 17:14:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,28 +102,20 @@ int checking(t_lst *elem)
 
 /*
 ** Checking one by one each element
-QUE SE PASSE T IL SI UN ELEMENT NE CORRESPOND PAS. QUEL AFFICHAGE
-POUR L'ELEMENT ET LES AUTRES, VALIDES OU NON
 */
+
 void check_elem(t_lst **first)
 {
 	t_lst *tmp;
-	t_error error;
-	char *str;
 
 	tmp = *first;
-	error = ARGUMENT;
 	while (tmp)
 	{
 		if (tmp->type != STR)
+		{
 			if (!checking(tmp))
-			{
-				str = tmp->arg;
-				tmp->type = STR;
-				tmp->arg = NULL;
-				free(str);
-				error_displayed(error);
-			}
+				tmp->type = EMPTY;
+		}
 		tmp = tmp->next;
 	}
 }
