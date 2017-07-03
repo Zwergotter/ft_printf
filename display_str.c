@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 20:07:42 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/02 04:35:00 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void display_str(t_lst *list, va_list ap, t_one *one, char **saved)
 
 	i = 0;
 	one->str = ft_strdup(va_arg(ap, char*));
-	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre - 1) : one->str);
+	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre) : one->str);
 	one->len = ft_strlen(one->new);
 	one->dif_width = list->width - (one->len > list->i_pre ? one->len : list->i_pre);
 	if (list->pre && !list->i_pre)

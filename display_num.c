@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_num.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/29 17:39:25 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/02 04:57:46 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void minus_flag(t_lst *list, t_one *one, char **saved)
 {
+	if (list->spe == 'X')
+		one->new = upper_string(one->new);
 	if (one->sign == '-')
 	{
 		bufferize_c(saved, one->sign, 1, list);
@@ -21,7 +23,7 @@ void minus_flag(t_lst *list, t_one *one, char **saved)
 	}
 	if (one->dif_pre > 0)
 		bufferize_c(saved, '0', one->dif_pre, list);
-	list->spe == 'X' ? bufferize_str(saved, upper_string(one->new), list) : bufferize_str(saved, one->new, list);
+	bufferize_str(saved, one->new, list);
 	if (one->dif_width > 0)
 		bufferize_c(saved, one->c, one->dif_width, list);
 }
@@ -29,6 +31,12 @@ void minus_flag(t_lst *list, t_one *one, char **saved)
 
 void other_flags(t_lst *list, t_one *one, char **saved)
 {
+	if (list->spe == 'X')
+	{
+			one->new = upper_string(one->new);
+			if (one->hash && one->new[0] != '0')
+				one->hash = upper_string(one->hash);
+	}
 	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
 		list->width < one->len)))
 		bufferize_c(saved, ' ', 1, list);
@@ -40,10 +48,10 @@ void other_flags(t_lst *list, t_one *one, char **saved)
 		one->dif_width--;
 	}
 	if (one->hash && one->new[0] != '0')
-		list->spe == 'X' ? bufferize_str(saved, upper_string(one->hash), list) : bufferize_str(saved, one->hash, list);
+		bufferize_str(saved, one->hash, list);
 	if (one->dif_pre > 0)
 		bufferize_c(saved, '0', one->dif_pre, list);
-	list->spe == 'X' ? bufferize_str(saved, upper_string(one->new), list) : bufferize_str(saved, one->new, list);
+	bufferize_str(saved, one->new, list);
 }
 
 /*
