@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/02 04:40:59 by cosi             ###   ########.fr       */
+/*   Updated: 2017/07/04 13:58:10 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char		*long_itoa(intmax_t n)
 ** display arguments one by one and according to their types
 */
 
-void	displaying(t_lst *list, va_list ap, char **saved)
+void	displaying(t_lst *list, va_list ap)
 {
 	t_one	*elem;
 
@@ -98,17 +98,17 @@ void	displaying(t_lst *list, va_list ap, char **saved)
 	if (is_numeric(list))
 	{
 		if (list->spe != 'c')
-			display_number(list, ap, elem, saved);
+			display_number(list, ap, elem);
 		else
-			display_char(list, va_arg(ap, int), saved);
+			display_char(list, va_arg(ap, int));
 	}
 	if (list->type == WCHAR_T)
-		display_wchar(va_arg(ap, wchar_t), saved, list);
+		display_wchar(va_arg(ap, wchar_t), list);
 	if (list->type == WCHAR_TSTR)
-		display_wstr(ap, saved, list);
+		display_wstr(ap, list);
 	if (list->type == PERCENT)
-		display_char(list, '%', saved);
+		display_char(list, '%');
 	if (list->type == ARG_STR)
-		display_str(list, ap, elem, saved);
+		display_str(list, ap, elem);
 	free(elem);
 }

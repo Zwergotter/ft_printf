@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   display_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/02 04:35:00 by cosi             ###   ########.fr       */
+/*   Updated: 2017/07/04 13:57:58 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void display_str(t_lst *list, va_list ap, t_one *one, char **saved)
+void display_str(t_lst *list, va_list ap, t_one *one)
 {
 	int i;
 
@@ -24,7 +24,7 @@ void display_str(t_lst *list, va_list ap, t_one *one, char **saved)
 	if (list->pre && !list->i_pre)
 	{
 		if (list->width)
-			(list->flag == '0' ? bufferize_c(saved, '0', list->width, list) : bufferize_c(saved, ' ', list->width, list));
+			(list->flag == '0' ? write_c('0', list->width, list) : write_c(' ', list->width, list));
 	}
 	else
 	{
@@ -32,33 +32,36 @@ void display_str(t_lst *list, va_list ap, t_one *one, char **saved)
 		{
 			if (list->flag == '-')
 			{
-				bufferize_str(saved, one->new, list);
-				bufferize_c(saved, ' ', one->dif_width, list);
+				write_str(one->new, list);
+				write_c(' ', one->dif_width, list);
 			}
 			else
 			{
-				(list->flag == '0' ? bufferize_c(saved, '0', one->dif_width, list) : bufferize_c(saved, ' ', one->dif_width, list));
-				bufferize_str(saved, one->new, list);
+				(list->flag == '0' ? write_c('0', one->dif_width, list) : write_c(' ', one->dif_width, list));
+				write_str(one->new, list);
 			}
 		}
 		else
-			bufferize_str(saved, one->new, list);
+			write_str(one->new, list);
 	}
 }
 
-void display_char(t_lst *list, int nb, char **saved)
+void display_char(t_lst *list, int nb)
 {
 	char fill;
+	char c;
 
+	c = nb - 0;
 	fill = (list->flag == '0' ? '0' : ' ');
 	if (list->flag != '#')
 	{
 		if (list->width && list->flag != '-')
-			bufferize_c(saved, fill, list->width - 1, list);
-		bufferize_c(saved, nb, 1, list);
+			write_c(fill, list->width - 1, list);
+		write_c(nb, 1, list);
 		if (list->width && list->flag == '-')
-			bufferize_c(saved, fill, list->width - 1, list);
+			write_c(fill, list->width - 1, list);
 	}
 	else
 		return ;
 }
+

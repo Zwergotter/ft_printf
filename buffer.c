@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buffer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:03:03 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/02 01:37:45 by cosi             ###   ########.fr       */
+/*   Updated: 2017/07/04 13:57:37 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,24 @@ char	*upper_string(char *str)
 		i++;
 	}
 	new[i] = '\0';
-	str = ft_strdup(new);
-	free(new);
-	return (str);
+	return (new);
 }
 
-char	*bufferize_str(char **saved, char *str, t_lst *list)
+
+void	write_str(char *str, t_lst *list)
 {
-	if (*saved)
-		*saved = ft_strjoinfree(*saved, str, 1);
-	else
-		*saved = ft_strdup(str);
+	ft_putstr(str);
 	list->nb += ft_strlen(str);
-	return (*saved);
 }
 
-char	*bufferize_c(char **saved, char c, int nb, t_lst *list)
+void	write_c(char c, int nb, t_lst *list)
 {
-	char 		tmp2[2];
 	int			i;
 
-	tmp2[0] = c;
-	tmp2[1] = '\0';
 	i = 0;
-	if (*saved)
-	{
-		while (i++ < nb)
-			*saved = ft_strjoinfree(*saved, tmp2, 1);
-	}
-	else
-		*saved = ft_strdup(tmp2);
+	while (i++ < nb)
+		ft_putchar(c);
 	list->nb += nb;
-	return (*saved);
 }
 
 // int		ft_nputc(char c, int j)
