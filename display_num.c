@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_num.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/06 16:44:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/06 20:34:32 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,12 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 		type_other(list, ap, one));
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
-	if (((list->spe == 'x' || list->spe == 'X' || list->spe == 'o') && list->flag == '#') || list->spe == 'p') 
+	if (list->spe == 'x' || list->spe == 'X' || list->spe == 'o') 
 		{
-			one->hash = (list->spe == 'o' ? "0" : "0x");
-			if (!ft_strcmp(one->str, "0"))
-				one->str = " ";
+			if (list->hash == '#' || list->spe == 'p')
+				one->hash = (list->spe == 'o' ? "0" : "0x");
+			// if (!ft_strcmp(one->str, "0") && (list->width || list->i_pre))
+			// 	one->str = " ";
 		}
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);

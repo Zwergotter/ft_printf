@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/25 17:44:51 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/06 21:30:10 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,19 @@ t_lst	*percent(char const *str, int start, int end)
 void	creating_list(t_lst **begin, const char *str, int i)
 {
 	int		j;
+	int count;
 
+	count = 1;
 	while (str[i])
 	{
 		j = i;
 		while (str[j] && str[j] != '%')
 			j++;
 		if (j > i && (str[j] == '%' || !str[j]))
+		{
 			addlast(begin, string(str, i, j));
+			count++;
+		}
 		else
 		{
 			j++;
@@ -95,6 +100,7 @@ void	creating_list(t_lst **begin, const char *str, int i)
 				j++;
 			j += (is_specifier(str[j]) ? 1 : 0);
 			addlast(begin, percent(str, i, j));
+			count++;
 		}
 		i = j;
 	}
@@ -118,12 +124,8 @@ t_lst	*parsing(char const *str)
 	else
 	{
 		i++;
-		while (str[++i])
-		{
-			while (str[i] && !is_specifier(str[i]))
-				i++;
-			break ;
-		}
+		while (str[i] && !is_specifier(str[i]))
+			i++;
 		i += (is_specifier(str[i]) ? 1 : 0);
 		first = percent(str, 0, i);
 	}

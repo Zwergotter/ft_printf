@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/29 17:14:40 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/06 21:31:06 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
-
-/*
-differentes choses a gerer encore: que se passe t il avec %%? autre string a faire ou non? 
-Que se passe t il si j'essaie de creer une chaine vide?
-QUE SE PASSE T IL SI ERREUR PARSING/CHECKING
-*/
-
 
 /*
 ** File to check all elements which begin by % one by one
@@ -107,8 +99,10 @@ int checking(t_lst *elem)
 void check_elem(t_lst **first)
 {
 	t_lst *tmp;
+	int i;
 
 	tmp = *first;
+	i = 1;
 	while (tmp)
 	{
 		if (tmp->type != STR)
@@ -117,5 +111,6 @@ void check_elem(t_lst **first)
 				tmp->type = EMPTY;
 		}
 		tmp = tmp->next;
+		i++;
 	}
 }
