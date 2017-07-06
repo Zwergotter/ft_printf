@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 14:09:59 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/06 16:17:18 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,6 @@ void	display_char(t_lst *list, int nb);
 
 void	display_wchar(unsigned long int nb, t_lst *list);
 void	display_wstr(va_list ap, t_lst *list);
-
-char  	*bufferize_str(char **saved, char *str, t_lst *list);
-char  	*bufferize_c(char **saved, char c, int nb, t_lst *list);
 
 char	*upper_string(char *str);
 
