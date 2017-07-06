@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   display_num.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 13:57:51 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/06 16:44:04 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+** Function to display number if flag is minus
+*/
 
 void minus_flag(t_lst *list, t_one *one)
 {
@@ -27,7 +31,10 @@ void minus_flag(t_lst *list, t_one *one)
 	if (one->dif_width > 0)
 		write_c(one->c, one->dif_width, list);
 }
-// dans fonction a faire qui reprendra tout, changer les lettres low to up si besoin et mettre ca dans buf
+
+/*
+** Function to display number if flag is anything but minus
+*/
 
 void other_flags(t_lst *list, t_one *one)
 {
@@ -55,9 +62,8 @@ void other_flags(t_lst *list, t_one *one)
 }
 
 /*
-** Ajout du 0x pour adresse ainsi que pour # a rajouter quand on bufferisera
-** plus de travail aussi quant a la maniere de faire gerer les flags comme 0 avec
-** adresse ou bien la longueur et la precision
+** Function for all elements that are unsigned numbers in order to 
+** be able to extract the argument's value
 */
 
 void 	type_other(t_lst *list, va_list ap, t_one *one)
@@ -81,6 +87,11 @@ void 	type_other(t_lst *list, va_list ap, t_one *one)
 		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
 }
 
+/*
+** Function for all elements that are signed numbers in order to 
+** be able to extract the argument's value
+*/
+
 void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 {
 	if (list->type == INT || list->type == CHAR)
@@ -101,12 +112,16 @@ void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	if (((list->spe == 'x' || list->spe == 'X' || list->spe == 'o') && list->flag == '#') || list->spe == 'p') 
-		one->hash = (list->spe == 'o' ? "0" : "0x");
 	(list->spe == 'd' || list->spe == 'i' ? type_decimal(list, ap, one) :
 		type_other(list, ap, one));
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
+	if (((list->spe == 'x' || list->spe == 'X' || list->spe == 'o') && list->flag == '#') || list->spe == 'p') 
+		{
+			one->hash = (list->spe == 'o' ? "0" : "0x");
+			if (!ft_strcmp(one->str, "0"))
+				one->str = " ";
+		}
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);
 	if (list->i_pre && list->i_pre > one->len)
