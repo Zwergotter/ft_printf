@@ -6,11 +6,12 @@
 /*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/06 20:34:32 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/06 23:10:54 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 /*
 ** Function to display number if flag is minus
@@ -18,6 +19,8 @@
 
 void minus_flag(t_lst *list, t_one *one)
 {
+	if (one->hash && one->new[0] != '0')
+		write_str(one->hash, list);
 	if (list->spe == 'X')
 		one->new = upper_string(one->new);
 	if (one->sign == '-')
@@ -47,14 +50,16 @@ void other_flags(t_lst *list, t_one *one)
 	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
 		list->width < one->len)))
 		write_c(' ', 1, list);
-	if (one->dif_width > 0)
-		write_c(one->c, one->dif_width, list);
 	if (list->flag == '+'|| one->sign == '-')
 	{
 		write_c(one->sign, 1, list);
 		one->dif_width--;
 	}
-	if (one->hash && one->new[0] != '0')
+	if (one->hash && one->c == '0' && one->new[0] != '0')
+		write_str(one->hash, list);
+	if (one->dif_width > 0)
+		write_c(one->c, one->dif_width, list);
+	if (one->hash && one->c == ' ' && one->new[0] != '0')
 		write_str(one->hash, list);
 	if (one->dif_pre > 0)
 		write_c('0', one->dif_pre, list);
