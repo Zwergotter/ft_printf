@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_num.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/06 23:10:54 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/07 16:17:46 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ void other_flags(t_lst *list, t_one *one)
 	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
 		list->width < one->len)))
 		write_c(' ', 1, list);
-	if (list->flag == '+'|| one->sign == '-')
-	{
-		write_c(one->sign, 1, list);
-		one->dif_width--;
-	}
 	if (one->hash && one->c == '0' && one->new[0] != '0')
 		write_str(one->hash, list);
-	if (one->dif_width > 0)
+	if (one->dif_width > 0 && one->c == ' ')
+		write_c(one->c, one->dif_width, list);
+	if (list->flag == '+'|| one->sign == '-')
+		{
+			write_c(one->sign, 1, list);
+			if (list->flag == '+')
+				one->dif_width--;
+		}
+	if (one->dif_width > 0 && one->c == '0')
 		write_c(one->c, one->dif_width, list);
 	if (one->hash && one->c == ' ' && one->new[0] != '0')
 		write_str(one->hash, list);
@@ -132,9 +135,17 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 			one->str);
 	if (list->i_pre && list->i_pre > one->len)
 		one->dif_pre = list->i_pre - one->len;
+	ft_putstr(PNK"list->flag is :");
+	ft_putchar(list->flag);
+	ft_putstr("\n");
+	ft_putstr(PNK"list->width is :");
+	ft_putnbr(list->width);
+	ft_putstr("\n");
 	if (list->width > list->i_pre && list->width > one->len)
-		one->dif_width = list->width - (one->dif_pre + one->len)  - (one->str[0]
-				== '-' || list->flag == ' ' || list->flag == '+' ? 1 : 0) - ft_strlen(one->hash);
+		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' ' || list->flag == '+' ? 1 : 0) - ft_strlen(one->hash);
+	ft_putstr("dif width is :");
+	ft_putnbr(one->dif_width);
+	ft_putstr("\n\n"RESET);
 	one->c = (list->flag == '0' && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
 		minus_flag(list, one);

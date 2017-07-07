@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/29 17:14:30 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/07 16:09:03 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	test(char const *test, ...)
 	va_list ap;
 	t_lst *arg;
 	int result;
-	static char *saved = NULL;
 
 	arg = parsing(test);
 	result = 0;
@@ -43,40 +42,73 @@ int	test(char const *test, ...)
 	while (arg && arg->type != EMPTY)
 	{
 		if (arg->type == STR)
-			bufferize_str(&saved, arg->arg, arg);
+			write_str(arg->arg, arg);
 		else
-			displaying(arg, ap, &saved);
-		printf(RED"\nNb read char : %d\n" RESET, arg->nb);
+			displaying(arg, ap);
+		// printf(RED"\nNb read char : %d\n" RESET, arg->nb);
 		result = result + arg->nb;
-		printf(GRN"Result after : %d\n" RESET, result);
+		// printf(GRN"Result after : %d\n" RESET, result);
 		arg = destroy_elem(arg);
 	}
-	if (saved)
-		write(1, saved, result);
+	printf(GRN"\nResult after : %d\n", result);
 	va_end(ap);
 	return (result);
 }
 
 int	main()
 {	
-	printf(RED"Hello word\n"RESET);
-	printf("%s\n", "test");
-	printf(MAG"#"CYN"%s"MAG"#\n"RESET, "Pretty");
-	printf("lol""123""456\n");
-	int *b;
-	char const *str;
-	char const *str2;
-	char* l = setlocale(LC_ALL, "");
-
-	if (l == NULL)
-		printf("l est nul\n");
-	str = "etc   -%#5X-  -%+2.5d- -%08d-  -%C- -%-10s- -%c- -%hd- -%04%- -%p-\n";
-	str2 = "end is .%4s. and start is .%4s.";
-	printf("Real printf gives:\n");
-	printf("result : %d\n", printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b));
 	printf("\n\n-------------------------------------------------------------\n\n");
-	printf("Mine gives:\n");
-	test(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%0+5d", -42));
+	printf("\nMine gives:\n");
+	test("%0+5d", -42);
+	printf("\n");
+
+	printf("\n\n-------------------------------------------------------------\n\n");
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%05d", -42));
+	printf("\nMine gives:\n");
+	test("%05d", -42);
+	printf("\n");
+
+	printf("\n\n-------------------------------------------------------------\n\n");
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%0+5d", 42));
+	printf("\nMine gives:\n");
+	test("%0+5d", 42);
+	printf("\n");
+
+	printf("\n\n-------------------------------------------------------------\n\n");
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%-5d", -42));
+	printf("\nMine gives:\n");
+	test("%-5d", -42);
+	printf("\n");
+
+	printf("\n\n-------------------------------------------------------------\n\n");
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%-5d", -42));
+	printf("\nMine gives:\n");
+	test("%-05d", -42);
+	printf("\n");
+	// printf(RED"Hello word\n"RESET);
+	// printf("%s\n", "test");
+	// printf(MAG"#"CYN"%s"MAG"#\n"RESET, "Pretty");
+	// printf("lol""123""456\n");
+	// int *b;
+	// char const *str;
+	// char const *str2;
+	// char* l = setlocale(LC_ALL, "");
+
+	// if (l == NULL)
+	// 	printf("l est nul\n");
+	// str = "etc   -%#5X-  -%+2.5d- -%08d-  -%C- -%-10s- -%c- -%hd- -%04%- -%p-\n";
+	// str2 = "end is .%4s. and start is .%4s.";
+	// printf("Real printf gives:\n");
+	// printf("result : %d\n", printf(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b));
+	// printf("\n\n-------------------------------------------------------------\n\n");
+	// printf("\nMine gives:\n");
+	// test(str, 128, 248, 127, L'✈', "mwar test", 'c', 4, &b);
 	// test(str2, "end", "start");
 	return (0);
 }
