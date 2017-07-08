@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 13:57:58 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/08 22:54:18 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 	if (list->pre && !list->i_pre)
 	{
 		if (list->width)
-			(list->flag == '0' ? write_c('0', list->width, list) : write_c(' ', list->width, list));
+			((list->zero == '0' && list->flag != '-') ? write_c('0', list->width, list) : write_c(' ', list->width, list));
 	}
 	else
 	{
@@ -37,7 +37,7 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 			}
 			else
 			{
-				(list->flag == '0' ? write_c('0', one->dif_width, list) : write_c(' ', one->dif_width, list));
+				((list->zero == '0' && list->flag != '-') ? write_c('0', one->dif_width, list) : write_c(' ', one->dif_width, list));
 				write_str(one->new, list);
 			}
 		}
@@ -52,7 +52,7 @@ void display_char(t_lst *list, int nb)
 	char c;
 
 	c = nb - 0;
-	fill = (list->flag == '0' ? '0' : ' ');
+	fill = ((list->zero == '0' && list->flag != '-') ? '0' : ' ');
 	if (list->flag != '#')
 	{
 		if (list->width && list->flag != '-')

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/08 22:01:14 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/08 23:05:42 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void other_flags(t_lst *list, t_one *one)
 	if (list->flag == '+'|| one->sign == '-')
 		{
 			write_c(one->sign, 1, list);
-			if (list->flag == '+')
+			if (one->sign == '+')
 				one->dif_width--;
 		}
 	if (one->dif_width > 0 && one->c == '0')
@@ -100,7 +100,7 @@ void 	type_other(t_lst *list, va_list ap, t_one *one)
 void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 {
 	if (list->type == INT || list->type == CHAR)
-		one->str = long_itoa((va_arg(ap, int)));
+		one->str = ft_itoa((va_arg(ap, int)));
 	if (list->type == SHORT_INT)
 		one->str = long_itoa((short)(va_arg(ap, int)));
 	if (list->type == LONG_INT)
@@ -139,11 +139,11 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	ft_putnbr(list->width);
 	ft_putstr("\n");
 	if (list->width > list->i_pre && list->width > one->len)
-		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' ' || list->flag == '+' ? 1 : 0) - ft_strlen(one->hash);
+		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' ' ? 1 : 0) - ft_strlen(one->hash);
 	ft_putstr("dif width is :");
 	ft_putnbr(one->dif_width);
 	ft_putstr("\n\n"RESET);
-	one->c = (list->flag == '0' && !list->pre ? '0' : ' ');
+	one->c = ((list->zero == '0' && list->flag != '-') && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
 		minus_flag(list, one);
 	else

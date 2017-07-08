@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verifications.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:40:53 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/06 20:36:16 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/08 22:51:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	is_flag(char c, t_lst *elem)
 {
 	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0')
 	{
+		if (c == '0' && elem->flag != '-')
+		{
+			elem->zero = c;
+			return (1);
+		}
 		if (c == '#')
 		{
 			elem->hash = '#';
