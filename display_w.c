@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_w.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 13:58:03 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/09 01:43:04 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	display_wchar(unsigned long int nb, t_lst *list)
 	int 				i;
 
 	i = 0;
-	bin = ft_itoa_base(nb, 2);
+	bin = ft_itoa_base(nb, 2, 0);
 	if (ft_strlen(bin) <= 7)
 	{
 		write(1, &nb, 1);

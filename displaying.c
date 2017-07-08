@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 13:58:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/09 01:44:02 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,65 +22,6 @@ int	is_numeric(t_lst *list)
 		list->type == VOID)
 		return (1);
 	return (0);
-}
-
-/*
-** Will write a character i times.
-*/
-
-void write_char(char c, int i)
-{
-	while (i-- > 0)
-		write(1, &c, 1);
-}
-
-char		*unsigned_long_itoa(unsigned long long n)
-{
-	size_t		len;
-	int 		i;
-	char		*new;
-
-	len = ft_countdigits(n);
-	i = 0;
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	if (n == 0)
-		return (ft_strdup("0"));
-	new[len] = '\0';
-	while (n > 9)
-	{
-		new[--len] = ((n % 10) + '0');
-		n = n / 10;
-	}
-	new[i] = (n + '0');
-	return (new);
-}
-
-char		*long_itoa(intmax_t n)
-{
-	size_t		len;
-	int			i;
-	char		*new;
-
-	len = ft_countdigits(n);
-	i = 0;
-	if (n == 0 || n == ~0LL)
-		return (n == 0 ? ft_strdup("0") : ft_strdup("-9223372036854775808"));
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	if (n < 0)
-	{
-		n = -n;
-		new[i++] = '-';
-	}
-	new[len] = '\0';
-	while (n > 9)
-	{
-		new[--len] = ((n % 10) + '0');
-		n = n / 10;
-	}
-	new[i] = (n + '0');
-	return (new);
 }
 
 /*

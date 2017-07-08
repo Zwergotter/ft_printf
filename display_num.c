@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/08 23:05:42 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/09 01:40:46 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,19 @@ void 	type_other(t_lst *list, va_list ap, t_one *one)
 	if (list->spe != 'u')
 		base = (list->spe == 'o' ? 8 : 16);
 	if (list->type == U_INT || list->type == U_CHAR)
-		one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base);
+		one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base, 0);
 	if (list->type == USHORT_INT)
-		one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base);
+		one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base, 0);
 	if (list->type == ULONG_INT)
-		one->str = ft_itoa_base((va_arg(ap, unsigned long)), base);
+		one->str = ft_itoa_base((va_arg(ap, unsigned long)), base, 0);
 	if (list->type == SIZE_T)
-		one->str = ft_itoa_base(va_arg(ap, size_t), base);
+		one->str = ft_itoa_base(va_arg(ap, size_t), base, 0);
 	if (list->type == UINT_MAXT || list->type == VOID)
-		one->str = ft_itoa_base(va_arg(ap, uintmax_t), base);
+		one->str = ft_itoa_base(va_arg(ap, uintmax_t), base, 0);
 	if (list->type == ULLONG_INT)
-		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
+		// one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
+		one->str = ft_itoa_base(va_arg(ap, unsigned long long), base, 0);
+
 }
 
 /*
@@ -98,21 +100,24 @@ void 	type_other(t_lst *list, va_list ap, t_one *one)
 */
 
 void 	type_decimal(t_lst *list, va_list ap, t_one *one)
-{
-	if (list->type == INT || list->type == CHAR)
-		one->str = ft_itoa((va_arg(ap, int)));
+{	
+	intmax_t number;
+
+	number = va_arg(ap, intmax_t);
+	if (list->type == CHAR)
+		one->str = ft_itoa_base((char)number < 0 ? -((char)number) : (char)number, 10, (char)number >= 0 ? 0 : 1);
+	if (list->type == INT)
+		one->str = ft_itoa_base((int)number < 0 ? -((int)number) : (int)number, 10, (int)number >= 0 ? 0 : 1);
 	if (list->type == SHORT_INT)
-		one->str = long_itoa((short)(va_arg(ap, int)));
+		one->str = ft_itoa_base((short int)number < 0 ? -((short int)number) : (short int)number, 10, (short int)number >= 0 ? 0 : 1);
 	if (list->type == LONG_INT)
-		one->str = long_itoa((va_arg(ap, long)));
+		one->str = ft_itoa_base((long int)number < 0 ? -((long int)number) : (long int)number, 10, (long int)number >= 0 ? 0 : 1);
 	if (list->type == LLONG_INT)
-		one->str = long_itoa(va_arg(ap, long long));
+		one->str = ft_itoa_base((long long int)number < 0 ? -((long long int)number) : (int)number, 10, (long long int)number >= 0 ? 0 : 1);
 	if (list->type == SIZE_T)
-		one->str = long_itoa(va_arg(ap, size_t));
+		one->str = ft_itoa_base((size_t)number, 10, 0);
 	if (list->type == INT_MAXT)
-		one->str = long_itoa(va_arg(ap, intmax_t));
-	if (list->type == ULLONG_INT)
-		one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
+		one->str = ft_itoa_base(number < 0 ? -number : number, 10, number >= 0 ? 0 : 1);
 }
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
@@ -132,17 +137,8 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 			one->str);
 	if (list->i_pre && list->i_pre > one->len)
 		one->dif_pre = list->i_pre - one->len;
-	ft_putstr(PNK"list->flag is :");
-	ft_putchar(list->flag);
-	ft_putstr("\n");
-	ft_putstr(PNK"list->width is :");
-	ft_putnbr(list->width);
-	ft_putstr("\n");
 	if (list->width > list->i_pre && list->width > one->len)
-		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' ' ? 1 : 0) - ft_strlen(one->hash);
-	ft_putstr("dif width is :");
-	ft_putnbr(one->dif_width);
-	ft_putstr("\n\n"RESET);
+		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' '  ? 1 : 0) - ft_strlen(one->hash);
 	one->c = ((list->zero == '0' && list->flag != '-') && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
 		minus_flag(list, one);

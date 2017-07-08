@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/08 22:38:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/09 01:43:44 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,7 @@ void	check_elem(t_lst **first);
 void	error_displayed(t_error error);
 void	what_type(t_lst *elem);
 
-void	write_char(char c, int i);
 char	*unsigned_long_itoa(unsigned long long n);
-char	*long_itoa(intmax_t n);
 
 void	displaying(t_lst *list, va_list ap);
 
