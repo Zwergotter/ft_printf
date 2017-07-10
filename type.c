@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 17:44:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/23 22:29:17 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/10 14:46:08 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	type_unsigned(t_lst *elem)
 {
 	elem->type = U_INT;
-	if ((ft_strcmp(elem->length, "l")) == 0)
+	if ((ft_strcmp(elem->length, "l")) == 0 || elem->spe == 'U')
+	{
 		elem->type = ULONG_INT;
+		return ;
+	}
 	if ((ft_strcmp(elem->length, "ll")) == 0)
 		elem->type = ULLONG_INT;
 	if ((ft_strcmp(elem->length, "h")) == 0)

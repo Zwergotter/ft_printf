@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:40:53 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/08 22:51:15 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/10 14:46:32 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ int	is_flag(char c, t_lst *elem)
 			return (1);
 		}
 		if (elem->flag == ' '|| !elem->flag)
+		{
 			elem->flag = c;
+			return (1);
+		}
+		if (c == '+')
+			elem->sign = c;
 		return (1);
 	}
 	return (0);

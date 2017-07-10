@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 11:35:58 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/10 14:46:47 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_lst
 	char			*arg;
 	char			flag;
 	char			hash;
+	char 			sign;
 	char 			zero;
 	int				len;
 	int				width;
