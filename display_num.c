@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 15:43:18 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/10 16:45:11 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);
-	if (list->pre && (ft_strcmp(one->new, "0") == 0))
+	if (list->pre && (ft_strcmp(one->new, "0") == 0) && !list->i_pre)
 		{
 			one->new = " ";
 			if (!list->i_pre && !list->width)
@@ -145,8 +145,8 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 		if (list->hash == '#' || list->spe == 'p')
 			one->hash = (list->spe == 'o' ? "0" : "0x");
 	}
-	if (list->i_pre && list->i_pre > one->len)
-		one->dif_pre = list->i_pre - one->len + (one->sign == '-' ? 1 : 0);
+	if (list->i_pre && list->i_pre > one->len - (one->sign == '-' ? 1 : 0))
+		one->dif_pre = list->i_pre - (one->len - (one->sign == '-' ? 1 : 0));
 	if (list->width > list->i_pre && list->width > one->len)
 		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' '  ? 1 : 0) - ft_strlen(one->hash) -
 	((list->flag == '+') && one->sign == '+' && (list->spe != 'u' && list->spe != 'U') ? 1 : 0);
