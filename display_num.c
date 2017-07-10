@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/09 01:40:46 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/10 11:38:29 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,25 +73,27 @@ void other_flags(t_lst *list, t_one *one)
 
 void 	type_other(t_lst *list, va_list ap, t_one *one)
 {	
+	uintmax_t number;
 	int base;
 
 	base = 10;
 	if (list->spe != 'u')
 		base = (list->spe == 'o' ? 8 : 16);
-	if (list->type == U_INT || list->type == U_CHAR)
-		one->str = 	ft_itoa_base((va_arg(ap, unsigned int)), base, 0);
+	if (list->type == U_CHAR)
+		number = (unsigned char)va_arg(ap, unsigned int);
+	if (list->type == U_INT)
+		number = va_arg(ap, unsigned int);
 	if (list->type == USHORT_INT)
-		one->str = ft_itoa_base((unsigned short)(va_arg(ap, int)), base, 0);
+		number = (unsigned short)va_arg(ap, unsigned int);
 	if (list->type == ULONG_INT)
-		one->str = ft_itoa_base((va_arg(ap, unsigned long)), base, 0);
-	if (list->type == SIZE_T)
-		one->str = ft_itoa_base(va_arg(ap, size_t), base, 0);
-	if (list->type == UINT_MAXT || list->type == VOID)
-		one->str = ft_itoa_base(va_arg(ap, uintmax_t), base, 0);
+		number = va_arg(ap, unsigned long int);
 	if (list->type == ULLONG_INT)
-		// one->str = unsigned_long_itoa(va_arg(ap, unsigned long long));
-		one->str = ft_itoa_base(va_arg(ap, unsigned long long), base, 0);
-
+		number = va_arg(ap, unsigned long long int);
+	if (list->type == SIZE_T)
+		number = va_arg(ap, size_t);
+	if (list->type == UINT_MAXT || list->type == VOID)
+		number = va_arg(ap, uintmax_t);
+	one->str = ft_itoa_base(number, base, 0);
 }
 
 /*
@@ -103,21 +105,21 @@ void 	type_decimal(t_lst *list, va_list ap, t_one *one)
 {	
 	intmax_t number;
 
-	number = va_arg(ap, intmax_t);
 	if (list->type == CHAR)
-		one->str = ft_itoa_base((char)number < 0 ? -((char)number) : (char)number, 10, (char)number >= 0 ? 0 : 1);
+		number = (char)va_arg(ap, int);
 	if (list->type == INT)
-		one->str = ft_itoa_base((int)number < 0 ? -((int)number) : (int)number, 10, (int)number >= 0 ? 0 : 1);
+		number = va_arg(ap, int);
 	if (list->type == SHORT_INT)
-		one->str = ft_itoa_base((short int)number < 0 ? -((short int)number) : (short int)number, 10, (short int)number >= 0 ? 0 : 1);
+		number = (short)va_arg(ap, int);
 	if (list->type == LONG_INT)
-		one->str = ft_itoa_base((long int)number < 0 ? -((long int)number) : (long int)number, 10, (long int)number >= 0 ? 0 : 1);
+		number = va_arg(ap, long int);
 	if (list->type == LLONG_INT)
-		one->str = ft_itoa_base((long long int)number < 0 ? -((long long int)number) : (int)number, 10, (long long int)number >= 0 ? 0 : 1);
+		number = va_arg(ap, long long int);
 	if (list->type == SIZE_T)
-		one->str = ft_itoa_base((size_t)number, 10, 0);
+		number = va_arg(ap, size_t);
 	if (list->type == INT_MAXT)
-		one->str = ft_itoa_base(number < 0 ? -number : number, 10, number >= 0 ? 0 : 1);
+		number = va_arg(ap, intmax_t);
+	one->str = ft_itoa_base(number < 0 ? -number : number, 10, number >= 0 ? 0 : 1);
 }
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
@@ -130,8 +132,6 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 		{
 			if (list->hash == '#' || list->spe == 'p')
 				one->hash = (list->spe == 'o' ? "0" : "0x");
-			// if (!ft_strcmp(one->str, "0") && (list->width || list->i_pre))
-			// 	one->str = " ";
 		}
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/09 01:43:44 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/10 11:35:58 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct		s_lst
 	int				width;
 	int				i_pre;
 	char 			pre;
-	char			length[2];
+	char			length[3];
 	char			spe;
 	int				nb;
     //POUR CALCULER RETURN (ATTENTION A %C)
@@ -113,8 +113,6 @@ int 	everything_at_once(char c, t_lst *elem);
 void	check_elem(t_lst **first);
 void	error_displayed(t_error error);
 void	what_type(t_lst *elem);
-
-char	*unsigned_long_itoa(unsigned long long n);
 
 void	displaying(t_lst *list, va_list ap);
 
