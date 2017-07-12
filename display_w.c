@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 14:57:16 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 18:21:14 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,12 @@ void		display_wstr(va_list ap, t_lst *list)
 	int		i;
 
 	i = 0;
-	str = ft_wstrdup(va_arg(ap, wchar_t*));
+	str = va_arg(ap, wchar_t*);
+	if (!str)
+	{
+		write_str("(null)", list);
+		return ;
+	}
 	while (str[i])
 		display_wchar(str[i++], list);
 }

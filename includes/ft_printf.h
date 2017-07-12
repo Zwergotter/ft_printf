@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 17:23:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 18:18:45 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_lst
 typedef struct		s_one
 {
 	char			*str;
+	wchar_t			*wstr;
 	int				len;
 	char			sign;
 	char			*new;

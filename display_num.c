@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 15:26:17 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 17:56:39 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void minus_flag(t_lst *list, t_one *one)
 {
-	if (one->hash && one->new[0] != '0')
+	if ((one->hash && one->new[0] != '0')|| (list->type == VOID && one->new[0] == '0'))
 		write_str(one->hash, list);
 	if (list->spe == 'X')
 		one->new = upper_string(one->new);
@@ -135,11 +135,11 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);
 	if (list->pre && (ft_strcmp(one->new, "0") == 0) && !list->i_pre)
-		{
-			one->new = " ";
-			if (!list->i_pre && !list->width)
-				one->new = "";
-		}
+	{
+		one->new = " ";
+		if (!list->i_pre && !list->width)
+			one->new = "";
+	}
 	if ((list->spe == 'o' || list->spe == 'O' || ((list->spe == 'x' || list->spe == 'X') && one->new[0] != '\0')) || list->type == VOID)
 	{
 		if (list->hash == '#' || list->spe == 'p')
