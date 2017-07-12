@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 17:44:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 14:35:59 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 15:22:55 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	type_unsigned(t_lst *elem)
 {
 	elem->type = U_INT;
-	if ((ft_strcmp(elem->length, "l")) == 0 || elem->spe == 'U')
+	if ((ft_strcmp(elem->length, "l")) == 0 || elem->spe == 'U'
+		|| elem->spe == 'O')
 	{
 		elem->type = ULONG_INT;
 		return ;

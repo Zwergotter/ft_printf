@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+         #
+#    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/06/27 16:50:32 by edeveze          ###   ########.fr        #
+#    Updated: 2017/07/12 15:08:31 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC = test.c\
 OBJ = $(SRC:.c=.o)
 
 # Compilation
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -g
 PRGFLAGS = -L libft/ -framework AppKit libft/libft.a
 
 # Rules

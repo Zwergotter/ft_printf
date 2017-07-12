@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 14:27:50 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 17:23:22 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,33 @@
 
 void display_str(t_lst *list, va_list ap, t_one *one)
 {
-	int i;
 	char *str;
 
-	i = 0;
 	str = va_arg(ap, char*);
 	if (!str)
 	{
-		write_str("(null)", list);
-		return ;
+		if (!list->width)
+		{
+			write_str("(null)", list);
+			return ;
+		}
 	}
-	one->str = ft_strdup(str);
-	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre) : one->str);
-	one->len = ft_strlen(one->new);
+	if (str)
+	{
+		one->str = ft_strdup(str);
+		one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre) : one->str);
+		one->len = ft_strlen(one->new);
+	}
+	ft_putnbr(one->dif_width);
+	ft_putstr("is dif_width\n");
 	one->dif_width = list->width;
+	ft_putnbr(one->dif_width);
+	ft_putstr("is dif_width\n");
 	if (one->len)
-		one->dif_width -= (one->len > list->i_pre ? one->len : list->i_pre);
+		one->dif_width -= one->len;
+		// one->dif_width -= (one->len > list->i_pre ? one->len : list->i_pre);
+	ft_putnbr(one->dif_width);
+	ft_putstr("is dif_width\n");
 	if (list->pre && !list->i_pre)
 	{
 		if (list->width)
@@ -41,17 +52,22 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 		{
 			if (list->flag == '-')
 			{
-				write_str(one->new, list);
+				if (one->new)
+					write_str(one->new, list);
 				write_c(' ', one->dif_width, list);
 			}
 			else
 			{
 				((list->zero == '0' && list->flag != '-') ? write_c('0', one->dif_width, list) : write_c(' ', one->dif_width, list));
-				write_str(one->new, list);
+				if (one->new)
+					write_str(one->new, list);
 			}
 		}
 		else
-			write_str(one->new, list);
+		{
+			if (one->new)
+					write_str(one->new, list);
+		}
 	}
 }
 

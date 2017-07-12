@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 14:27:38 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 15:26:17 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,10 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 			if (!list->i_pre && !list->width)
 				one->new = "";
 		}
-	if ((list->spe == 'o' || ((list->spe == 'x' || list->spe == 'X') && one->new[0] != '\0')) || list->type == VOID)
+	if ((list->spe == 'o' || list->spe == 'O' || ((list->spe == 'x' || list->spe == 'X') && one->new[0] != '\0')) || list->type == VOID)
 	{
 		if (list->hash == '#' || list->spe == 'p')
-			one->hash = (list->spe == 'o' ? "0" : "0x");
+			one->hash = ((list->spe == 'o' || list->spe == 'O') ? "0" : "0x");
 	}
 	if (list->i_pre && list->i_pre > one->len - (one->sign == '-' ? 1 : 0))
 		one->dif_pre = list->i_pre - (one->len - (one->sign == '-' ? 1 : 0));
