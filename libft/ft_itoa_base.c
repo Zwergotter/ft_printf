@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/09 01:42:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:47:43 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_itoa_base(uintmax_t number, int base, int neg)
 		number = number / base;
 	str = "0123456789abcdef";
 	if (!(result = malloc(i + neg + 1)))
-		exit (0);
+		exit(0);
 	result[i + neg] = '\0';
 	result[0] = '-';
 	while (i--)
@@ -35,5 +35,5 @@ char	*ft_itoa_base(uintmax_t number, int base, int neg)
 		result[i + neg] = str[save % base];
 		save = save / base;
 	}
-	return (result); 
+	return (result);
 }
