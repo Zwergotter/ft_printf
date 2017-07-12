@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buffer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:03:03 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 13:57:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:26:10 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*upper_string(char *str)
 {
-	int i;
-	char *new;
+	int		i;
+	char	*new;
 
 	new = ft_memalloc(ft_strlen(str) + 1);
 	i = 0;
@@ -23,14 +23,13 @@ char	*upper_string(char *str)
 	{
 		if (str[i] >= 97 && str[i] <= 122)
 			new[i] = str[i] - 32;
-		else 
+		else
 			new[i] = str[i];
 		i++;
 	}
 	new[i] = '\0';
 	return (new);
 }
-
 
 void	write_str(char *str, t_lst *list)
 {

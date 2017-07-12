@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 16:45:11 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:27:38 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void other_flags(t_lst *list, t_one *one)
 	}
 	if (one->dif_width > 0 && one->c == '0')
 		write_c(one->c, one->dif_width, list);
-	if (one->hash && one->c == ' ' && one->new[0] != '0')
+	if ((one->hash && one->c == ' ' && one->new[0] != '0') || (list->type == VOID && one->new[0] == '0'))
 		write_str(one->hash, list);
 	if (one->dif_pre > 0)
 		write_c('0', one->dif_pre, list);
@@ -82,7 +82,7 @@ void 	nb_unsigned(t_lst *list, va_list ap, t_one *one)
 
 	base = 10;
 	if (list->spe != 'u' && list->spe != 'U')
-		base = (list->spe == 'o' ? 8 : 16);
+		base = (list->spe == 'o' || list->spe == 'O' ? 8 : 16);
 	if (list->type == U_CHAR)
 		number = (unsigned char)va_arg(ap, unsigned int);
 	if (list->type == U_INT)
@@ -128,7 +128,7 @@ void 	nb_signed(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	(list->spe == 'd' || list->spe == 'i' ? nb_signed(list, ap, one) :
+	(list->spe == 'd' || list->spe == 'D' || list->spe == 'i' ? nb_signed(list, ap, one) :
 		nb_unsigned(list, ap, one));
 	one->len = ft_strlen(one->str);
 	one->sign = (one->str[0] == '-' ? '-' : '+');
@@ -140,7 +140,7 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 			if (!list->i_pre && !list->width)
 				one->new = "";
 		}
-	if (list->spe == 'o' || ((list->spe == 'x' || list->spe == 'X') && one->new[0] != '\0'))
+	if ((list->spe == 'o' || ((list->spe == 'x' || list->spe == 'X') && one->new[0] != '\0')) || list->type == VOID)
 	{
 		if (list->hash == '#' || list->spe == 'p')
 			one->hash = (list->spe == 'o' ? "0" : "0x");

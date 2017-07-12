@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 15:26:36 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:27:50 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 void display_str(t_lst *list, va_list ap, t_one *one)
 {
 	int i;
+	char *str;
 
 	i = 0;
-	one->str = ft_strdup(va_arg(ap, char*));
+	str = va_arg(ap, char*);
+	if (!str)
+	{
+		write_str("(null)", list);
+		return ;
+	}
+	one->str = ft_strdup(str);
 	one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre) : one->str);
 	one->len = ft_strlen(one->new);
 	one->dif_width = list->width;

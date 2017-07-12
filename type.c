@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 17:44:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 14:46:08 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:35:59 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ void	type_unsigned(t_lst *elem)
 void	type_signed(t_lst *elem)
 {
 	elem->type = INT;
-	if ((ft_strcmp(elem->length, "l")) == 0)
+	if ((ft_strcmp(elem->length, "l")) == 0 || elem->spe == 'D')
+	{
 		elem->type = LONG_INT;
+		return ;
+	}
 	if ((ft_strcmp(elem->length, "ll")) == 0)
 		elem->type = LLONG_INT;
 	if ((ft_strcmp(elem->length, "h")) == 0)
@@ -55,7 +58,8 @@ void	what_type(t_lst *elem)
 		elem->type = PERCENT;
 	if (elem->spe == 's' || elem->spe == 'S' || elem->spe == 'C')
 	{
-		if (elem->spe != 'C' && ft_strcmp(elem->length, "l"))
+		if ((elem->spe != 'C' && elem->spe != 'S') &&
+			ft_strcmp(elem->length, "l"))
 			elem->type = ARG_STR;
 		else
 			elem->type = (elem->spe == 'C' ? WCHAR_T : WCHAR_TSTR);

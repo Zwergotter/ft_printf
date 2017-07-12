@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:40:53 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 14:46:32 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:33:53 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_flag(char c, t_lst *elem)
 			elem->hash = '#';
 			return (1);
 		}
-		if (elem->flag == ' '|| !elem->flag)
+		if (elem->flag == ' ' || !elem->flag)
 		{
 			elem->flag = c;
 			return (1);
@@ -53,10 +53,6 @@ int	is_flag(char c, t_lst *elem)
 	return (0);
 }
 
-/*
-** Nombre avant . -> sont la taille. Sinon, c'est la precision.
-*/
-
 int	is_precision(char c, t_lst *elem)
 {
 	if (c == '.')
@@ -67,21 +63,18 @@ int	is_precision(char c, t_lst *elem)
 	return (0);
 }
 
-/*
-** ATTENTION. Aussi hh et ll a gerer.
-*/
 int	is_length(char c)
 {
 	if (c == 'h' || c == 'l' || c == 'j' || c == 'z')
 		return (1);
-	return(0);
+	return (0);
 }
 
 /*
 ** Checking all at once
 */
 
-int everything_at_once(char c, t_lst *elem)
+int	everything_at_once(char c, t_lst *elem)
 {
 	if (ft_isdigit(c + 0) || is_precision(c, elem) || is_length(c) ||
 		is_flag(c, elem))

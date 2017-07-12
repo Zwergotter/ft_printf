@@ -3,35 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/06 21:31:06 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:23:26 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-** File to check all elements which begin by % one by one
-** Apparently strings written juste after a specifier, even without a white space, are fine.
-** But need to check stuff like "%wwwwwd" that can't be acceptable
+** Will specify length found in string and then return the index after this
 */
 
-int filling_length(t_lst *elem, int i)
+int		filling_length(t_lst *elem, int i)
 {
 	int j;
 
 	j = 0;
 	elem->length[j++] = elem->arg[i++];
-	if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') && elem->arg[i - 1] == elem->arg[i])
+	if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') &&
+		elem->arg[i - 1] == elem->arg[i])
 		elem->length[j++] = elem->arg[i++];
 	while (j < 3)
 		elem->length[j++] = '\0';
 	return (i);
 }
 
-int option_found(t_lst *elem, int i)
+/*
+** Finding all options in string between a percent and a specifier if there's
+** one and putting them in list's element specifing for what kind of option
+** Returns the index
+*/
+
+int		option_found(t_lst *elem, int i)
 {
 	if ((elem->arg[i] != '0' && ft_isdigit(elem->arg[i] + 0) && !elem->i_pre)
 		|| (is_precision(elem->arg[i], elem)))
@@ -54,7 +59,7 @@ int option_found(t_lst *elem, int i)
 	return (i);
 }
 
-void substring(t_lst *elem, int i)
+void	substring(t_lst *elem, int i)
 {
 	char *str;
 
@@ -65,12 +70,17 @@ void substring(t_lst *elem, int i)
 }
 
 /*
-** Order a gerer, flag -> width -> precision -> length
-** un ou plusieurs de ceux ci peuvent etre zappes mais l'ordre doit etre respecte
-** GERER aussi le %%
+** Checking at first if flag is just after % or not
+** If it is, it's starting itn starts at 2 and if not at 1
+** Then it will call option_found until something isn't an option
+** or we reach second to last character
+** If last character is a specifier, it will give a type thanks to
+** what_type.
+** If not, the format isn't valid and either it will do nothing or
+** will save the substring without percent.
 */
 
-int checking(t_lst *elem)
+int		checking(t_lst *elem)
 {
 	int i;
 
@@ -93,13 +103,13 @@ int checking(t_lst *elem)
 }
 
 /*
-** Checking one by one each element
+** Checking one by one each element and sending them to checking function
 */
 
-void check_elem(t_lst **first)
+void	check_elem(t_lst **first)
 {
-	t_lst *tmp;
-	int i;
+	t_lst	*tmp;
+	int		i;
 
 	tmp = *first;
 	i = 1;
