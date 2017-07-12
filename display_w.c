@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 18:21:14 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 18:38:31 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,10 @@ void		display_wstr(va_list ap, t_lst *list)
 {
 	wchar_t	*str;
 	int		i;
+	int		pre;
 
 	i = 0;
+	pre = list->i_pre;
 	str = va_arg(ap, wchar_t*);
 	if (!str)
 	{
@@ -117,5 +119,9 @@ void		display_wstr(va_list ap, t_lst *list)
 		return ;
 	}
 	while (str[i])
+	{
 		display_wchar(str[i++], list);
+		if (pre && pre / 8 < i)
+			break ;
+	}
 }
