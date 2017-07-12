@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/10 14:46:47 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:49:35 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ typedef	enum		e_error
 
 typedef enum		e_type
 {
-	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WCHAR_TSTR, WIN_T, VOID, CHAR, U_CHAR,
-	SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT, ULLONG_INT,
-	INT_MAXT, UINT_MAXT, SIZE_T, PERCENT
+	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WCHAR_TSTR, WIN_T, VOID, CHAR,
+	U_CHAR, SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT,
+	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T, PERCENT
 }					t_type;
 
 typedef struct		s_lst
@@ -79,28 +79,27 @@ typedef struct		s_lst
 	char			*arg;
 	char			flag;
 	char			hash;
-	char 			sign;
-	char 			zero;
+	char			sign;
+	char			zero;
 	int				len;
 	int				width;
 	int				i_pre;
-	char 			pre;
+	char			pre;
 	char			length[3];
 	char			spe;
 	int				nb;
-    //POUR CALCULER RETURN (ATTENTION A %C)
 }					t_lst;
 
 typedef struct		s_one
 {
 	char			*str;
 	int				len;
-	char 			sign;
-	char 			*new;
-	char 			*hash;
-	char 			c;
-	int 			dif_pre;
-	int 			dif_width;
+	char			sign;
+	char			*new;
+	char			*hash;
+	char			c;
+	int				dif_pre;
+	int				dif_width;
 }					t_one;
 
 t_lst	*parsing(char const *str);
@@ -109,7 +108,7 @@ int		is_specifier(char c);
 int		is_flag(char c, t_lst *elem);
 int		is_precision(char c, t_lst *elem);
 int		is_length(char c);
-int 	everything_at_once(char c, t_lst *elem);
+int		everything_at_once(char c, t_lst *elem);
 
 void	check_elem(t_lst **first);
 void	error_displayed(t_error error);

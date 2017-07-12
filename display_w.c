@@ -6,16 +6,16 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/09 01:43:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/12 14:57:16 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	choosing_mask(char **tab, char *bin, char **tmp)
+void		choosing_mask(char **tab, char *bin, char **tmp)
 {
-	int	len;
-	int len_tab;
+	int		len;
+	int		len_tab;
 
 	len = ft_strlen(bin);
 	if (len <= 7)
@@ -29,18 +29,18 @@ void	choosing_mask(char **tab, char *bin, char **tmp)
 	len -= 1;
 	len_tab = ft_strlen(*tmp) - 1;
 	while (len > -1 && len_tab > -1)
-	{	
+	{
 		if ((*tmp)[len_tab] == 'x')
 			(*tmp)[len_tab] = bin[len--];
 		len_tab--;
 	}
 }
 
-char	*unicode_masks(char *bin)
+char		*unicode_masks(char *bin)
 {
-	char *tab[4];
-	char *tmp;
-	int i;
+	char	*tab[4];
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	tab[0] = "0xxxxxxx";
@@ -57,12 +57,11 @@ char	*unicode_masks(char *bin)
 	return (tmp);
 }
 
-
-void	display_wchar(unsigned long int nb, t_lst *list)
+void		display_wchar(unsigned long int nb, t_lst *list)
 {
-	char 				*bin;
-	char 				*tmp;
-	int 				i;
+	char	*bin;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	bin = ft_itoa_base(nb, 2, 0);
@@ -75,11 +74,11 @@ void	display_wchar(unsigned long int nb, t_lst *list)
 	{
 		tmp = unicode_masks(bin);
 		while (tmp[i])
-			{
-				write_c(ft_atoi_base(ft_strsub(tmp, i, 8), 2), 1, list);
-				i += 8;
-			}
-		free (tmp);
+		{
+			write_c(ft_atoi_base(ft_strsub(tmp, i, 8), 2), 1, list);
+			i += 8;
+		}
+		free(tmp);
 	}
 }
 
@@ -105,7 +104,7 @@ wchar_t		*ft_wstrdup(wchar_t *str)
 	return (dest);
 }
 
-void	display_wstr(va_list ap, t_lst *list)
+void		display_wstr(va_list ap, t_lst *list)
 {
 	wchar_t	*str;
 	int		i;
