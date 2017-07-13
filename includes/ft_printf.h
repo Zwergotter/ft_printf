@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 18:18:45 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 18:47:48 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct		s_one
 	char			c;
 	int				dif_pre;
 	int				dif_width;
+	int				signed_nb;
 }					t_one;
 
 t_lst	*parsing(char const *str);

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 18:26:09 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 18:49:19 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void minus_flag(t_lst *list, t_one *one)
 
 void other_flags(t_lst *list, t_one *one)
 {
-	printf(YEL"width is -%d- and len is -%d-\n"RESET, one->dif_width, one->len);
 	if (list->spe == 'X')
 	{
 			one->new = upper_string(one->new);
@@ -50,19 +49,18 @@ void other_flags(t_lst *list, t_one *one)
 				one->hash = upper_string(one->hash);
 	}
 	if ((list->flag == ' ' && one->str[0] != '-' && (one->str[0] == '0' || list->pre == '.' ||
-		list->width < one->len)) && (list->spe != 'u' && list->spe != 'U'))
+		list->width < one->len)) && one->signed_nb)
 		write_c(' ', 1, list);
 	if ((one->hash && one->c == '0' && one->new[0] != '0') || (list->zero == '0' && list->type == VOID && one->new[0] == '0'))
 		write_str(one->hash, list);
 	if (one->dif_width > 0 && one->c == ' ')
 		write_c(one->c, one->dif_width, list);
-	if ((one->sign && (list->flag == '+' || list->sign)) || one->sign == '-')
+	if ((one->sign && ((list->flag == '+' && one->signed_nb) || list->sign)) || one->sign == '-')
 	{
 		write_c(one->sign, 1, list);
 		if (one->sign == '+' && (one->str[0] != '0' && !list->sign))
 			one->dif_width--;
 	}
-	printf(YEL"width is -%d- and len is -%d-\n"RESET, one->dif_width, one->len);
 	if (one->dif_width > 0 && one->c == '0')
 		write_c(one->c, one->dif_width, list);
 	if ((one->hash && one->c == ' ' && one->new[0] != '0') || (list->type == VOID && one->new[0] == '0' && !list->zero))
@@ -126,6 +124,7 @@ void 	nb_signed(t_lst *list, va_list ap, t_one *one)
 	if (list->type == INT_MAXT)
 		number = va_arg(ap, intmax_t);
 	one->str = ft_itoa_base(number < 0 ? -number : number, 10, number >= 0 ? 0 : 1);
+	one->signed_nb = 1;
 }
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
