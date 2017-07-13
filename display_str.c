@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 17:23:22 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 19:40:41 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,9 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 		one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre) : one->str);
 		one->len = ft_strlen(one->new);
 	}
-	ft_putnbr(one->dif_width);
-	ft_putstr("is dif_width\n");
 	one->dif_width = list->width;
-	ft_putnbr(one->dif_width);
-	ft_putstr("is dif_width\n");
 	if (one->len)
 		one->dif_width -= one->len;
-		// one->dif_width -= (one->len > list->i_pre ? one->len : list->i_pre);
-	ft_putnbr(one->dif_width);
-	ft_putstr("is dif_width\n");
 	if (list->pre && !list->i_pre)
 	{
 		if (list->width)

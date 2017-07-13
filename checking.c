@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 17:15:41 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 20:05:05 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		checking(t_lst *elem)
 	int i;
 
 	i = (is_flag(elem->arg[1], elem) ? 2 : 1);
-	if (i > elem->len - 1)
+	if (i > elem->len)
 		return (0);
 	while (i < elem->len && everything_at_once(elem->arg[i], elem))
 		i = option_found(elem, i);
@@ -95,11 +95,17 @@ int		checking(t_lst *elem)
 		what_type(elem);
 	}
 	else
-		{
-			if (!everything_at_once(elem->arg[i - 1], elem))
-				i--;
+	{
+		if (i <= elem->len)
 			substring(elem, i);
+		else
+		{
+			free(elem->arg);
+			elem->type = STR;
+			if (elem->width && elem->next)
+				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);
 		}
+	}
 	return (1);
 }
 

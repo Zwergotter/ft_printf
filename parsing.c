@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@marvin42.fr>              +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/06 21:30:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 19:54:37 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	everything(char c)
+{
+	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0' || c == '.'
+		|| c == 'h' || c == 'l' || c == 'j' || c == 'z' || ft_isdigit(c + 0))
+		return (1);
+	return (0);
+}
 
 /*
 ** Scans a list thanks to its first element and puts the new one at the end.
@@ -96,7 +104,7 @@ void	creating_list(t_lst **begin, const char *str, int i)
 		else
 		{
 			j++;
-			while (str[j] && !(is_specifier(str[j])))
+			while (str[j] && everything(str[j]))
 				j++;
 			j += (is_specifier(str[j]) ? 1 : 0);
 			addlast(begin, percent(str, i, j));
@@ -124,7 +132,7 @@ t_lst	*parsing(char const *str)
 	else
 	{
 		i++;
-		while (str[i] && !is_specifier(str[i]))
+		while (str[i] && everything(str[i]))
 			i++;
 		i += (is_specifier(str[i]) ? 1 : 0);
 		first = percent(str, 0, i);
