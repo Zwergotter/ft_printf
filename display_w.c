@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 17:16:15 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 17:27:51 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void		display_wstr(va_list ap, t_lst *list)
 	width = list->width - ft_wstrlen(str);
 	if (list->flag != '-' && width > 0)
 	{
-		write_c(' ', width, list);
+		(list->zero == '0') ? write_c('0', width, list) : write_c(' ', width, list);
 		width = 0;
 	}
 	while (str[i])

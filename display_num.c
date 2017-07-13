@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 17:56:39 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 18:26:09 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,30 @@ void minus_flag(t_lst *list, t_one *one)
 
 void other_flags(t_lst *list, t_one *one)
 {
+	printf(YEL"width is -%d- and len is -%d-\n"RESET, one->dif_width, one->len);
 	if (list->spe == 'X')
 	{
 			one->new = upper_string(one->new);
 			if (one->hash && one->new[0] != '0')
 				one->hash = upper_string(one->hash);
 	}
-	if ((list->flag == ' ' && one->str[0] != '-' && (list->pre == '.' ||
+	if ((list->flag == ' ' && one->str[0] != '-' && (one->str[0] == '0' || list->pre == '.' ||
 		list->width < one->len)) && (list->spe != 'u' && list->spe != 'U'))
 		write_c(' ', 1, list);
-	if (one->hash && one->c == '0' && one->new[0] != '0')
+	if ((one->hash && one->c == '0' && one->new[0] != '0') || (list->zero == '0' && list->type == VOID && one->new[0] == '0'))
 		write_str(one->hash, list);
 	if (one->dif_width > 0 && one->c == ' ')
 		write_c(one->c, one->dif_width, list);
-	if (((list->flag == '+' || list->sign) && (list->spe != 'u' && list->spe != 'U')) || one->sign == '-')
+	if ((one->sign && (list->flag == '+' || list->sign)) || one->sign == '-')
 	{
 		write_c(one->sign, 1, list);
-		if (one->sign == '+' && !list->sign)
+		if (one->sign == '+' && (one->str[0] != '0' && !list->sign))
 			one->dif_width--;
 	}
+	printf(YEL"width is -%d- and len is -%d-\n"RESET, one->dif_width, one->len);
 	if (one->dif_width > 0 && one->c == '0')
 		write_c(one->c, one->dif_width, list);
-	if ((one->hash && one->c == ' ' && one->new[0] != '0') || (list->type == VOID && one->new[0] == '0'))
+	if ((one->hash && one->c == ' ' && one->new[0] != '0') || (list->type == VOID && one->new[0] == '0' && !list->zero))
 		write_str(one->hash, list);
 	if (one->dif_pre > 0)
 		write_c('0', one->dif_pre, list);
@@ -131,7 +133,8 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	(list->spe == 'd' || list->spe == 'D' || list->spe == 'i' ? nb_signed(list, ap, one) :
 		nb_unsigned(list, ap, one));
 	one->len = ft_strlen(one->str);
-	one->sign = (one->str[0] == '-' ? '-' : '+');
+	if (list->spe != 'o' && list->spe != 'O' && list->spe != 'u' && list->spe != 'U')
+		one->sign = (one->str[0] == '-' ? '-' : '+');
 	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			one->str);
 	if (list->pre && (ft_strcmp(one->new, "0") == 0) && !list->i_pre)
