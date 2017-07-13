@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 18:38:31 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 17:16:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,29 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 	}
 }
 
+int	ft_wcharlen(wchar_t chr)
+{
+	if (chr <= 0x7F)
+		return (1);
+	else if (chr <= 0x7FF)
+		return (2);
+	else if (chr <= 0xFFFF)
+		return (3);
+	else if (chr <= 0x1FFFFF)
+		return (4);
+	return (1);
+}
+
+size_t	ft_wstrlen(wchar_t *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (*s)
+		i += ft_wcharlen(*s++);
+	return (i);
+}
+
 wchar_t		*ft_wstrdup(wchar_t *str)
 {
 	size_t	len;
@@ -109,6 +132,7 @@ void		display_wstr(va_list ap, t_lst *list)
 	wchar_t	*str;
 	int		i;
 	int		pre;
+	int 	width;
 
 	i = 0;
 	pre = list->i_pre;
@@ -118,10 +142,18 @@ void		display_wstr(va_list ap, t_lst *list)
 		write_str("(null)", list);
 		return ;
 	}
+	width = list->width - ft_wstrlen(str);
+	if (list->flag != '-' && width > 0)
+	{
+		write_c(' ', width, list);
+		width = 0;
+	}
 	while (str[i])
 	{
 		display_wchar(str[i++], list);
 		if (pre && pre / 8 < i)
 			break ;
 	}
+	if (width > 0)
+		write_c(' ', width, list);
 }

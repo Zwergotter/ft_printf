@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/12 18:18:12 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/13 17:01:35 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	displaying(t_lst *list, va_list ap)
 		else
 			display_char(list, va_arg(ap, int));
 	}
-	if (list->type == WCHAR_T)
+	if (list->type == WCHAR_T || list->type == WIN_T)
 		display_wchar(va_arg(ap, wchar_t), list);
 	if (list->type == WCHAR_TSTR)
 		display_wstr(ap, list);
