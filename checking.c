@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 20:05:05 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 00:27:16 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		option_found(t_lst *elem, int i)
 			elem->width = ft_atoi(&elem->arg[i]);
 		while (i < elem->len - 2 && ft_isdigit(elem->arg[i] + 0))
 			i++;
+		if (elem->arg[i] == '+')
+			elem->sign = elem->arg[i++];
 		if (!is_precision(elem->arg[i], elem) && !(is_specifier(elem->arg[i])))
 			i++;
 	}

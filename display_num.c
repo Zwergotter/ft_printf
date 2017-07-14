@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 18:49:19 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 00:27:00 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void minus_flag(t_lst *list, t_one *one)
 
 void other_flags(t_lst *list, t_one *one)
 {
+	if (list->sign == '+' && one->sign == '+' && !list->flag)
+		one->dif_width--;
 	if (list->spe == 'X')
 	{
 			one->new = upper_string(one->new);
