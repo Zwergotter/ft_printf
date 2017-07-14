@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/15 00:27:16 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 01:33:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		filling_length(t_lst *elem, int i)
 		elem->length[j++] = elem->arg[i++];
 	while (j < 3)
 		elem->length[j++] = '\0';
+	ft_putstr(PNK"is in length\n"RESET);
 	return (i);
 }
 
@@ -57,7 +58,16 @@ int		option_found(t_lst *elem, int i)
 	}
 	i += (is_flag(elem->arg[i], elem) ? 1 : 0);
 	if (is_length(elem->arg[i]))
-		i = filling_length(elem, i);
+	{
+		if (!elem->length[0])
+			i = filling_length(elem, i);
+		else
+		{
+			elem->length[0] = 'z';
+			elem->length[1] = '\0';
+			i++;
+		}
+	}
 	return (i);
 }
 
