@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/15 01:33:40 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 01:38:17 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		filling_length(t_lst *elem, int i)
 		elem->length[j++] = elem->arg[i++];
 	while (j < 3)
 		elem->length[j++] = '\0';
-	ft_putstr(PNK"is in length\n"RESET);
 	return (i);
 }
 
