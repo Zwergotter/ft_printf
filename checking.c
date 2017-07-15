@@ -6,11 +6,12 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/15 01:38:17 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 04:51:04 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 /*
 ** Will specify length found in string and then return the index after this
@@ -76,7 +77,6 @@ void	substring(t_lst *elem, int i)
 
 	str = elem->arg;
 	elem->arg = ft_strsub(str, i, elem->len - i);
-	elem->type = STR;
 	free(str);
 }
 
@@ -95,12 +95,12 @@ int		checking(t_lst *elem)
 {
 	int i;
 
-	i = (is_flag(elem->arg[1], elem) ? 2 : 1);
+	i = (is_flag(elem->arg[0], elem) ? 1 : 0);
 	if (i > elem->len)
 		return (0);
 	while (i < elem->len && everything_at_once(elem->arg[i], elem))
 		i = option_found(elem, i);
-	if (is_specifier(elem->arg[i]))
+	if (is_specifier(elem->arg[elem->len - 1]))
 	{
 		elem->spe = elem->arg[i];
 		what_type(elem);
@@ -111,14 +111,13 @@ int		checking(t_lst *elem)
 			substring(elem, i);
 		else
 		{
-			free(elem->arg);
-			elem->type = STR;
 			if (elem->width && elem->next)
-				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);
+				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);/////?????????????????????
 		}
 	}
 	return (1);
 }
+
 
 /*
 ** Checking one by one each element and sending them to checking function

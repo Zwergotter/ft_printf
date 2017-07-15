@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 19:54:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 05:12:04 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ t_lst	*string(char const *str, int start, int end)
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
 		error_displayed(MALLOC);
 	ft_bzero(elem, (sizeof(t_lst)));
-	elem->type = STR;
-	elem->arg = ft_strsub(str, start, len);
+	elem->type = (str[start] == '%' ? NOARG_STR : STR);
+	elem->arg = (str[start] == '%' ? ft_strsub(str, start + 1, len) 
+		: ft_strsub(str, start, len));
 	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
 	return (elem);
@@ -104,10 +105,12 @@ void	creating_list(t_lst **begin, const char *str, int i)
 		else
 		{
 			j++;
-			while (str[j] && everything(str[j]))
+			while (str[j] && everything(str[j]) && !is_specifier(str[j]))
 				j++;
-			j += (is_specifier(str[j]) ? 1 : 0);
-			addlast(begin, percent(str, i, j));
+			if (is_specifier(str[j]))
+				addlast(begin, percent(str, ++i, ++j));
+			else
+				addlast(begin, string(str, i, (str[j] ? j++ : j)));
 			count++;
 		}
 		i = j;
@@ -132,10 +135,12 @@ t_lst	*parsing(char const *str)
 	else
 	{
 		i++;
-		while (str[i] && everything(str[i]))
+		while (str[i] && everything(str[i]) && !is_specifier(str[i]))
 			i++;
-		i += (is_specifier(str[i]) ? 1 : 0);
-		first = percent(str, 0, i);
+		if (is_specifier(str[i]))
+			first = percent(str, 1, i++);
+		else
+			first = string(str, 0, (str[i] ? i++ : i));
 	}
 	if (str[i])
 		creating_list(&first, str, i);

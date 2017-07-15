@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 18:47:48 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 02:05:05 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef enum		e_type
 {
 	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WCHAR_TSTR, WIN_T, VOID, CHAR,
 	U_CHAR, SHORT_INT, USHORT_INT, LONG_INT, ULONG_INT, LLONG_INT,
-	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T, PERCENT
+	ULLONG_INT, INT_MAXT, UINT_MAXT, SIZE_T, PERCENT, NOARG_STR
 }					t_type;
 
 typedef struct		s_lst
