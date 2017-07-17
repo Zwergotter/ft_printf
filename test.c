@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 21:21:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:21:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,22 @@ int		main()
 
 	if (l == NULL)
 		printf("l est nul\n");
+
+	printf("\n\n-------------------------------------------------------------\n");
+	printf(CYN"4s Jambon\n");
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%4s", L"Jambon"));
+	printf("\nMine gives:\n");
+	ft_printf("%4s", L"Jambon");
+	printf("\n");
+
+	printf("\n\n-------------------------------------------------------------\n");
+	printf(CYN"4d 159\n");
+	printf(RED"Real printf gives:\n");
+	printf(" result : %d\n"RESET, printf("%4d", 159));
+	printf("\nMine gives:\n");
+	ft_printf("%4d", 159);
+	printf("\n");
 
 	printf("\n\n-------------------------------------------------------------\n");
 	printf(CYN"30S 我是一只猫。\n");
