@@ -1,18 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_str.c                                      :+:      :+:    :+:   */
+/*   display_char.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 16:54:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 19:40:41 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:09:17 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "ft_printf.h"
 
-void display_str(t_lst *list, va_list ap, t_one *one)
+void	string_valid(t_lst *list, t_one *one)
+{
+	int i;
+
+	i = one->dif_width;
+	if (i > 0)
+	{
+		if (list->flag == '-')
+		{
+			if (one->new)
+				write_str(one->new, list);
+			write_c(' ', i, list);
+		}
+		else
+		{
+			((list->zero == '0' && list->flag != '-') ? write_c('0', i, list) 
+				: write_c(' ', i, list));
+			if (one->new)
+				write_str(one->new, list);
+		}
+	}
+	else
+	{
+		if (one->new)
+			write_str(one->new, list);
+	}
+}
+
+void	display_str(t_lst *list, va_list ap, t_one *one)
 {
 	char *str;
 
@@ -31,40 +60,17 @@ void display_str(t_lst *list, va_list ap, t_one *one)
 		one->new = (list->i_pre && list->i_pre < (int)ft_strlen(one->str) ? ft_strsub(one->str, 0, list->i_pre) : one->str);
 		one->len = ft_strlen(one->new);
 	}
-	one->dif_width = list->width;
-	if (one->len)
-		one->dif_width -= one->len;
+	one->dif_width = list->width - (one->len ? one->len : 0);
 	if (list->pre && !list->i_pre)
 	{
 		if (list->width)
 			((list->zero == '0' && list->flag != '-') ? write_c('0', list->width, list) : write_c(' ', list->width, list));
 	}
 	else
-	{
-		if (one->dif_width > 0)
-		{
-			if (list->flag == '-')
-			{
-				if (one->new)
-					write_str(one->new, list);
-				write_c(' ', one->dif_width, list);
-			}
-			else
-			{
-				((list->zero == '0' && list->flag != '-') ? write_c('0', one->dif_width, list) : write_c(' ', one->dif_width, list));
-				if (one->new)
-					write_str(one->new, list);
-			}
-		}
-		else
-		{
-			if (one->new)
-					write_str(one->new, list);
-		}
-	}
+		string_valid(list, one);
 }
 
-void display_char(t_lst *list, int nb)
+void	display_char(t_lst *list, int nb)
 {
 	char fill;
 	char c;

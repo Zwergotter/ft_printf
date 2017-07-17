@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/07/17 21:33:08 by edeveze          ###   ########.fr        #
+#    Updated: 2017/07/17 22:10:29 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ SRC = test.c\
 	error.c\
 	type.c\
 	displaying.c\
-	display_num.c\
-	display_str.c\
-	display_w.c\
+	display_digit.c\
+	display_char.c\
+	display_wchar.c\
 	verifications.c\
 	buffer.c\
 	modif_str.c\
