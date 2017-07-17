@@ -6,12 +6,11 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:19:22 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:44:47 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 /*
 ** Function to display number if flag is minus
