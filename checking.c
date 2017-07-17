@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 17:47:48 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 21:39:05 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,21 @@ int		filling_length(t_lst *elem, int i)
 	int j;
 
 	j = 0;
-	elem->length[j++] = elem->arg[i++];
-	if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') &&
-		elem->arg[i - 1] == elem->arg[i])
+	if (!elem->length[0])
+	{
 		elem->length[j++] = elem->arg[i++];
-	while (j < 3)
-		elem->length[j++] = '\0';
+		if ((elem->arg[i - 1] == 'h' || elem->arg[i - 1] == 'l') &&
+			elem->arg[i - 1] == elem->arg[i])
+			elem->length[j++] = elem->arg[i++];
+		while (j < 3)
+			elem->length[j++] = '\0';
+	}
+	else
+	{
+		elem->length[0] = 'z';
+		elem->length[1] = '\0';
+		i++;
+	}
 	return (i);
 }
 
@@ -46,50 +55,20 @@ int		option_found(t_lst *elem, int i)
 		while (is_flag(elem->arg[i], elem))
 			i++;
 		if (elem->pre == '.')
-			{
-				elem->i_pre = ft_atoi(&elem->arg[i]);
-				// ft_putstr(CYN"\nIn opt found in elem pre, i is : ");
-				// ft_putnbr(i);
-			}
+			elem->i_pre = ft_atoi(&elem->arg[i]);
 		else
 			elem->width = ft_atoi(&elem->arg[i]);
 		while (i < elem->len - 2 && ft_isdigit(elem->arg[i] + 0))
-			{
-				i++;
-				// ft_putstr(CYN"\nIn opt found in while, i is : ");
-				// ft_putnbr(i);
-			}
+			i++;
 		if (elem->arg[i] == '+')
 			elem->sign = elem->arg[i++];
 		if (!is_precision(elem->arg[i], elem) && !(is_specifier(elem->arg[i])))
-			{
-				i++;
-				// ft_putstr(CYN"\nIn opt found in last if, i is : ");
-				// ft_putnbr(i);
-			}
+			i++;
 	}
 	i += (is_flag(elem->arg[i], elem) ? 1 : 0);
 	if (is_length(elem->arg[i]))
-	{
-		if (!elem->length[0])
-			i = filling_length(elem, i);
-		else
-		{
-			elem->length[0] = 'z';
-			elem->length[1] = '\0';
-			i++;
-		}
-	}
+		i = filling_length(elem, i);
 	return (i);
-}
-
-void	substring(t_lst *elem, int i)
-{
-	char *str;
-
-	str = elem->arg;
-	elem->arg = ft_strsub(str, i, elem->len - i);
-	free(str);
 }
 
 /*
@@ -108,18 +87,10 @@ int		checking(t_lst *elem)
 	int i;
 
 	i = (is_flag(elem->arg[0], elem) ? 1 : 0);
-	// ft_putstr(GRN"\nIn checking at the beginning, i is : ");
-	// ft_putnbr(i);
 	if (i > elem->len)
 		return (0);
 	while (i < elem->len && everything_at_once(elem->arg[i], elem))
-		{
-			// ft_putstr(GRN"\nIn checking in while, i is : ");
-			// ft_putnbr(i);
 			i = option_found(elem, i);
-			// ft_putstr(GRN"\nIn checking in while, after option found i is : ");
-			// ft_putnbr(i);
-		}
 	if (is_specifier(elem->arg[elem->len - 1]))
 	{
 		elem->spe = elem->arg[i];
@@ -128,15 +99,7 @@ int		checking(t_lst *elem)
 	else
 	{
 		if (i <= elem->len)
-			{
-				if (elem->pre && !elem->i_pre)
-					i--;
-				substring(elem, i);
-				// ft_putstr(MAG"\n\nAfter substring, i is : ");
-				// ft_putnbr(i);
-				// ft_putstr(YEL" -  And substr is ");
-				// ft_putstr(elem->arg);
-			}
+			substring(elem, ((elem->pre && !elem->i_pre) ? i - 1 : i));
 		else
 		{
 			if (elem->width && elem->next)
@@ -164,10 +127,6 @@ void	check_elem(t_lst **first)
 		{
 			if (!checking(tmp))
 				tmp->type = EMPTY;
-			ft_putstr(BLU"\nAfter checking elem");
-			ft_putstr("\narg str is : -");
-			ft_putstr(tmp->arg);
-			ft_putstr("-\n");
 		}
 		tmp = tmp->next;
 		i++;
