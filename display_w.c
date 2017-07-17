@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 17:27:51 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 18:12:28 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,11 @@ void		display_wstr(va_list ap, t_lst *list)
 		return ;
 	}
 	width = list->width - ft_wstrlen(str);
+	if (list->pre && !list->i_pre)
+	{
+		(list->zero == '0') ? write_c('0', list->width, list) : write_c(' ', list->width, list);
+		return ;
+	}
 	if (list->flag != '-' && width > 0)
 	{
 		(list->zero == '0') ? write_c('0', width, list) : write_c(' ', width, list);

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 17:36:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 17:47:48 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		filling_length(t_lst *elem, int i)
 
 int		option_found(t_lst *elem, int i)
 {
-	ft_putchar('\n');
 	if ((elem->arg[i] != '0' && ft_isdigit(elem->arg[i] + 0) && !elem->i_pre)
 		|| (is_precision(elem->arg[i], elem)))
 	{
@@ -49,24 +48,24 @@ int		option_found(t_lst *elem, int i)
 		if (elem->pre == '.')
 			{
 				elem->i_pre = ft_atoi(&elem->arg[i]);
-				ft_putstr(CYN"\nIn opt found in elem pre, i is : ");
-				ft_putnbr(i);
+				// ft_putstr(CYN"\nIn opt found in elem pre, i is : ");
+				// ft_putnbr(i);
 			}
 		else
 			elem->width = ft_atoi(&elem->arg[i]);
 		while (i < elem->len - 2 && ft_isdigit(elem->arg[i] + 0))
 			{
 				i++;
-				ft_putstr(CYN"\nIn opt found in while, i is : ");
-				ft_putnbr(i);
+				// ft_putstr(CYN"\nIn opt found in while, i is : ");
+				// ft_putnbr(i);
 			}
 		if (elem->arg[i] == '+')
 			elem->sign = elem->arg[i++];
 		if (!is_precision(elem->arg[i], elem) && !(is_specifier(elem->arg[i])))
 			{
 				i++;
-				ft_putstr(CYN"\nIn opt found in last if, i is : ");
-				ft_putnbr(i);
+				// ft_putstr(CYN"\nIn opt found in last if, i is : ");
+				// ft_putnbr(i);
 			}
 	}
 	i += (is_flag(elem->arg[i], elem) ? 1 : 0);
@@ -109,17 +108,17 @@ int		checking(t_lst *elem)
 	int i;
 
 	i = (is_flag(elem->arg[0], elem) ? 1 : 0);
-	ft_putstr(GRN"\nIn checking at the beginning, i is : ");
-	ft_putnbr(i);
+	// ft_putstr(GRN"\nIn checking at the beginning, i is : ");
+	// ft_putnbr(i);
 	if (i > elem->len)
 		return (0);
 	while (i < elem->len && everything_at_once(elem->arg[i], elem))
 		{
-			ft_putstr(GRN"\nIn checking in while, i is : ");
-			ft_putnbr(i);
+			// ft_putstr(GRN"\nIn checking in while, i is : ");
+			// ft_putnbr(i);
 			i = option_found(elem, i);
-			ft_putstr(GRN"\nIn checking in while, after option found i is : ");
-			ft_putnbr(i);
+			// ft_putstr(GRN"\nIn checking in while, after option found i is : ");
+			// ft_putnbr(i);
 		}
 	if (is_specifier(elem->arg[elem->len - 1]))
 	{
@@ -133,10 +132,10 @@ int		checking(t_lst *elem)
 				if (elem->pre && !elem->i_pre)
 					i--;
 				substring(elem, i);
-				ft_putstr(MAG"\n\nAfter substring, i is : ");
-				ft_putnbr(i);
-				ft_putstr(YEL" -  And substr is ");
-				ft_putstr(elem->arg);
+				// ft_putstr(MAG"\n\nAfter substring, i is : ");
+				// ft_putnbr(i);
+				// ft_putstr(YEL" -  And substr is ");
+				// ft_putstr(elem->arg);
 			}
 		else
 		{
