@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:21:40 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:50:29 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_lst	*destroy_elem(t_lst *elem)
 
 	tmp = elem;
 	elem = elem->next;
-	free (tmp);
+	free(tmp);
 	return (elem);
 }
 
@@ -61,9 +61,9 @@ void	only_string(t_lst *arg)
 
 int		ft_printf(char const *test, ...)
 {
-	va_list ap;
-	t_lst *arg;
-	int result;
+	va_list	ap;
+	t_lst	*arg;
+	int		result;
 
 	arg = parsing(test);
 	result = 0;

@@ -6,19 +6,11 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:33:03 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:53:54 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	everything(char c)
-{
-	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0' || c == '.'
-		|| c == 'h' || c == 'l' || c == 'j' || c == 'z' || ft_isdigit(c + 0))
-		return (1);
-	return (0);
-}
 
 /*
 ** Scans a list thanks to its first element and puts the new one at the end.
@@ -55,7 +47,7 @@ t_lst	*string(char const *str, int start, int end)
 	}
 	ft_bzero(elem, (sizeof(t_lst)));
 	elem->type = (str[start] == '%' ? NOARG_STR : STR);
-	elem->arg = (str[start] == '%' ? ft_strsub(str, start + 1, len) 
+	elem->arg = (str[start] == '%' ? ft_strsub(str, start + 1, len)
 		: ft_strsub(str, start, len));
 	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;

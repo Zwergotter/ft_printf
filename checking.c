@@ -6,11 +6,20 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 21:48:19 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:54:46 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int		is_specifier(char c)
+{
+	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i' ||
+			c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x' || c == 'X'
+			|| c == 'c' || c == 'C' || c == '%')
+		return (1);
+	return (0);
+}
 
 /*
 ** Will specify length found in string and then return the index after this

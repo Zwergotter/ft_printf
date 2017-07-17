@@ -6,13 +6,44 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:44:13 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:56:57 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+
+#ifndef COLOR_H
+# define COLOR_H
+# ifndef RED
+#  define RED "\x1B[31m"
+# endif
+# ifndef GRN
+#  define GRN "\x1B[32m"
+# endif
+# ifndef YEL
+#  define YEL "\x1B[33m"
+# endif
+# ifndef BLU
+#  define BLU "\x1B[34m"
+# endif
+# ifndef MAG
+#  define MAG "\x1B[35m"
+# endif
+# ifndef CYN
+#  define CYN "\x1B[36m"
+# endif
+# ifndef WHT
+#  define WHT "\x1B[37m"
+# endif
+# ifndef PNK
+#  define PNK "\x1B[95m"
+# endif
+# ifndef RESET
+#  define RESET "\x1B[0m"
+# endif
+#endif
 # include <stdarg.h>
 
 /*
@@ -70,12 +101,13 @@ typedef struct		s_one
 
 t_lst				*parsing(char const *str);
 
-int					is_specifier(char c);
+int					everything(char c);
 int					is_flag(char c, t_lst *elem);
 int					is_precision(char c, t_lst *elem);
 int					is_length(char c);
 int					everything_at_once(char c, t_lst *elem);
 
+int					is_specifier(char c);
 void				check_elem(t_lst **first);
 void				what_type(t_lst *elem);
 
