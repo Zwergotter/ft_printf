@@ -6,13 +6,13 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/13 17:01:35 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:29:13 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	is_numeric(t_lst *list)
+int		is_numeric(t_lst *list)
 {
 	if (list->type == LONG_INT || list->type == U_INT || list->type == SHORT_INT
 		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
