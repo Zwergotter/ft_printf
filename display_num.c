@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 16:51:20 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 21:49:33 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 void minus_flag(t_lst *list, t_one *one)
 {
-	if ((one->hash && one->new[0] != '0')|| (list->type == VOID && one->new[0] == '0'))
+	if ((one->hash && one->new[0] != '0')|| (list->type == VOID &&
+		one->new[0] == '0'))
 		write_str(one->hash, list);
 	if (list->spe == 'X')
 		one->new = upper_string(one->new);
@@ -125,7 +126,8 @@ void 	nb_signed(t_lst *list, va_list ap, t_one *one)
 		number = va_arg(ap, size_t);
 	if (list->type == INT_MAXT)
 		number = va_arg(ap, intmax_t);
-	one->str = ft_itoa_base(number < 0 ? -number : number, 10, number >= 0 ? 0 : 1);
+	one->str = ft_itoa_base(number < 0 ? -number : number, 10,
+		number >= 0 ? 0 : 1);
 	one->signed_nb = 1;
 }
 
@@ -155,9 +157,6 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 		one->dif_width = list->width - (one->dif_pre + one->len)  - (list->flag == ' '  ? 1 : 0) - ft_strlen(one->hash) -
 	((list->flag == '+') && one->sign == '+' && (list->spe != 'u' && list->spe != 'U') ? 1 : 0);
 	one->c = ((list->zero == '0' && list->flag != '-') && !list->pre ? '0' : ' ');
-	// ft_putstr(PNK"one dif pre is :");
-	// ft_putnbr(one->dif_pre);
-	// ft_putchar('\n');
 	if (list->flag == '-')
 		minus_flag(list, one);
 	else
