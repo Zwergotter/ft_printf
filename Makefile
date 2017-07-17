@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/07/12 15:08:31 by edeveze          ###   ########.fr        #
+#    Updated: 2017/07/17 21:33:08 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = test.c\
 	display_w.c\
 	verifications.c\
 	buffer.c\
+	modif_str.c\
 
 # Objects
 OBJ = $(SRC:.c=.o)
