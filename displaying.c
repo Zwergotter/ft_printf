@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:29:13 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:33:40 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	displaying(t_lst *list, va_list ap)
 	t_one	*elem;
 
 	if ((elem = (t_one*)malloc(sizeof(t_one))) == NULL)
-		error_displayed(MALLOC);
+	{
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit(0);
+	}
 	ft_bzero(elem, (sizeof(t_one)));
 	if (is_numeric(list))
 	{

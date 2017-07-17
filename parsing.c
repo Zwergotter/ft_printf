@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 21:35:54 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 22:33:03 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ t_lst	*string(char const *str, int start, int end)
 
 	len = end - start;
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(MALLOC);
+	{
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit(0);
+	}
 	ft_bzero(elem, (sizeof(t_lst)));
 	elem->type = (str[start] == '%' ? NOARG_STR : STR);
 	elem->arg = (str[start] == '%' ? ft_strsub(str, start + 1, len) 
@@ -71,7 +74,10 @@ t_lst	*percent(char const *str, int start, int end)
 	int		len;
 
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(MALLOC);
+	{
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit(0);
+	}
 	ft_bzero(elem, (sizeof(t_lst)));
 	if (is_specifier(str[end]))
 		end = end + 1;
