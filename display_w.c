@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 18:12:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 21:23:05 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,26 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 	}
 }
 
-int	ft_wcharlen(wchar_t chr)
+int	ft_wcharlen(wchar_t c)
 {
-	if (chr <= 0x7F)
+	if (c <= 0x7F)
 		return (1);
-	else if (chr <= 0x7FF)
+	else if (c <= 0x7FF)
 		return (2);
-	else if (chr <= 0xFFFF)
+	else if (c <= 0xFFFF)
 		return (3);
-	else if (chr <= 0x1FFFFF)
+	else if (c <= 0x1FFFFF)
 		return (4);
 	return (1);
 }
 
-size_t	ft_wstrlen(wchar_t *s)
+size_t	ft_wstrlen(wchar_t *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (*s)
-		i += ft_wcharlen(*s++);
+	while (*str)
+		i += ft_wcharlen(*str++);
 	return (i);
 }
 
@@ -127,37 +127,56 @@ wchar_t		*ft_wstrdup(wchar_t *str)
 	return (dest);
 }
 
+
 void		display_wstr(va_list ap, t_lst *list)
 {
 	wchar_t	*str;
 	int		i;
 	int		pre;
 	int 	width;
+	int		nb_char;
 
 	i = 0;
+	nb_char = 0;
 	pre = list->i_pre;
 	str = va_arg(ap, wchar_t*);
-	if (!str)
+	if (!str || (list->pre && !list->i_pre))
 	{
-		write_str("(null)", list);
+		if (!str)
+			write_str("(null)", list);
+		else
+			(list->zero == '0') ? write_c('0', list->width, list) : write_c(' ', list->width, list);
 		return ;
 	}
-	width = list->width - ft_wstrlen(str);
-	if (list->pre && !list->i_pre)
+	if (list->width && list->i_pre >= list->width)
+		width = 0;
+	else
 	{
-		(list->zero == '0') ? write_c('0', list->width, list) : write_c(' ', list->width, list);
-		return ;
+		if (pre)
+		{
+			while (pre >= nb_char + ft_wcharlen(str[i]))
+				nb_char += ft_wcharlen(str[i++]);
+			width = list->width - nb_char;
+			pre = nb_char;
+		}
+		else
+			width = list->width - ft_wstrlen(str);
 	}
+	i = -1;
 	if (list->flag != '-' && width > 0)
 	{
 		(list->zero == '0') ? write_c('0', width, list) : write_c(' ', width, list);
 		width = 0;
 	}
-	while (str[i])
+	while (str[++i])
 	{
-		display_wchar(str[i++], list);
-		if (pre && pre / 8 < i)
-			break ;
+		display_wchar(str[i], list);
+		if (pre)
+		{
+			pre -= ft_wcharlen(str[i]);
+			if (pre <= 0)
+				break ;
+		}
 	}
 	if (width > 0)
 		write_c(' ', width, list);
