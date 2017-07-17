@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/15 05:12:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 17:09:27 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ t_lst	*string(char const *str, int start, int end)
 		: ft_strsub(str, start, len));
 	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
+	// ft_putstr(YEL"\nIN STRING");
+	// ft_putstr("\nelem arg is : ");
+	// ft_putstr(elem->arg);
+	// ft_putstr("\n and elem char at the string's end is :");
+	// ft_putchar(str[start]);
+	// ft_putchar('\n');
 	return (elem);
 }
 
@@ -79,6 +85,10 @@ t_lst	*percent(char const *str, int start, int end)
 	elem->arg = ft_strsub(str, start, len);
 	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
+	// ft_putstr(PNK"\nIN PERCENT");
+	// ft_putstr("\nelem arg is : ");
+	// ft_putstr(elem->arg);
+	// ft_putchar('\n');
 	return (elem);
 }
 

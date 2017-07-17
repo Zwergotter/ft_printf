@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/15 02:05:05 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/15 20:27:50 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,7 @@ char	*upper_string(char *str);
 
 void	write_str(char *str, t_lst *list);
 void	write_c(char c, int nb, t_lst *list);
+
+int		everything(char c);
 
 #endif

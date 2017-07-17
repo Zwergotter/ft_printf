@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/15 20:02:01 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 16:51:20 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,6 @@ void 	nb_signed(t_lst *list, va_list ap, t_one *one)
 
 void	display_number(t_lst *list, va_list ap, t_one *one)
 {
-	// ft_putstr(YEL"\nlist pre is :");
-	// ft_putnbr(list->i_pre);
-	// ft_putchar('\n');
 	(list->spe == 'd' || list->spe == 'D' || list->spe == 'i' ? nb_signed(list, ap, one) :
 		nb_unsigned(list, ap, one));
 	one->len = ft_strlen(one->str);
