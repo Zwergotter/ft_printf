@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 21:42:45 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 21:48:19 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		checking(t_lst *elem)
 	if (i > elem->len)
 		return (0);
 	while (i < elem->len && everything_at_once(elem->arg[i], elem))
-			i = option_found(elem, i);
+		i = option_found(elem, i);
 	if (is_specifier(elem->arg[elem->len - 1]))
 	{
 		elem->spe = elem->arg[i];
@@ -102,12 +102,11 @@ int		checking(t_lst *elem)
 		else
 		{
 			if (elem->width && elem->next)
-				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);/////?????????????????????
+				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);
 		}
 	}
 	return (1);
 }
-
 
 /*
 ** Checking one by one each element and sending them to checking function
