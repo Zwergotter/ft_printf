@@ -6,12 +6,11 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 21:39:05 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/17 21:42:45 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 /*
 ** Will specify length found in string and then return the index after this
