@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:50:29 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/19 17:56:34 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int		ft_printf(char const *test, ...)
 			only_string(arg);
 		else
 			displaying(arg, ap);
+		if (arg->nb == -1)
+			return (-1);
 		result = result + arg->nb;
 		arg = destroy_elem(arg);
 	}
@@ -85,73 +87,86 @@ int		ft_printf(char const *test, ...)
 
 int		main()
 {	
-	char* l = setlocale(LC_ALL, "");
+	// char* l = setlocale(LC_ALL, "");
 
-	if (l == NULL)
-		printf("l est nul\n");
+	// if (l == NULL)
+		// printf("l est nul\n");
+	int i;
+	char c;
 
+	c = 128;
 	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"4s Jambon\n");
+	printf(CYN"C 我\n");
 	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%4s", L"Jambon"));
+	printf(" result : %d\n"RESET, printf("%C et", c));
 	printf("\nMine gives:\n");
-	ft_printf("%4s", L"Jambon");
+	i = ft_printf("%C et", c);
+	printf("Result = %d", i);
 	printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"4d 159\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%4d", 159));
-	printf("\nMine gives:\n");
-	ft_printf("%4d", 159);
-	printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"30S 我是一只猫。\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%30S", L"我是一只猫。"));
-	printf("\nMine gives:\n");
-	ft_printf("%30S", L"我是一只猫。");
-	printf("\n");
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"4s Jambon\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%4s", L"Jambon"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%4s", L"Jambon");
+	// printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"-30S 我是一只猫。\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%-30S", L"我是一只猫。"));
-	printf("\nMine gives:\n");
-	ft_printf("%-30S", L"我是一只猫。");
-	printf("\n");
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"4d 159\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%4d", 159));
+	// printf("\nMine gives:\n");
+	// ft_printf("%4d", 159);
+	// printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"15.4S 我是一只猫。\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%15.4S", L"我是一只猫。"));
-	printf("\nMine gives:\n");
-	ft_printf("%15.4S", L"我是一只猫。");
-	printf("\n");
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"30S 我是一只猫。\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%30S", L"我是一只猫。"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%30S", L"我是一只猫。");
+	// printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN".4S 我是一只猫。\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%.4S", L"我是一只猫。"));
-	printf("\nMine gives:\n");
-	ft_printf("%.4S", L"我是一只猫。");
-	printf("\n");
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"-30S 我是一只猫。\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%-30S", L"我是一只猫。"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%-30S", L"我是一只猫。");
+	// printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"4.S 我是一只猫。\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%4.S", L"我是一只猫。"));
-	printf("\nMine gives:\n");
-	ft_printf("%4.S", L"我是一只猫。");
-	printf("\n");
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"15.4S 我是一只猫。\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%15.4S", L"我是一只猫。"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%15.4S", L"我是一只猫。");
+	// printf("\n");
 
-	printf("\n\n-------------------------------------------------------------\n");
-	printf(CYN"4.1S Jambon\n");
-	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%4.1S", L"Jambon"));
-	printf("\nMine gives:\n");
-	ft_printf("%4.1S", L"Jambon");
-	printf("\n");
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN".4S 我是一只猫。\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%.4S", L"我是一只猫。"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%.4S", L"我是一只猫。");
+	// printf("\n");
+
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"4.S 我是一只猫。\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%4.S", L"我是一只猫。"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%4.S", L"我是一只猫。");
+	// printf("\n");
+
+	// printf("\n\n-------------------------------------------------------------\n");
+	// printf(CYN"4.1S Jambon\n");
+	// printf(RED"Real printf gives:\n");
+	// printf(" result : %d\n"RESET, printf("%4.1S", L"Jambon"));
+	// printf("\nMine gives:\n");
+	// ft_printf("%4.1S", L"Jambon");
+	// printf("\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/17 22:09:52 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/19 17:56:04 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,14 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 
 	i = 0;
 	bin = ft_itoa_base(nb, 2, 0);
-	if (ft_strlen(bin) <= 7)
+	printf("nb vaut %lu\n", nb);
+	if (ft_strlen(bin) <= 7 || MB_CUR_MAX == 1)
 	{
+		if (ft_strlen(bin) > 7)
+		{
+			list->nb = -1;
+			return;
+		}
 		write(1, &nb, 1);
 		list->nb += 1;
 	}
