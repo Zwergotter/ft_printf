@@ -3,16 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/19 17:56:34 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/29 23:05:13 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <locale.h>
+
+void	free_list(t_lst *l)
+{
+	t_lst	*s;
+
+	while (l)
+	{
+		s = l->next;
+		free(l->arg);
+		free(l);
+		l = s;
+	}
+}
 
 /*
 ** Switches to next element of a list and destroys the previous one
@@ -25,6 +38,7 @@ t_lst	*destroy_elem(t_lst *elem)
 	tmp = elem;
 	elem = elem->next;
 	free(tmp);
+	free(tmp->arg);
 	return (elem);
 }
 
@@ -76,7 +90,11 @@ int		ft_printf(char const *test, ...)
 		else
 			displaying(arg, ap);
 		if (arg->nb == -1)
+		{
+			free_list(arg);
+			va_end(ap);
 			return (-1);
+		}
 		result = result + arg->nb;
 		arg = destroy_elem(arg);
 	}
@@ -98,9 +116,10 @@ int		main()
 	printf("\n\n-------------------------------------------------------------\n");
 	printf(CYN"C 我\n");
 	printf(RED"Real printf gives:\n");
-	printf(" result : %d\n"RESET, printf("%C et", c));
+	printf(" result : %d\n"RESET, printf("Penis %C et", c));
 	printf("\nMine gives:\n");
-	i = ft_printf("%C et", c);
+	i = ft_printf("Penis %C et", c);
+	read(0, 0, 1);
 	printf("Result = %d", i);
 	printf("\n");
 

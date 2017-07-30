@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_wchar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/19 17:56:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/07/29 23:05:59 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 
 	i = 0;
 	bin = ft_itoa_base(nb, 2, 0);
-	printf("nb vaut %lu\n", nb);
+	// printf("nb vaut %lu\n", nb);
 	if (ft_strlen(bin) <= 7 || MB_CUR_MAX == 1)
 	{
 		if (ft_strlen(bin) > 7)
 		{
+			free(bin);
 			list->nb = -1;
 			return;
 		}
@@ -86,6 +87,7 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 		}
 		free(tmp);
 	}
+	free(bin);
 }
 
 int	ft_wcharlen(wchar_t c)
