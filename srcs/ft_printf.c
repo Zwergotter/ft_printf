@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 20:13:03 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 21:04:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ void	free_list(t_lst *l)
 	}
 }
 
-t_lst *destroy_elem(t_lst *elem)
+/*
+** Switches to next element of a list and destroys the previous one
+*/
+
+t_lst	*destroy_elem(t_lst *elem)
 {
 	t_lst *tmp;
 
@@ -39,8 +43,9 @@ t_lst *destroy_elem(t_lst *elem)
 }
 
 /*
-** Attention a l'unicode
-** attention aussi a comment on doit gerer l'int renvye quand il y a un \n
+** This function is called when in printf we encounter a string or an invalid
+** format which will be interpert as a string on its own, no argument string.
+** This kind can still have flags like 0 or - and it must display these as well
 */
 
 void	only_string(t_lst *arg)
@@ -60,15 +65,19 @@ void	only_string(t_lst *arg)
 }
 
 /*
-** Attention a l'unicode
-** attention aussi a comment on doit gerer l'int renvye quand il y a un \n
+** Ft_printf will first parse all strings and conversion's formats in a list
+** where each element is known as one kind or the other.
+** Then it calls check_elem to save all information such as length, flags etc.
+** And finally it's calling one by one each element and, if necessary, in
+** displaying, the argument.
+** Finally returns all number of characters read.
 */
 
-int	ft_printf(char const *test, ...)
+int		ft_printf(char const *test, ...)
 {
-	va_list ap;
-	t_lst *arg;
-	int result;
+	va_list	ap;
+	t_lst	*arg;
+	int		result;
 
 	arg = parsing(test);
 	result = 0;
@@ -90,7 +99,6 @@ int	ft_printf(char const *test, ...)
 		arg = destroy_elem(arg);
 	}
 	free_list(arg);
-	// printf(GRN"\nResult after : %d\n", result);
 	va_end(ap);
 	return (result);
 }

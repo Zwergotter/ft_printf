@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/08/01 20:12:49 by edeveze          ###   ########.fr        #
+#    Updated: 2017/08/01 21:08:48 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@
 SRC_NAME = ft_printf.c\
 	parsing.c\
 	checking.c\
-	error.c\
 	type.c\
 	displaying.c\
 	display_num.c\

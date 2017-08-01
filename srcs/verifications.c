@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:40:53 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 18:29:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 21:14:28 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int	is_specifier(char c)
 		return (1);
 	return (0);
 }
+
+int	everything(char c)
+{
+	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0' || c == '.'
+		|| c == 'h' || c == 'l' || c == 'j' || c == 'z' || ft_isdigit(c + 0))
+		return (1);
+	return (0);
+}
+
+/*
+** Functions to identify flag, precision and length
+*/
 
 int	is_flag(char c, t_lst *elem)
 {

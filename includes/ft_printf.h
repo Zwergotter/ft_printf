@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 20:39:05 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 21:11:37 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@
 
 # include "libft.h"
 
-typedef	enum		e_error
-{
-	ARGUMENT, MALLOC
-}					t_error;
-
 typedef enum		e_type
 {
 	EMPTY, STR, ARG_STR, INT, U_INT, WCHAR_T, WCHAR_TSTR, WIN_T, VOID, CHAR,
@@ -114,7 +109,6 @@ int					is_length(char c);
 int					everything_at_once(char c, t_lst *elem);
 
 void				check_elem(t_lst **first);
-void				error_displayed(t_error error);
 void				what_type(t_lst *elem);
 
 void				displaying(t_lst *list, va_list ap);

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:03:03 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 20:45:04 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 21:06:05 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	write_str(char *str, t_lst *list)
 
 void	write_c(char c, int nb, t_lst *list)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i++ < nb)
