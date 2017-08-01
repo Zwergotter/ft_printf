@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/07/04 13:58:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 20:49:31 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,76 +25,42 @@ int	is_numeric(t_lst *list)
 }
 
 /*
-** Will write a character i times.
-*/
-
-void write_char(char c, int i)
-{
-	while (i-- > 0)
-		write(1, &c, 1);
-}
-
-char		*unsigned_long_itoa(unsigned long long n)
-{
-	size_t		len;
-	int 		i;
-	char		*new;
-
-	len = ft_countdigits(n);
-	i = 0;
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	if (n == 0)
-		return (ft_strdup("0"));
-	new[len] = '\0';
-	while (n > 9)
-	{
-		new[--len] = ((n % 10) + '0');
-		n = n / 10;
-	}
-	new[i] = (n + '0');
-	return (new);
-}
-
-char		*long_itoa(intmax_t n)
-{
-	size_t		len;
-	int			i;
-	char		*new;
-
-	len = ft_countdigits(n);
-	i = 0;
-	if (n == 0 || n == ~0LL)
-		return (n == 0 ? ft_strdup("0") : ft_strdup("-9223372036854775808"));
-	if (!(new = ft_strnew(len)))
-		return (NULL);
-	if (n < 0)
-	{
-		n = -n;
-		new[i++] = '-';
-	}
-	new[len] = '\0';
-	while (n > 9)
-	{
-		new[--len] = ((n % 10) + '0');
-		n = n / 10;
-	}
-	new[i] = (n + '0');
-	return (new);
-}
-
-/*
 ** Function that will call the appropriate one in order to format and then
 ** display arguments one by one and according to their types
 */
+
+void	init_one(t_one *one)
+{
+	one->wstr = NULL;
+	one->str = NULL;
+	one->new = NULL;
+	one->hash = NULL;
+	one->len = 0;
+	one->sign = 0;
+	one->c = 0;
+	one->pre = 0;
+	one->width = 0;
+	one->signed_nb = 0;
+}
+
+void	free_one(t_one *one)
+{
+	free(one->str);
+	free(one->hash);
+	free(one->new);
+	free(one);
+}
 
 void	displaying(t_lst *list, va_list ap)
 {
 	t_one	*elem;
 
 	if ((elem = (t_one*)malloc(sizeof(t_one))) == NULL)
-		error_displayed(MALLOC);
-	ft_bzero(elem, (sizeof(t_one)));
+	{
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit(0);
+	}
+	init_one(elem);
 	if (is_numeric(list))
 	{
 		if (list->spe != 'c')
@@ -102,7 +68,7 @@ void	displaying(t_lst *list, va_list ap)
 		else
 			display_char(list, va_arg(ap, int));
 	}
-	if (list->type == WCHAR_T)
+	if (list->type == WCHAR_T || list->type == WIN_T)
 		display_wchar(va_arg(ap, wchar_t), list);
 	if (list->type == WCHAR_TSTR)
 		display_wstr(ap, list);
@@ -110,5 +76,5 @@ void	displaying(t_lst *list, va_list ap)
 		display_char(list, '%');
 	if (list->type == ARG_STR)
 		display_str(list, ap, elem);
-	free(elem);
+	free_one(elem);
 }

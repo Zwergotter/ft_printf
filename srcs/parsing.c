@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/25 17:44:51 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 18:57:15 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	everything(char c)
+{
+	if (c == '-' || c == '+' || c == ' ' || c == '#' || c == '0' || c == '.'
+		|| c == 'h' || c == 'l' || c == 'j' || c == 'z' || ft_isdigit(c + 0))
+		return (1);
+	return (0);
+}
 
 /*
 ** Scans a list thanks to its first element and puts the new one at the end.
@@ -41,10 +49,14 @@ t_lst	*string(char const *str, int start, int end)
 
 	len = end - start;
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(MALLOC);
+	{
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit(0);
+	}
 	ft_bzero(elem, (sizeof(t_lst)));
-	elem->type = STR;
-	elem->arg = ft_strsub(str, start, len);
+	elem->type = (str[start] == '%' ? NOARG_STR : STR);
+ 	elem->arg = (str[start] == '%' ? ft_strsub(str, start + 1, len) 
+ 		: ft_strsub(str, start, len));
 	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
 	return (elem);
@@ -62,7 +74,10 @@ t_lst	*percent(char const *str, int start, int end)
 	int		len;
 
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
-		error_displayed(MALLOC);
+	{
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit(0);
+	}
 	ft_bzero(elem, (sizeof(t_lst)));
 	if (is_specifier(str[end]))
 		end = end + 1;
@@ -80,21 +95,29 @@ t_lst	*percent(char const *str, int start, int end)
 void	creating_list(t_lst **begin, const char *str, int i)
 {
 	int		j;
+	int count;
 
+	count = 1;
 	while (str[i])
 	{
 		j = i;
 		while (str[j] && str[j] != '%')
 			j++;
 		if (j > i && (str[j] == '%' || !str[j]))
+		{
 			addlast(begin, string(str, i, j));
+			count++;
+		}
 		else
 		{
 			j++;
-			while (str[j] && !(is_specifier(str[j])))
+			while (str[j] && everything(str[j]) && !is_specifier(str[j]))
 				j++;
-			j += (is_specifier(str[j]) ? 1 : 0);
-			addlast(begin, percent(str, i, j));
+			if (is_specifier(str[j]))
+				addlast(begin, percent(str, ++i, ++j));
+			else
+				addlast(begin, string(str, i, (str[j] ? j++ : j)));
+			count++;
 		}
 		i = j;
 	}
@@ -111,6 +134,8 @@ t_lst	*parsing(char const *str)
 	t_lst	*first;
 
 	i = 0;
+	if (!str[i])
+		return (NULL);
 	while (str[i] && str[i] != '%')
 		i++;
 	if (i != 0)
@@ -118,14 +143,12 @@ t_lst	*parsing(char const *str)
 	else
 	{
 		i++;
-		while (str[++i])
-		{
-			while (str[i] && !is_specifier(str[i]))
-				i++;
-			break ;
-		}
-		i += (is_specifier(str[i]) ? 1 : 0);
-		first = percent(str, 0, i);
+		while (str[i] && everything(str[i]) && !is_specifier(str[i]))
+			i++;
+		if (is_specifier(str[i]))
+			first = percent(str, 1, i++);
+		else
+			first = string(str, 0, (str[i] ? i++ : i));
 	}
 	if (str[i])
 		creating_list(&first, str, i);
