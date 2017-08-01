@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 22:47:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 22:47:26 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 20:58:26 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*//*//*//*//*//*/******
 #include "libft.h"
 
 char	*ft_strjoinfree(char *s1, char *s2, int nb)

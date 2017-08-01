@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:48:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/28 22:47:10 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 20:58:27 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ char				**ft_strsplit(char const *s, char c);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *str);
 int					get_next_line(const int fd, char **line);
-char				*ft_itoa_base(uintmax_t number, int base);
+char				*ft_itoa_base(uintmax_t number, int base, int neg);
 int					ft_atoi_base(char *str, int base);
-char				*ft_strjoinfree(char *s1, char *s2, int nb);
 
 #endif
