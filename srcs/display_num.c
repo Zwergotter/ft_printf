@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_num.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/13 16:41:21 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 20:41:02 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 03:26:13 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#include "../includes/ft_printf.h"
 
 /*
 ** Function to display number if flag is minus
@@ -19,21 +18,21 @@
 
 void minus_flag(t_lst *list, t_one *one)
 {
-	if ((one->hash && one->new[0] != '0')|| (list->type == VOID && one->new[0] == '0'))
-		write_str(one->hash, list);
+	if ((one->hash && one->oth[0] != '0')|| (list->type == VOID && one->oth[0] == '0'))
+		write_str(one->hash);
 	if (list->spe == 'X')
-		upper_string(one->new);
+		upper_string(one->oth);
 	if (one->sign == '-' || list->sign)
 	{
-		write_c(one->sign, 1, list);
+		write_c(one->sign, 1);
 		if (one->sign == '+')
 			one->width--;
 	}
 	if (one->pre > 0)
-		write_c('0', one->pre, list);
-	write_str(one->new, list);
+		write_c('0', one->pre);
+	write_str(one->oth);
 	if (one->width > 0)
-		write_c(one->c, one->width, list);
+		write_c(one->c, one->width);
 }
 
 /*
@@ -46,30 +45,30 @@ void other_flags(t_lst *list, t_one *one)
 		one->width--;
 	if (list->spe == 'X')
 	{
-			upper_string(one->new);
-			if (one->hash && one->new[0] != '0')
+			upper_string(one->oth);
+			if (one->hash && one->oth[0] != '0')
 				upper_string(one->hash);
 	}
 	if ((list->flag == ' ' && one->str[0] != '-' && (one->str[0] == '0' || list->pre == '.' ||
 		list->width < one->len)) && one->signed_nb)
-		write_c(' ', 1, list);
-	if ((one->hash && one->c == '0' && one->new[0] != '0') || (list->zero == '0' && list->type == VOID && one->new[0] == '0'))
-		write_str(one->hash, list);
+		write_c(' ', 1);
+	if ((one->hash && one->c == '0' && one->oth[0] != '0') || (list->zero && list->type == VOID && one->oth[0] == '0'))
+		write_str(one->hash);
 	if (one->width > 0 && one->c == ' ')
-		write_c(one->c, one->width, list);
+		write_c(one->c, one->width);
 	if ((one->sign && ((list->flag == '+' && one->signed_nb) || list->sign)) || one->sign == '-')
 	{
-		write_c(one->sign, 1, list);
+		write_c(one->sign, 1);
 		if (one->sign == '+' && (one->str[0] != '0' && !list->sign))
 			one->width--;
 	}
 	if (one->width > 0 && one->c == '0')
-		write_c(one->c, one->width, list);
-	if ((one->hash && one->c == ' ' && one->new[0] != '0') || (list->type == VOID && one->new[0] == '0' && !list->zero))
-		write_str(one->hash, list);
+		write_c(one->c, one->width);
+	if ((one->hash && one->c == ' ' && one->oth[0] != '0') || (list->type == VOID && one->oth[0] == '0' && !list->zero))
+		write_str(one->hash);
 	if (one->pre > 0)
-		write_c('0', one->pre, list);
-	write_str(one->new, list);
+		write_c('0', one->pre);
+	write_str(one->oth);
 }
 
 /*
@@ -136,17 +135,17 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	one->len = ft_strlen(one->str);
 	if (list->spe != 'o' && list->spe != 'O' && list->spe != 'u' && list->spe != 'U')
 		one->sign = (one->str[0] == '-' ? '-' : '+');
-	one->new = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
+	one->oth = (one->sign == '-' ? ft_strsub(one->str, 1, one->len - 1) :
 			ft_strdup(one->str));
-	if (list->pre && (ft_strcmp(one->new, "0") == 0) && !list->i_pre)
+	if (list->pre && (ft_strcmp(one->oth, "0") == 0) && !list->i_pre)
 	{
-		free(one->new);
+		free(one->oth);
 		if (!list->width)
-			one->new = ft_strdup("");
+			one->oth = ft_strdup("");
 		else
-			one->new = ft_strdup(" ");
+			one->oth = ft_strdup(" ");
 	}
-	if ((list->spe == 'o' || list->spe == 'O' || ((list->spe == 'x' || list->spe == 'X') && one->new[0] != '\0')) || list->type == VOID)
+	if ((list->spe == 'o' || list->spe == 'O' || ((list->spe == 'x' || list->spe == 'X') && one->oth[0] != '\0')) || list->type == VOID)
 	{
 		if (list->hash == '#' || list->spe == 'p')
 			one->hash = ((list->spe == 'o' || list->spe == 'O') ? ft_strdup("0") : ft_strdup("0x"));
@@ -156,7 +155,7 @@ void	display_number(t_lst *list, va_list ap, t_one *one)
 	if (list->width > list->i_pre && list->width > one->len)
 		one->width = list->width - (one->pre + one->len)  - (list->flag == ' '  ? 1 : 0) - ft_strlen(one->hash) -
 	((list->flag == '+') && one->sign == '+' && (list->spe != 'u' && list->spe != 'U') ? 1 : 0);
-	one->c = ((list->zero == '0' && list->flag != '-') && !list->pre ? '0' : ' ');
+	one->c = ((list->zero && list->flag != '-') && !list->pre ? '0' : ' ');
 	if (list->flag == '-')
 		minus_flag(list, one);
 	else

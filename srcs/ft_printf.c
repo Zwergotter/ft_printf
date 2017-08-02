@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 21:04:15 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 03:27:55 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
-#include <locale.h>
+#include "../includes/ft_printf.h"
 
 void	free_list(t_lst *l)
 {
@@ -55,13 +53,12 @@ void	only_string(t_lst *arg)
 	len = ft_strlen(arg->arg);
 	if (arg->type == NOARG_STR && arg->width && arg->flag != '-')
 	{
-		(arg->zero == '0' ? write_c('0', arg->width - len, arg) :
-			write_c(' ', arg->width - len, arg));
+		write_c(arg->zero ? '0' : ' ', arg->width - len);
 		arg->width = 0;
 	}
-	write_str(arg->arg, arg);
+	write_str(arg->arg);
 	if (arg->type == NOARG_STR && arg->width)
-		write_c(' ', arg->width - len, arg);
+		write_c(' ', arg->width - len);
 }
 
 /*
@@ -77,10 +74,8 @@ int		ft_printf(char const *test, ...)
 {
 	va_list	ap;
 	t_lst	*arg;
-	int		result;
 
 	arg = parsing(test);
-	result = 0;
 	check_elem(&arg);
 	va_start(ap, test);
 	while (arg && arg->type != EMPTY)
@@ -93,12 +88,11 @@ int		ft_printf(char const *test, ...)
 		{
 			free_list(arg);
 			va_end(ap);
-			return (-1);
+			return (ft_nputc(0, -2));
 		}
-		result = result + arg->nb;
 		arg = destroy_elem(arg);
 	}
 	free_list(arg);
 	va_end(ap);
-	return (result);
+	return (ft_nputc(0, -1));
 }

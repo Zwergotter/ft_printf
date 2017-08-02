@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 18:48:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 20:59:53 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 00:25:11 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct		s_list
 }					t_list;
 
 void				ft_bzero(void *s, size_t n);
-void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstaddlast(t_list **begin, t_list *new);
+void				ft_lstadd(t_list **alst, t_list *lst);
+void				ft_lstaddlast(t_list **begin, t_list *lst);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));

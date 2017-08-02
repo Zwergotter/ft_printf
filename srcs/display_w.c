@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_w.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 19:09:57 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 03:22:21 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void		choosing_mask(char **tab, char *bin, char **tmp)
 {
@@ -73,15 +73,14 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 			list->nb = -1;
 			return;
 		}
-		write(1, &nb, 1);
-		list->nb += 1;
+		write_c(nb, 1);
 	}
 	else
 	{
 		tmp = unicode_masks(bin);
 		while (tmp[i])
 		{
-			write_c(ft_atoi_base(ft_strsub(tmp, i, 8), 2), 1, list);
+			write_c(ft_atoi_base(ft_strsub(tmp, i, 8), 2), 1);
 			i += 8;
 		}
 		free(tmp);
@@ -112,27 +111,27 @@ size_t	ft_wstrlen(wchar_t *s)
 	return (i);
 }
 
-wchar_t		*ft_wstrdup(wchar_t *str)
-{
-	size_t	len;
-	int		i;
-	wchar_t	*dest;
+// wchar_t		*ft_wstrdup(wchar_t *str)
+// {
+// 	size_t	len;
+// 	int		i;
+// 	wchar_t	*dest;
 
-	len = 0;
-	while (str[len])
-		len++;
-	i = 0;
-	dest = (wchar_t*)malloc(sizeof(*dest) * (len + 1));
-	if (dest == NULL)
-		return (NULL);
-	while (str[i] != '\0')
-	{
-		dest[i] = str[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
+// 	len = 0;
+// 	while (str[len])
+// 		len++;
+// 	i = 0;
+// 	dest = (wchar_t*)malloc(sizeof(dest) * (len + 1));
+// 	if (dest == NULL)
+// 		return (NULL);
+// 	while (str[i] != '\0')
+// 	{
+// 		dest[i] = str[i];
+// 		i++;
+// 	}
+// 	dest[i] = 0;
+// 	return (dest);
+// }
 
 void		display_wstr(va_list ap, t_lst *list)
 {
@@ -149,9 +148,9 @@ void		display_wstr(va_list ap, t_lst *list)
 	if (!str || (list->pre && !list->i_pre))
 	{
 		if (!str)
-			write_str("(null)", list);
+			write_str("(null)");
 		else
-			(list->zero == '0') ? write_c('0', list->width, list) : write_c(' ', list->width, list);
+			write_c(list->zero ? '0' : ' ', list->width);
 		return ;
 	}
 	if (list->width && list->i_pre >= list->width)
@@ -171,7 +170,7 @@ void		display_wstr(va_list ap, t_lst *list)
 	i = -1;
 	if (list->flag != '-' && width > 0)
 	{
-		(list->zero == '0') ? write_c('0', width, list) : write_c(' ', width, list);
+		write_c(list->zero ? '0' : ' ', width);
 		width = 0;
 	}
 	while (str[++i])
@@ -185,5 +184,5 @@ void		display_wstr(va_list ap, t_lst *list)
 		}
 	}
 	if (width > 0)
-		write_c(' ', width, list);
+		write_c(' ', width);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 21:11:37 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 01:59:13 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 
 # include <unistd.h>
 # include <stdio.h>
-
+# include <locale.h>
 # include "libft.h"
 
 typedef enum		e_type
@@ -92,7 +92,7 @@ typedef struct		s_one
 	wchar_t			*wstr;
 	int				len;
 	char			sign;
-	char			*new;
+	char			*oth;
 	char			*hash;
 	char			c;
 	int				pre;
@@ -123,9 +123,12 @@ void				display_wstr(va_list ap, t_lst *list);
 
 void				upper_string(char *str);
 
-void				write_str(char *str, t_lst *list);
-void				write_c(char c, int nb, t_lst *list);
+void				write_str(char *str);
+void				write_c(char c, int nb);
 
 int					everything(char c);
+
+int					ft_nputc(char *str, int j);
+int					ft_printf(char const *test, ...);
 
 #endif

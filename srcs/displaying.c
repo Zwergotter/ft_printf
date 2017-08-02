@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   displaying.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 21:05:26 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 00:26:42 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int		is_numeric(t_lst *list)
 {
@@ -33,7 +33,7 @@ void	init_one(t_one *one)
 {
 	one->wstr = NULL;
 	one->str = NULL;
-	one->new = NULL;
+	one->oth = NULL;
 	one->hash = NULL;
 	one->len = 0;
 	one->sign = 0;
@@ -47,7 +47,7 @@ void	free_one(t_one *one)
 {
 	free(one->str);
 	free(one->hash);
-	free(one->new);
+	free(one->oth);
 	free(one);
 }
 

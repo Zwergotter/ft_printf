@@ -3,29 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:42:47 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 21:16:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 03:39:30 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 /*
 ** Scans a list thanks to its first element and puts the new one at the end.
 */
 
-void	addlast(t_lst **begin, t_lst *new)
+void	addlast(t_lst *begin, t_lst *new)
 {
-	t_lst	*lst;
-
-	lst = *begin;
-	if (lst == 0)
+	if (begin == 0)
 		return ;
-	while (lst->next)
-		lst = lst->next;
-	lst->next = new;
+	while (begin->next)
+		begin = begin->next;
+	begin->next = new;
 }
 
 /*
@@ -34,21 +31,18 @@ void	addlast(t_lst **begin, t_lst *new)
 ** Puts this element at the list's end.
 */
 
-t_lst	*string(char const *str, int start, int end)
+t_lst	*string(char const *str, int beg, int end)
 {
 	t_lst	*elem;
-	int		len;
 
-	len = end - start;
 	if ((elem = (t_lst*)malloc(sizeof(t_lst))) == NULL)
 	{
 		ft_putstr_fd("Memory allocation failed\n", 2);
 		exit(0);
 	}
 	ft_bzero(elem, (sizeof(t_lst)));
-	elem->type = (str[start] == '%' ? NOARG_STR : STR);
-	elem->arg = (str[start] == '%' ? ft_strsub(str, start + 1, len)
-		: ft_strsub(str, start, len));
+	elem->type = (str[beg] == '%' ? NOARG_STR : STR);
+	elem->arg = ft_strsub(str, beg + (str[beg] == '%' ? 1 : 0), end - beg);
 	elem->len = ft_strlen(elem->arg);
 	elem->next = NULL;
 	return (elem);
@@ -84,7 +78,7 @@ t_lst	*percent(char const *str, int start, int end)
 ** Creates element one by one and adds them at the list's end
 */
 
-void	creating_list(t_lst **begin, const char *str, int i)
+void	creating_list(t_lst *begin, const char *str, int i)
 {
 	int		j;
 
@@ -137,6 +131,6 @@ t_lst	*parsing(char const *str)
 			first = string(str, 0, (str[i] ? i++ : i));
 	}
 	if (str[i])
-		creating_list(&first, str, i);
+		creating_list(first, str, i);
 	return (first);
 }

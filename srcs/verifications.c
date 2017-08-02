@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   verifications.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:40:53 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/01 21:14:28 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 02:55:25 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 /*
 ** Functions to identify a specifier.
@@ -45,7 +45,7 @@ int	is_flag(char c, t_lst *elem)
 	{
 		if (c == '0' && elem->flag != '-')
 		{
-			elem->zero = c;
+			elem->zero = 1;
 			return (1);
 		}
 		if (c == '#')
