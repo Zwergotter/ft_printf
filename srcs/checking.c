@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 00:20:04 by cosi             ###   ########.fr       */
+/*   Updated: 2017/08/02 14:36:25 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int		checking(t_lst *elem)
 	while (i < elem->len && everything_at_once(elem->arg[i], elem))
 		i = option_found(elem, i);
 	if (is_specifier(elem->arg[elem->len - 1]))
-  	{
-  		elem->spe = elem->arg[i];
-  		what_type(elem);
+	{
+		elem->spe = elem->arg[i];
+		what_type(elem);
 	}
 	else
 	{
@@ -111,12 +111,11 @@ int		checking(t_lst *elem)
 		else
 		{
 			if (elem->width && elem->next)
-				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);/////?????????????????????
+				elem->width -= elem->width - (ft_strlen(elem->next->arg) + 1);
 		}
 	}
 	return (1);
 }
-
 
 /*
 ** Checking one by one each element and sending them to checking function

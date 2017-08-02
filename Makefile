@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+         #
+#    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/08/02 02:36:01 by cosi             ###   ########.fr        #
+#    Updated: 2017/08/02 14:38:11 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ SRC_NAME = ft_printf.c\
 	type.c\
 	displaying.c\
 	display_num.c\
-	display_str.c\
+	display_char.c\
 	display_w.c\
 	verifications.c\
 	buffer.c\
