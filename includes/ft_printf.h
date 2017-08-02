@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 15:26:27 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 16:17:36 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,20 @@ void				what_type(t_lst *elem);
 
 void				displaying(t_lst *list, va_list ap);
 
-void				display_number(t_lst *list, va_list ap, t_one *one);
-
 void				display_str(t_lst *list, va_list ap, t_one *one);
 void				display_char(t_lst *list, int nb);
+
+void				display_number(t_lst *list, va_list ap, t_one *one);
 
 void				display_wchar(unsigned long int nb, t_lst *list);
 void				display_wstr(va_list ap, t_lst *list);
 
 void				upper_string(char *str);
 void				substring(t_lst *elem, int i);
+
+char				*unicode_masks(char *bin);
+int					ft_wcharlen(wchar_t chr);
+size_t				ft_wstrlen(wchar_t *s);
 
 int					ft_printf(char const *test, ...);
 

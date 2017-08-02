@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/08/02 14:38:11 by edeveze          ###   ########.fr        #
+#    Updated: 2017/08/02 15:38:35 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,15 +63,18 @@
 
 
 SRC_NAME = ft_printf.c\
-	parsing.c\
+	buffer.c\
 	checking.c\
 	type.c\
 	displaying.c\
 	display_num.c\
 	display_char.c\
-	display_w.c\
+	display_wchar.c\
+	modif_str.c\
+	parsing.c\
 	verifications.c\
-	buffer.c\
+	wstr_functions.c\
+	
 
 NAME = libftprintf.a
 

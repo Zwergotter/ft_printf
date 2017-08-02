@@ -1,69 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_w.c                                        :+:      :+:    :+:   */
+/*   display_wchar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 14:36:48 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 17:06:28 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void		choosing_mask(char **tab, char *bin, char **tmp)
+void		writing_wchar(char *bin)
 {
-	int		len;
-	int		len_tab;
-
-	len = ft_strlen(bin);
-	if (len <= 7)
-		*tmp = ft_strdup(tab[0]);
-	if (len > 7 && len <= 11)
-		*tmp = ft_strdup(tab[1]);
-	if (len > 11 && len <= 16)
-		*tmp = ft_strdup(tab[2]);
-	if (len > 16)
-		*tmp = ft_strdup(tab[3]);
-	len -= 1;
-	len_tab = ft_strlen(*tmp) - 1;
-	while (len > -1 && len_tab > -1)
-	{
-		if ((*tmp)[len_tab] == 'x')
-			(*tmp)[len_tab] = bin[len--];
-		len_tab--;
-	}
-}
-
-char		*unicode_masks(char *bin)
-{
-	char	*tab[4];
-	char	*tmp;
 	int		i;
+	char	*tmp;
 
 	i = 0;
-	tab[0] = "0xxxxxxx";
-	tab[1] = "110xxxxx10xxxxxx";
-	tab[2] = "1110xxxx10xxxxxx10xxxxxx";
-	tab[3] = "11110xxx10xxxxxx10xxxxxx10xxxxxx";
-	choosing_mask(tab, bin, &tmp);
+	tmp = unicode_masks(bin);
 	while (tmp[i])
 	{
-		if (tmp[i] == 'x')
-			tmp[i] = '0';
-		i++;
+		write_c(ft_atoi_base(ft_strsub(tmp, i, 8), 2), 1);
+		i += 8;
 	}
-	return (tmp);
+	free(tmp);
 }
 
 void		display_wchar(unsigned long int nb, t_lst *list)
 {
 	char	*bin;
-	char	*tmp;
-	int		i;
 
-	i = 0;
 	bin = ft_itoa_base(nb, 2, 0);
 	if (ft_strlen(bin) <= 7 || MB_CUR_MAX == 1)
 	{
@@ -71,80 +38,31 @@ void		display_wchar(unsigned long int nb, t_lst *list)
 		{
 			free(bin);
 			list->nb = -1;
-			return;
+			return ;
 		}
 		write_c(nb, 1);
 	}
 	else
-	{
-		tmp = unicode_masks(bin);
-		while (tmp[i])
-		{
-			write_c(ft_atoi_base(ft_strsub(tmp, i, 8), 2), 1);
-			i += 8;
-		}
-		free(tmp);
-	}
+		writing_wchar(bin);
 	free(bin);
 }
 
-int	ft_wcharlen(wchar_t chr)
+int			counting_pre(t_lst *list, wchar_t *str)
 {
-	if (chr <= 0x7F)
-		return (1);
-	else if (chr <= 0x7FF)
-		return (2);
-	else if (chr <= 0xFFFF)
-		return (3);
-	else if (chr <= 0x1FFFFF)
-		return (4);
-	return (1);
-}
-
-size_t	ft_wstrlen(wchar_t *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (*s)
-		i += ft_wcharlen(*s++);
-	return (i);
-}
-
-void		display_wstr(va_list ap, t_lst *list)
-{
-	wchar_t	*str;
-	int		i;
-	int		pre;
-	int 	width;
 	int		nb_char;
+	int		i;
 
 	i = 0;
 	nb_char = 0;
-	pre = list->i_pre;
-	str = va_arg(ap, wchar_t*);
-	if (!str || (list->pre && !list->i_pre))
-	{
-		if (!str)
-			write_str("(null)");
-		else
-			write_c(list->zero ? '0' : ' ', list->width);
-		return ;
-	}
-	if (list->width && list->i_pre >= list->width)
-		width = 0;
-	else
-	{
-		if (pre)
-		{
-			while (pre >= nb_char + ft_wcharlen(str[i]))
-				nb_char += ft_wcharlen(str[i++]);
-			width = list->width - nb_char;
-			pre = nb_char;
-		}
-		else
-			width = list->width - ft_wstrlen(str);
-	}
+	while (list->i_pre >= nb_char + ft_wcharlen(str[i]))
+		nb_char += ft_wcharlen(str[i++]);
+	return (nb_char);
+}
+
+void		writing_wstr(t_lst *list, int width, int pre, wchar_t *str)
+{
+	int		i;
+
 	i = -1;
 	if (list->flag != '-' && width > 0)
 	{
@@ -163,4 +81,31 @@ void		display_wstr(va_list ap, t_lst *list)
 	}
 	if (width > 0)
 		write_c(' ', width);
+}
+
+void		display_wstr(va_list ap, t_lst *list)
+{
+	wchar_t	*str;
+	int		pre;
+	int		width;
+
+	pre = list->i_pre;
+	str = va_arg(ap, wchar_t*);
+	if (!str || (list->pre && !list->i_pre))
+	{
+		if (!str)
+			write_str("(null)");
+		else
+			write_c(list->zero ? '0' : ' ', list->width);
+		return ;
+	}
+	if (list->width && list->i_pre >= list->width)
+		width = 0;
+	else
+	{
+		if (list->i_pre)
+			pre = counting_pre(list, str);
+		width = list->width - (list->i_pre ? pre : ft_wstrlen(str));
+	}
+	writing_wstr(list, width, pre, str);
 }
