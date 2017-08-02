@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 14:37:13 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 19:00:24 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	displaying(t_lst *list, va_list ap)
 	init_one(elem);
 	if (is_numeric(list))
 	{
-		if (list->spe != 'c')
+		if (list->sp != 'c')
 			display_number(list, ap, elem);
 		else
 			display_char(list, va_arg(ap, int));

@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 16:17:36 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 19:00:50 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_lst
 	int				i_pre;
 	char			pre;
 	char			length[3];
-	char			spe;
+	char			sp;
 	int				nb;
 }					t_lst;
 
@@ -88,6 +88,8 @@ void				displaying(t_lst *list, va_list ap);
 
 void				display_str(t_lst *list, va_list ap, t_one *one);
 void				display_char(t_lst *list, int nb);
+
+void 				attributing(t_lst *lst, va_list ap, t_one *one);
 
 void				display_number(t_lst *list, va_list ap, t_one *one);
 

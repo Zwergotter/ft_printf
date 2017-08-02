@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 15:28:14 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 19:00:26 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		checking(t_lst *elem)
 		i = option_found(elem, i);
 	if (is_specifier(elem->arg[elem->len - 1]))
 	{
-		elem->spe = elem->arg[i];
+		elem->sp = elem->arg[i];
 		what_type(elem);
 	}
 	else

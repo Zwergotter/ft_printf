@@ -6,22 +6,22 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:49:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 14:33:24 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 17:59:45 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	free_list(t_lst *l)
+void	free_list(t_lst *list)
 {
 	t_lst	*s;
 
-	while (l)
+	while (list)
 	{
-		s = l->next;
-		free(l->arg);
-		free(l);
-		l = s;
+		s = list->next;
+		free(list->arg);
+		free(list);
+		list = s;
 	}
 }
 
@@ -46,19 +46,19 @@ t_lst	*destroy_elem(t_lst *elem)
 ** This kind can still have flags like 0 or - and it must display these as well
 */
 
-void	only_string(t_lst *arg)
+void	only_string(t_lst *list)
 {
 	int len;
 
-	len = ft_strlen(arg->arg);
-	if (arg->type == NOARG_STR && arg->width && arg->flag != '-')
+	len = ft_strlen(list->arg);
+	if (list->type == NOARG_STR && list->width && list->flag != '-')
 	{
-		write_c(arg->zero ? '0' : ' ', arg->width - len);
-		arg->width = 0;
+		write_c(list->zero ? '0' : ' ', list->width - len);
+		list->width = 0;
 	}
-	write_str(arg->arg);
-	if (arg->type == NOARG_STR && arg->width)
-		write_c(' ', arg->width - len);
+	write_str(list->arg);
+	if (list->type == NOARG_STR && list->width)
+		write_c(' ', list->width - len);
 }
 
 /*
@@ -73,26 +73,26 @@ void	only_string(t_lst *arg)
 int		ft_printf(char const *test, ...)
 {
 	va_list	ap;
-	t_lst	*arg;
+	t_lst	*list;
 
-	arg = parsing(test);
-	check_elem(&arg);
+	list = parsing(test);
+	check_elem(&list);
 	va_start(ap, test);
-	while (arg && arg->type != EMPTY)
+	while (list && list->type != EMPTY)
 	{
-		if (arg->type == STR || arg->type == NOARG_STR)
-			only_string(arg);
+		if (list->type == STR || list->type == NOARG_STR)
+			only_string(list);
 		else
-			displaying(arg, ap);
-		if (arg->nb == -1)
+			displaying(list, ap);
+		if (list->nb == -1)
 		{
-			free_list(arg);
+			free_list(list);
 			va_end(ap);
 			return (ft_nputc(0, -2));
 		}
-		arg = destroy_elem(arg);
+		list = destroy_elem(list);
 	}
-	free_list(arg);
+	free_list(list);
 	va_end(ap);
 	return (ft_nputc(0, -1));
 }

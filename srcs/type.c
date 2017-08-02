@@ -15,8 +15,8 @@
 void	type_unsigned(t_lst *elem)
 {
 	elem->type = U_INT;
-	if ((ft_strcmp(elem->length, "l")) == 0 || elem->spe == 'U'
-		|| elem->spe == 'O')
+	if ((ft_strcmp(elem->length, "l")) == 0 || elem->sp == 'U'
+		|| elem->sp == 'O')
 	{
 		elem->type = ULONG_INT;
 		return ;
@@ -36,7 +36,7 @@ void	type_unsigned(t_lst *elem)
 void	type_signed(t_lst *elem)
 {
 	elem->type = INT;
-	if ((ft_strcmp(elem->length, "l")) == 0 || elem->spe == 'D')
+	if ((ft_strcmp(elem->length, "l")) == 0 || elem->sp == 'D')
 	{
 		elem->type = LONG_INT;
 		return ;
@@ -55,28 +55,28 @@ void	type_signed(t_lst *elem)
 
 void	what_type(t_lst *elem)
 {
-	if (elem->spe == '%')
+	if (elem->sp == '%')
 		elem->type = PERCENT;
-	if (elem->spe == 's' || elem->spe == 'S' || elem->spe == 'C')
+	if (elem->sp == 's' || elem->sp == 'S' || elem->sp == 'C')
 	{
-		if ((elem->spe != 'C' && elem->spe != 'S') &&
+		if ((elem->sp != 'C' && elem->sp != 'S') &&
 			ft_strcmp(elem->length, "l"))
 			elem->type = ARG_STR;
 		else
-			elem->type = (elem->spe == 'C' ? WCHAR_T : WCHAR_TSTR);
+			elem->type = (elem->sp == 'C' ? WCHAR_T : WCHAR_TSTR);
 	}
-	if (elem->spe == 'c')
+	if (elem->sp == 'c')
 	{
 		if (ft_strcmp(elem->length, "l"))
 			elem->type = INT;
 		else
 			elem->type = WIN_T;
 	}
-	if (elem->spe == 'p')
+	if (elem->sp == 'p')
 		elem->type = VOID;
-	if (elem->spe == 'd' || elem->spe == 'D' || elem->spe == 'i')
+	if (elem->sp == 'd' || elem->sp == 'D' || elem->sp == 'i')
 		type_signed(elem);
-	if (elem->spe == 'u' || elem->spe == 'U' || elem->spe == 'o' || elem->spe
-		== 'O' || elem->spe == 'x' || elem->spe == 'X')
+	if (elem->sp == 'u' || elem->sp == 'U' || elem->sp == 'o' || elem->sp
+		== 'O' || elem->sp == 'x' || elem->sp == 'X')
 		type_unsigned(elem);
 }

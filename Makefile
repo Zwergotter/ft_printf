@@ -6,7 +6,7 @@
 #    By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 16:28:09 by edeveze           #+#    #+#              #
-#    Updated: 2017/08/02 15:38:35 by edeveze          ###   ########.fr        #
+#    Updated: 2017/08/02 19:15:00 by edeveze          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,9 @@ SRC_NAME = ft_printf.c\
 	buffer.c\
 	checking.c\
 	type.c\
+	digit_values.c\
 	displaying.c\
-	display_num.c\
+	display_digit.c\
 	display_char.c\
 	display_wchar.c\
 	modif_str.c\
