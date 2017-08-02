@@ -6,7 +6,7 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:35:14 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 14:28:17 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 15:26:27 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,17 @@ typedef struct		s_one
 	int				signed_nb;
 }					t_one;
 
+int					ft_nputc(char *str, int j);
+void				write_str(char *str);
+void				write_c(char c, int nb);
+
 t_lst				*parsing(char const *str);
 
+int					everything(char c);
 int					is_specifier(char c);
 int					is_flag(char c, t_lst *elem);
 int					is_precision(char c, t_lst *elem);
 int					is_length(char c);
-int					everything_at_once(char c, t_lst *elem);
 
 void				check_elem(t_lst **first);
 void				what_type(t_lst *elem);
@@ -91,13 +95,8 @@ void				display_wchar(unsigned long int nb, t_lst *list);
 void				display_wstr(va_list ap, t_lst *list);
 
 void				upper_string(char *str);
+void				substring(t_lst *elem, int i);
 
-void				write_str(char *str);
-void				write_c(char c, int nb);
-
-int					everything(char c);
-
-int					ft_nputc(char *str, int j);
 int					ft_printf(char const *test, ...);
 
 #endif

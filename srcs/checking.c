@@ -6,11 +6,23 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:29:24 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 14:36:25 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 15:28:14 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+
+/*
+** Checking all at once and applying corresponding function as well
+*/
+
+int		everything_at_once(char c, t_lst *elem)
+{
+	if (ft_isdigit(c + 0) || is_precision(c, elem) || is_length(c) ||
+		is_flag(c, elem))
+		return (1);
+	return (0);
+}
 
 /*
 ** Will specify length found in string and then return the index after this
@@ -68,15 +80,6 @@ int		option_found(t_lst *elem, int i)
 	if (is_length(elem->arg[i]))
 		i = filling_length(elem, i);
 	return (i);
-}
-
-void	substring(t_lst *elem, int i)
-{
-	char *str;
-
-	str = elem->arg;
-	elem->arg = ft_strsub(str, i, elem->len - i);
-	free(str);
 }
 
 /*

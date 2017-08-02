@@ -6,21 +6,11 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 15:03:03 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 14:34:07 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 15:00:51 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-void	upper_string(char *str)
-{
-	int		i;
-
-	i = -1;
-	while (str[++i])
-		if (str[i] >= 97 && str[i] <= 122)
-			str[i] = str[i] - 32;
-}
 
 int		ft_nputc(char *str, int j)
 {
