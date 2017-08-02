@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_w.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/23 21:02:44 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/02 03:22:21 by cosi             ###   ########.fr       */
+/*   Updated: 2017/08/02 14:36:48 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,28 +110,6 @@ size_t	ft_wstrlen(wchar_t *s)
 		i += ft_wcharlen(*s++);
 	return (i);
 }
-
-// wchar_t		*ft_wstrdup(wchar_t *str)
-// {
-// 	size_t	len;
-// 	int		i;
-// 	wchar_t	*dest;
-
-// 	len = 0;
-// 	while (str[len])
-// 		len++;
-// 	i = 0;
-// 	dest = (wchar_t*)malloc(sizeof(dest) * (len + 1));
-// 	if (dest == NULL)
-// 		return (NULL);
-// 	while (str[i] != '\0')
-// 	{
-// 		dest[i] = str[i];
-// 		i++;
-// 	}
-// 	dest[i] = 0;
-// 	return (dest);
-// }
 
 void		display_wstr(va_list ap, t_lst *list)
 {
