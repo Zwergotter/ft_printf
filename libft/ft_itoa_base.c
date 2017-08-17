@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edeveze <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:50 by edeveze           #+#    #+#             */
-/*   Updated: 2017/06/21 00:02:30 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/01 20:59:41 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_base(uintmax_t number, int base)
+char	*ft_itoa_base(uintmax_t number, int base, int neg)
 {
-	int			i;
-	uintmax_t	save;
-	char		*str;
-	char		*result;
+	long long int	i;
+	uintmax_t		save;
+	char			*str;
+	char			*result;
 
 	i = 0;
 	if (number == 0)
@@ -26,14 +26,14 @@ char	*ft_itoa_base(uintmax_t number, int base)
 	while (number > 0 && ++i)
 		number = number / base;
 	str = "0123456789abcdef";
-	if (!(result = malloc(i + 1)))
-		exit (0);
-	result[i] = '\0';
+	if (!(result = malloc(i + neg + 1)))
+		exit(0);
+	result[i + neg] = '\0';
 	result[0] = '-';
-	while (i && i--)
+	while (i--)
 	{
-		result[i] = str[save % base];
+		result[i + neg] = str[save % base];
 		save = save / base;
 	}
-	return (result); 
+	return (result);
 }
