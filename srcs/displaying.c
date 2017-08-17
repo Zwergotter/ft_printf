@@ -6,21 +6,28 @@
 /*   By: edeveze <edeveze@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 19:48:22 by edeveze           #+#    #+#             */
-/*   Updated: 2017/08/13 18:08:31 by edeveze          ###   ########.fr       */
+/*   Updated: 2017/08/02 19:00:24 by edeveze          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		is_numeric(t_type type)
+int		is_numeric(t_lst *list)
 {
-	if (type == LONG_INT || type == U_INT || type == SHORT_INT || type == INT ||
-		type == USHORT_INT || type == ULLONG_INT || type == LLONG_INT ||
-		type == ULONG_INT || type == SIZE_T || type == INT_MAXT || type == VOID
-		|| type == UINT_MAXT || type == CHAR || type == U_CHAR)
+	if (list->type == LONG_INT || list->type == U_INT || list->type == SHORT_INT
+		|| list->type == USHORT_INT || list->type == ULLONG_INT ||
+		list->type == INT || list->type == LLONG_INT || list->type == ULONG_INT
+		|| list->type == SIZE_T || list->type == INT_MAXT ||
+		list->type == UINT_MAXT || list->type == CHAR || list->type == U_CHAR ||
+		list->type == VOID)
 		return (1);
 	return (0);
 }
+
+/*
+** Function that will call the appropriate one in order to format and then
+** display arguments one by one and according to their types
+*/
 
 void	init_one(t_one *one)
 {
@@ -44,12 +51,6 @@ void	free_one(t_one *one)
 	free(one);
 }
 
-/*
-** Function that will call the appropriate one in order to format and then
-** display arguments one by one and according to their types.
-** Initialize an element of list t_one and will free it at the end.
-*/
-
 void	displaying(t_lst *list, va_list ap)
 {
 	t_one	*elem;
@@ -60,7 +61,7 @@ void	displaying(t_lst *list, va_list ap)
 		exit(0);
 	}
 	init_one(elem);
-	if (is_numeric(list->type))
+	if (is_numeric(list))
 	{
 		if (list->sp != 'c')
 			display_number(list, ap, elem);
